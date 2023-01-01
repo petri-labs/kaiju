@@ -1,10 +1,10 @@
 syntax = "proto3";
-package merlion.maker.v1;
+package blackfury.maker.v1;
 
 import "gogoproto/gogo.proto";
 import "cosmos/base/v1beta1/coin.proto";
 
-option go_package = "github.com/merlion-zone/merlion/x/maker/types";
+option go_package = "github.com/furya-official/blackfury/x/maker/types";
 
 // BackingRiskParams represents an object of backing coin risk parameters.
 message BackingRiskParams {
@@ -17,7 +17,7 @@ message BackingRiskParams {
   // maximum total backing amount
   string max_backing = 3
       [ (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int" ];
-  // maximum mintable Mer amount
+  // maximum mintable Black amount
   string max_mer_mint = 4
       [ (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int" ];
   // mint fee rate
@@ -45,7 +45,7 @@ message CollateralRiskParams {
   // maximum total collateral amount; empty means no limit
   string max_collateral = 3
       [ (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int" ];
-  // maximum total mintable Mer amount; empty means no limit
+  // maximum total mintable Black amount; empty means no limit
   string max_mer_mint = 4
       [ (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int" ];
   // ratio at which a position is defined as undercollateralized
@@ -59,9 +59,9 @@ message CollateralRiskParams {
   // specific collateral
   string basic_loan_to_value = 7
       [ (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec" ];
-  // catalytic ratio of collateralized Lion to asset, to maximize the LTV
+  // catalytic ratio of collateralized Fury to asset, to maximize the LTV
   // in [basic-LTV, LTV]
-  string catalytic_lion_ratio = 8
+  string catalytic_fury_ratio = 8
       [ (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec" ];
   // liquidation fee rate, i.e., the discount a liquidator gets when buying
   // collateral flagged for a liquidation
@@ -177,21 +177,21 @@ message TotalBacking {
     (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int",
     (gogoproto.nullable) = false
   ];
-  // total minted mer; negative value means burned mer
+  // total minted black; negative value means burned black
   cosmos.base.v1beta1.Coin mer_minted = 2 [ (gogoproto.nullable) = false ];
-  // total burned lion; negative value means minted lion
-  cosmos.base.v1beta1.Coin lion_burned = 3 [ (gogoproto.nullable) = false ];
+  // total burned fury; negative value means minted fury
+  cosmos.base.v1beta1.Coin fury_burned = 3 [ (gogoproto.nullable) = false ];
 }
 
 message PoolBacking {
   option (gogoproto.equal) = false;
 
-  // total minted mer; negative value means burned mer
+  // total minted black; negative value means burned black
   cosmos.base.v1beta1.Coin mer_minted = 1 [ (gogoproto.nullable) = false ];
   // total backing
   cosmos.base.v1beta1.Coin backing = 2 [ (gogoproto.nullable) = false ];
-  // total burned lion; negative value means minted lion
-  cosmos.base.v1beta1.Coin lion_burned = 3 [ (gogoproto.nullable) = false ];
+  // total burned fury; negative value means minted fury
+  cosmos.base.v1beta1.Coin fury_burned = 3 [ (gogoproto.nullable) = false ];
 }
 
 message AccountBacking { option (gogoproto.equal) = false; }
@@ -199,11 +199,11 @@ message AccountBacking { option (gogoproto.equal) = false; }
 message TotalCollateral {
   option (gogoproto.equal) = false;
 
-  // total existing mer debt, including minted by collateral, mint fee, last
+  // total existing black debt, including minted by collateral, mint fee, last
   // interest
   cosmos.base.v1beta1.Coin mer_debt = 1 [ (gogoproto.nullable) = false ];
-  // total collateralized lion
-  cosmos.base.v1beta1.Coin lion_collateralized = 2
+  // total collateralized fury
+  cosmos.base.v1beta1.Coin fury_collateralized = 2
       [ (gogoproto.nullable) = false ];
 }
 
@@ -212,11 +212,11 @@ message PoolCollateral {
 
   // total collateral
   cosmos.base.v1beta1.Coin collateral = 1 [ (gogoproto.nullable) = false ];
-  // total existing mer debt, including minted by collateral, mint fee, last
+  // total existing black debt, including minted by collateral, mint fee, last
   // interest
   cosmos.base.v1beta1.Coin mer_debt = 2 [ (gogoproto.nullable) = false ];
-  // total collateralized lion
-  cosmos.base.v1beta1.Coin lion_collateralized = 3
+  // total collateralized fury
+  cosmos.base.v1beta1.Coin fury_collateralized = 3
       [ (gogoproto.nullable) = false ];
 }
 
@@ -227,10 +227,10 @@ message AccountCollateral {
   string account = 1;
   // existing collateral
   cosmos.base.v1beta1.Coin collateral = 2 [ (gogoproto.nullable) = false ];
-  // remaining mer debt, including minted by collateral, mint fee, last interest
+  // remaining black debt, including minted by collateral, mint fee, last interest
   cosmos.base.v1beta1.Coin mer_debt = 3 [ (gogoproto.nullable) = false ];
-  // total collateralized lion
-  cosmos.base.v1beta1.Coin lion_collateralized = 4
+  // total collateralized fury
+  cosmos.base.v1beta1.Coin fury_collateralized = 4
       [ (gogoproto.nullable) = false ];
   // remaining interest debt at last settlement
   cosmos.base.v1beta1.Coin last_interest = 5 [ (gogoproto.nullable) = false ];

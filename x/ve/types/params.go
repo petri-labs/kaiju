@@ -5,7 +5,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	merlion "github.com/merlion-zone/merlion/types"
+	blackfury "github.com/furya-official/blackfury/types"
 	"gopkg.in/yaml.v2"
 )
 
@@ -24,7 +24,7 @@ func ParamKeyTable() paramtypes.KeyTable {
 // DefaultParams returns a default set of parameters
 func DefaultParams() Params {
 	return Params{
-		LockDenom: merlion.BaseDenom,
+		LockDenom: blackfury.BaseDenom,
 	}
 }
 

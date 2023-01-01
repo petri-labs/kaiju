@@ -127,7 +127,7 @@ func validateBackingRiskParams(params *BackingRiskParams) error {
 		return fmt.Errorf("max backing value must be not negative")
 	}
 	if params.MaxMerMint != nil && params.MaxMerMint.IsNegative() {
-		return fmt.Errorf("max mer mint value must be not negative")
+		return fmt.Errorf("max black mint value must be not negative")
 	}
 	if params.MintFee != nil && (params.MintFee.IsNegative() || params.MintFee.GT(sdk.OneDec())) {
 		return fmt.Errorf("mint fee must be in [0, 1]")
@@ -149,7 +149,7 @@ func validateCollateralRiskParams(params *CollateralRiskParams) error {
 		return fmt.Errorf("max collateral value must be not negative")
 	}
 	if params.MaxMerMint != nil && params.MaxMerMint.IsNegative() {
-		return fmt.Errorf("max mer mint value must be not negative")
+		return fmt.Errorf("max black mint value must be not negative")
 	}
 	if params.LiquidationThreshold != nil && (params.LiquidationThreshold.IsNegative() || params.LiquidationThreshold.GT(sdk.OneDec())) {
 		return fmt.Errorf("liquidation threshold must be in [0, 1]")
@@ -160,8 +160,8 @@ func validateCollateralRiskParams(params *CollateralRiskParams) error {
 	if params.BasicLoanToValue != nil && (params.BasicLoanToValue.IsNegative() || params.BasicLoanToValue.GT(sdk.OneDec())) {
 		return fmt.Errorf("basic loan-to-value must be in [0, 1]")
 	}
-	if params.CatalyticLionRatio != nil && (params.CatalyticLionRatio.IsNegative() || params.CatalyticLionRatio.GT(sdk.OneDec())) {
-		return fmt.Errorf("catalytic lion ratio must be in [0, 1]")
+	if params.CatalyticFuryRatio != nil && (params.CatalyticFuryRatio.IsNegative() || params.CatalyticFuryRatio.GT(sdk.OneDec())) {
+		return fmt.Errorf("catalytic fury ratio must be in [0, 1]")
 	}
 	if params.LiquidationFee != nil && (params.LiquidationFee.IsNegative() || params.LiquidationFee.GT(sdk.OneDec())) {
 		return fmt.Errorf("liquidation fee must be in [0, 1]")

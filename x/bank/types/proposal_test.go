@@ -5,13 +5,13 @@ import (
 	"testing"
 
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	mertypes "github.com/merlion-zone/merlion/types"
+	mertypes "github.com/furya-official/blackfury/types"
 	"github.com/stretchr/testify/require"
 )
 
 func Test_validateIBC(t *testing.T) {
 	meta := banktypes.Metadata{
-		Base: mertypes.MicroUSMDenom,
+		Base: mertypes.MicroFUSDDenom,
 	}
 
 	err := validateIBC(meta)

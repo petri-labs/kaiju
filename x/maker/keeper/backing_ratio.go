@@ -2,11 +2,11 @@ package keeper
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	merlion "github.com/merlion-zone/merlion/types"
-	"github.com/merlion-zone/merlion/x/maker/types"
+	blackfury "github.com/furya-official/blackfury/types"
+	"github.com/furya-official/blackfury/x/maker/types"
 )
 
-// AdjustBackingRatio dynamically adjusts the backing ratio, according to mer price change.
+// AdjustBackingRatio dynamically adjusts the backing ratio, according to black price change.
 func (k Keeper) AdjustBackingRatio(ctx sdk.Context) {
 	// check cooldown period since last update
 	if ctx.BlockHeight()-k.GetBackingRatioLastBlock(ctx) < k.BackingRatioCooldownPeriod(ctx) {
@@ -18,24 +18,24 @@ func (k Keeper) AdjustBackingRatio(ctx sdk.Context) {
 		return
 	}
 	backingRatio := k.GetBackingRatio(ctx)
-	priceBand := merlion.MicroUSMTarget.Mul(k.BackingRatioPriceBand(ctx))
+	priceBand := blackfury.MicroFUSDTarget.Mul(k.BackingRatioPriceBand(ctx))
 
-	merPrice, err := k.oracleKeeper.GetExchangeRate(ctx, merlion.MicroUSMDenom)
+	merPrice, err := k.oracleKeeper.GetExchangeRate(ctx, blackfury.MicroFUSDDenom)
 	if err != nil {
 		panic(err)
 	}
 
-	if merPrice.GT(merlion.MicroUSMTarget.Add(priceBand)) {
-		// mer price is too high
+	if merPrice.GT(blackfury.MicroFUSDTarget.Add(priceBand)) {
+		// black price is too high
 		// decrease backing ratio; min 0%
 		backingRatio = sdk.MaxDec(backingRatio.Sub(ratioStep), sdk.ZeroDec())
-	} else if merPrice.LT(merlion.MicroUSMTarget.Sub(priceBand)) {
-		// mer price is too low
+	} else if merPrice.LT(blackfury.MicroFUSDTarget.Sub(priceBand)) {
+		// black price is too low
 		// increase backing ratio; max 100%
 		backingRatio = sdk.MinDec(backingRatio.Add(ratioStep), sdk.OneDec())
 	}
 
-	// TODO: consider adjusting BR based on total minted Mer, even though Mer price is within the band
+	// TODO: consider adjusting BR based on total minted Black, even though Black price is within the band
 
 	k.SetBackingRatio(ctx, backingRatio)
 	k.SetBackingRatioLastBlock(ctx, ctx.BlockHeight())

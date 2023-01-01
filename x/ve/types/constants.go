@@ -4,7 +4,7 @@ import (
 	"math"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	merlion "github.com/merlion-zone/merlion/types"
+	blackfury "github.com/furya-official/blackfury/types"
 )
 
 const (
@@ -13,13 +13,13 @@ const (
 	MaxVeID   = math.MaxUint64 - 1
 
 	// 4 years, i.e., 209 weeks
-	MaxLockTimeWeeks = merlion.DaysPer4Years/7 + 1
-	MaxLockTime      = MaxLockTimeWeeks * merlion.SecondsPerWeek
+	MaxLockTimeWeeks = blackfury.DaysPer4Years/7 + 1
+	MaxLockTime      = MaxLockTimeWeeks * blackfury.SecondsPerWeek
 
 	MaxUnixTime = math.MaxInt64
 
 	// Regulated period for ve locking time
-	RegulatedPeriod = merlion.SecondsPerWeek
+	RegulatedPeriod = blackfury.SecondsPerWeek
 
 	EmptyEpoch = 0
 	FirstEpoch = 1

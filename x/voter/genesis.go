@@ -2,8 +2,8 @@ package voter
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/merlion-zone/merlion/x/voter/keeper"
-	"github.com/merlion-zone/merlion/x/voter/types"
+	"github.com/furya-official/blackfury/x/voter/keeper"
+	"github.com/furya-official/blackfury/x/voter/types"
 )
 
 // InitGenesis initializes the capability module's state from a provided genesis

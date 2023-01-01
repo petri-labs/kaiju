@@ -4,7 +4,7 @@ import (
 	"os"
 
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
-	"github.com/merlion-zone/merlion/app"
+	"github.com/furya-official/blackfury/app"
 )
 
 func main() {
@@ -12,7 +12,7 @@ func main() {
 		app.Name,
 		app.DefaultNodeHome,
 		app.ModuleBasics,
-		app.NewMerlion,
+		app.NewBlackfury,
 		// this line is used by starport scaffolding # root/arguments
 	)
 	if err := svrcmd.Execute(rootCmd, app.DefaultNodeHome); err != nil {

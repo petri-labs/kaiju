@@ -1,10 +1,10 @@
 syntax = "proto3";
-package merlion.ve.v1;
+package blackfury.ve.v1;
 
 import "gogoproto/gogo.proto";
 import "cosmos/base/v1beta1/coin.proto";
 
-option go_package = "github.com/merlion-zone/merlion/x/ve/types";
+option go_package = "github.com/furya-official/blackfury/x/ve/types";
 
 // LockedBalance represents locked amount and unlock time of a ve.
 message LockedBalance {

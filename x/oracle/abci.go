@@ -3,9 +3,9 @@ package oracle
 import (
 	"time"
 
-	merlion "github.com/merlion-zone/merlion/types"
-	"github.com/merlion-zone/merlion/x/oracle/keeper"
-	"github.com/merlion-zone/merlion/x/oracle/types"
+	blackfury "github.com/furya-official/blackfury/types"
+	"github.com/furya-official/blackfury/x/oracle/keeper"
+	"github.com/furya-official/blackfury/x/oracle/types"
 
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -16,7 +16,7 @@ func EndBlocker(ctx sdk.Context, k keeper.Keeper) {
 	defer telemetry.ModuleMeasureSince(types.ModuleName, time.Now(), telemetry.MetricKeyEndBlocker)
 
 	params := k.GetParams(ctx)
-	if merlion.IsPeriodLastBlock(ctx, params.VotePeriod) {
+	if blackfury.IsPeriodLastBlock(ctx, params.VotePeriod) {
 		stakingKeeper := k.StakingKeeper()
 
 		// Build claim map over all validators in active set
@@ -60,7 +60,7 @@ func EndBlocker(ctx sdk.Context, k keeper.Keeper) {
 		ctx.Logger().Debug("organized ballot by denom", "voteMap", voteMap)
 
 		if referenceMer := PickReferenceMer(ctx, k, voteTargets, voteMap); referenceMer != "" {
-			// make voteMap of Reference Mer to calculate cross exchange rates
+			// make voteMap of Reference Black to calculate cross exchange rates
 			ballotRM := voteMap[referenceMer]
 			voteMapRM := ballotRM.ToMap()
 
@@ -123,7 +123,7 @@ func EndBlocker(ctx sdk.Context, k keeper.Keeper) {
 	// Do slash who did miss voting over threshold and
 	// reset miss counters of all validators
 	// at the last block of slash window
-	if merlion.IsPeriodLastBlock(ctx, params.SlashWindow) {
+	if blackfury.IsPeriodLastBlock(ctx, params.SlashWindow) {
 		k.SlashAndResetMissCounters(ctx)
 	}
 

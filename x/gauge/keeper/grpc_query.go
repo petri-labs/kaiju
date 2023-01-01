@@ -4,7 +4,7 @@ import (
 	"context"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/merlion-zone/merlion/x/gauge/types"
+	"github.com/furya-official/blackfury/x/gauge/types"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )

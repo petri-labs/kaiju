@@ -3,8 +3,8 @@ package keeper
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/merlion-zone/merlion/x/gauge/types"
-	vetypes "github.com/merlion-zone/merlion/x/ve/types"
+	"github.com/furya-official/blackfury/x/gauge/types"
+	vetypes "github.com/furya-official/blackfury/x/ve/types"
 )
 
 type FeeClaimee interface {

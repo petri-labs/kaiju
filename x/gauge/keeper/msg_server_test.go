@@ -5,9 +5,9 @@ import (
 	"testing"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	keepertest "github.com/merlion-zone/merlion/testutil/keeper"
-	"github.com/merlion-zone/merlion/x/gauge/keeper"
-	"github.com/merlion-zone/merlion/x/gauge/types"
+	keepertest "github.com/furya-official/blackfury/testutil/keeper"
+	"github.com/furya-official/blackfury/x/gauge/keeper"
+	"github.com/furya-official/blackfury/x/gauge/types"
 )
 
 func setupMsgServer(t testing.TB) (types.MsgServer, context.Context) {

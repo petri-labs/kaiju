@@ -3,10 +3,10 @@ package gauge_test
 import (
 	"testing"
 
-	keepertest "github.com/merlion-zone/merlion/testutil/keeper"
-	"github.com/merlion-zone/merlion/testutil/nullify"
-	"github.com/merlion-zone/merlion/x/gauge"
-	"github.com/merlion-zone/merlion/x/gauge/types"
+	keepertest "github.com/furya-official/blackfury/testutil/keeper"
+	"github.com/furya-official/blackfury/testutil/nullify"
+	"github.com/furya-official/blackfury/x/gauge"
+	"github.com/furya-official/blackfury/x/gauge/types"
 	"github.com/stretchr/testify/require"
 )
 

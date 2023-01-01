@@ -1,6 +1,6 @@
 package types
 
-import merlion "github.com/merlion-zone/merlion/types"
+import blackfury "github.com/furya-official/blackfury/types"
 
 const (
 	StakingRewardVestingName = "staking_reward_vesting"
@@ -11,9 +11,9 @@ const (
 	// Not used now, maybe future.
 	StrategicReservePoolName = "strategic_reserve_pool"
 
-	StakingRewardVestingTime = merlion.SecondsPer4Years
-	CommunityPoolVestingTime = merlion.SecondsPer4Years
-	TeamVestingTime          = merlion.SecondsPer4Years
+	StakingRewardVestingTime = blackfury.SecondsPer4Years
+	CommunityPoolVestingTime = blackfury.SecondsPer4Years
+	TeamVestingTime          = blackfury.SecondsPer4Years
 
 	ClaimVestedPeriod = 10
 )

@@ -3,8 +3,8 @@ package oracle
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/merlion-zone/merlion/x/oracle/keeper"
-	"github.com/merlion-zone/merlion/x/oracle/types"
+	"github.com/furya-official/blackfury/x/oracle/keeper"
+	"github.com/furya-official/blackfury/x/oracle/types"
 )
 
 // Tally calculates the median and returns it. Sets the set of voters to be rewarded, i.e., voted within
@@ -43,9 +43,9 @@ func ballotIsPassing(ballot types.ExchangeRateBallot, thresholdVotes sdk.Int) (s
 	return ballotPower, !ballotPower.IsZero() && ballotPower.GTE(thresholdVotes)
 }
 
-// PickReferenceMer chooses Reference Mer with the highest voter turnout.
+// PickReferenceMer chooses Reference Black with the highest voter turnout.
 // If the voting power of the two denominations is the same,
-// select reference Mer in alphabetical order.
+// select reference Black in alphabetical order.
 func PickReferenceMer(ctx sdk.Context, k keeper.Keeper, voteTargets map[string]struct{}, voteMap map[string]types.ExchangeRateBallot) string {
 	largestBallotPower := int64(0)
 	referenceMer := ""

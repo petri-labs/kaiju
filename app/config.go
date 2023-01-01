@@ -9,11 +9,11 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	ethermint "github.com/tharsis/ethermint/types"
 
-	merlion "github.com/merlion-zone/merlion/types"
+	blackfury "github.com/furya-official/blackfury/types"
 )
 
 const (
-	AccountAddressPrefix = "mer"
+	AccountAddressPrefix = "fury"
 )
 
 // SetBech32Prefixes sets the global prefixes to be used when serializing addresses and public keys to Bech32 strings.
@@ -39,29 +39,29 @@ func SetBip44CoinType(config *sdk.Config) {
 
 // RegisterDenoms registers the base and display denominations to the SDK.
 func RegisterDenoms() {
-	if err := sdk.RegisterDenom(merlion.DisplayDenom, sdk.OneDec()); err != nil {
+	if err := sdk.RegisterDenom(blackfury.DisplayDenom, sdk.OneDec()); err != nil {
 		panic(err)
 	}
 
-	if err := sdk.RegisterDenom(merlion.BaseDenom, sdk.NewDecWithPrec(1, ethermint.BaseDenomUnit)); err != nil {
+	if err := sdk.RegisterDenom(blackfury.BaseDenom, sdk.NewDecWithPrec(1, ethermint.BaseDenomUnit)); err != nil {
 		panic(err)
 	}
 
 	mgravitytypes.SetGasCoinMetata(banktypes.Metadata{
-		Description: "The native gas token of the Merlion.",
+		Description: "The native gas token of the Blackfury.",
 		DenomUnits: []*banktypes.DenomUnit{{
-			Denom:    merlion.DisplayDenom,
+			Denom:    blackfury.DisplayDenom,
 			Exponent: ethermint.BaseDenomUnit,
 			Aliases:  []string{},
 		}, {
-			Denom:    merlion.BaseDenom,
+			Denom:    blackfury.BaseDenom,
 			Exponent: 0,
 			Aliases:  []string{},
 		}},
-		Base:    merlion.BaseDenom,
-		Display: merlion.DisplayDenom,
-		Name:    strings.ToUpper(merlion.DisplayDenom),
-		Symbol:  strings.ToUpper(merlion.DisplayDenom),
+		Base:    blackfury.BaseDenom,
+		Display: blackfury.DisplayDenom,
+		Name:    strings.ToUpper(blackfury.DisplayDenom),
+		Symbol:  strings.ToUpper(blackfury.DisplayDenom),
 	})
 }
 

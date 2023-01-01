@@ -2,8 +2,8 @@ package keeper
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	merlion "github.com/merlion-zone/merlion/types"
-	"github.com/merlion-zone/merlion/x/ve/types"
+	blackfury "github.com/furya-official/blackfury/types"
+	"github.com/furya-official/blackfury/x/ve/types"
 )
 
 type Distributor struct {
@@ -37,7 +37,7 @@ func (d Distributor) DistributePerPeriod(ctx sdk.Context) {
 		}
 
 		nextEpochTime := types.NextRegulatedUnixTime(epochTime)
-		endTime := merlion.Min(nextEpochTime, now)
+		endTime := blackfury.Min(nextEpochTime, now)
 		amountAdd := amount.MulRaw(int64(endTime - timeLast)).QuoRaw(int64(duration))
 		d.keeper.SetDistributionPerPeriod(ctx, epochTime, amountExisting.Add(amountAdd))
 

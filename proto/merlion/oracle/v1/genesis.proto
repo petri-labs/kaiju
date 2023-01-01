@@ -1,10 +1,10 @@
 syntax = "proto3";
-package merlion.oracle.v1;
+package blackfury.oracle.v1;
 
 import "gogoproto/gogo.proto";
-import "merlion/oracle/v1/oracle.proto";
+import "blackfury/oracle/v1/oracle.proto";
 
-option go_package = "github.com/merlion-zone/merlion/x/oracle/types";
+option go_package = "github.com/furya-official/blackfury/x/oracle/types";
 
 // GenesisState defines the oracle module's genesis state.
 message GenesisState {

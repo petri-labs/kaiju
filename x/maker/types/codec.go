@@ -10,15 +10,15 @@ import (
 )
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
-	cdc.RegisterConcrete(&MsgMintBySwap{}, "merlion/MsgMintBySwap", nil)
-	cdc.RegisterConcrete(&MsgBurnBySwap{}, "merlion/MsgBurnBySwap", nil)
-	cdc.RegisterConcrete(&MsgBuyBacking{}, "merlion/MsgBuyBacking", nil)
-	cdc.RegisterConcrete(&MsgSellBacking{}, "merlion/MsgSellBacking", nil)
-	cdc.RegisterConcrete(&MsgMintByCollateral{}, "merlion/MsgMintByCollateral", nil)
-	cdc.RegisterConcrete(&MsgBurnByCollateral{}, "merlion/MsgBurnByCollateral", nil)
-	cdc.RegisterConcrete(&MsgDepositCollateral{}, "merlion/MsgDepositCollateral", nil)
-	cdc.RegisterConcrete(&MsgRedeemCollateral{}, "merlion/MsgRedeemCollateral", nil)
-	cdc.RegisterConcrete(&MsgLiquidateCollateral{}, "merlion/MsgLiquidateCollateral", nil)
+	cdc.RegisterConcrete(&MsgMintBySwap{}, "blackfury/MsgMintBySwap", nil)
+	cdc.RegisterConcrete(&MsgBurnBySwap{}, "blackfury/MsgBurnBySwap", nil)
+	cdc.RegisterConcrete(&MsgBuyBacking{}, "blackfury/MsgBuyBacking", nil)
+	cdc.RegisterConcrete(&MsgSellBacking{}, "blackfury/MsgSellBacking", nil)
+	cdc.RegisterConcrete(&MsgMintByCollateral{}, "blackfury/MsgMintByCollateral", nil)
+	cdc.RegisterConcrete(&MsgBurnByCollateral{}, "blackfury/MsgBurnByCollateral", nil)
+	cdc.RegisterConcrete(&MsgDepositCollateral{}, "blackfury/MsgDepositCollateral", nil)
+	cdc.RegisterConcrete(&MsgRedeemCollateral{}, "blackfury/MsgRedeemCollateral", nil)
+	cdc.RegisterConcrete(&MsgLiquidateCollateral{}, "blackfury/MsgLiquidateCollateral", nil)
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
