@@ -4,7 +4,7 @@ import (
 	"math"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	blackfury "github.com/furya-official/blackfury/types"
+	kaiju "github.com/petri-labs/kaiju/types"
 )
 
 const (
@@ -13,13 +13,13 @@ const (
 	MaxVeID   = math.MaxUint64 - 1
 
 	// 4 years, i.e., 209 weeks
-	MaxLockTimeWeeks = blackfury.DaysPer4Years/7 + 1
-	MaxLockTime      = MaxLockTimeWeeks * blackfury.SecondsPerWeek
+	MaxLockTimeWeeks = kaiju.DaysPer4Years/7 + 1
+	MaxLockTime      = MaxLockTimeWeeks * kaiju.SecondsPerWeek
 
 	MaxUnixTime = math.MaxInt64
 
 	// Regulated period for ve locking time
-	RegulatedPeriod = blackfury.SecondsPerWeek
+	RegulatedPeriod = kaiju.SecondsPerWeek
 
 	EmptyEpoch = 0
 	FirstEpoch = 1

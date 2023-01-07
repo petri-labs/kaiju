@@ -12,7 +12,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simulationtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
-	"github.com/furya-official/blackfury/app"
+	"github.com/petri-labs/kaiju/app"
 	"github.com/stretchr/testify/require"
 	abci "github.com/tendermint/tendermint/abci/types"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
@@ -74,7 +74,7 @@ func BenchmarkSimulation(b *testing.B) {
 
 	encoding := encoding.MakeConfig(app.ModuleBasics)
 
-	app := app.NewBlackfury(
+	app := app.NewKaiju(
 		logger,
 		db,
 		nil,

@@ -6,7 +6,7 @@ parent:
 
 # API
 
-This repository contains reference documentation on the basic concepts of Blackfury.
+This repository contains reference documentation on the basic concepts of Kaiju.
 
 1. [Chain ID](./chain_id.md)
 2. [Accounts](./accounts.md)

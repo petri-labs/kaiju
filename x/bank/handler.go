@@ -6,8 +6,8 @@ import (
 	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
-	"github.com/furya-official/blackfury/x/bank/keeper"
-	"github.com/furya-official/blackfury/x/bank/types"
+	"github.com/petri-labs/kaiju/x/bank/keeper"
+	"github.com/petri-labs/kaiju/x/bank/types"
 )
 
 func NewBankProposalHandler(k bankkeeper.Keeper) govtypes.Handler {

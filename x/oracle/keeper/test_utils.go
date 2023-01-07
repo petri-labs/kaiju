@@ -29,9 +29,9 @@ import (
 	paramstypes "github.com/cosmos/cosmos-sdk/x/params/types"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	blackfury "github.com/furya-official/blackfury/types"
-	"github.com/furya-official/blackfury/x/oracle/types"
-	customstaking "github.com/furya-official/blackfury/x/staking"
+	kaiju "github.com/petri-labs/kaiju/types"
+	"github.com/petri-labs/kaiju/x/oracle/types"
+	customstaking "github.com/petri-labs/kaiju/x/staking"
 	"github.com/stretchr/testify/require"
 	"github.com/tendermint/tendermint/crypto"
 	"github.com/tendermint/tendermint/crypto/secp256k1"
@@ -107,7 +107,7 @@ var (
 	}
 
 	InitTokens = sdk.TokensFromConsensusPower(200, sdk.DefaultPowerReduction)
-	InitCoins  = sdk.NewCoins(sdk.NewCoin(blackfury.AttoFuryDenom, InitTokens))
+	InitCoins  = sdk.NewCoins(sdk.NewCoin(kaiju.AttoKaijuDenom, InitTokens))
 
 	OracleDecPrecision = 8
 )
@@ -170,7 +170,7 @@ func CreateTestInput(t *testing.T) TestInput {
 	accountKeeper := authkeeper.NewAccountKeeper(appCodec, keyAcc, paramsKeeper.Subspace(authtypes.ModuleName), authtypes.ProtoBaseAccount, maccPerms)
 	bankKeeper := bankkeeper.NewBaseKeeper(appCodec, keyBank, accountKeeper, paramsKeeper.Subspace(banktypes.ModuleName), blackListAddrs)
 
-	totalSupply := sdk.NewCoins(sdk.NewCoin(blackfury.AttoFuryDenom, InitTokens.MulRaw(int64(len(Addrs)*10))))
+	totalSupply := sdk.NewCoins(sdk.NewCoin(kaiju.AttoKaijuDenom, InitTokens.MulRaw(int64(len(Addrs)*10))))
 	bankKeeper.MintCoins(ctx, faucetAccountName, totalSupply)
 
 	stakingKeeper := stakingkeeper.NewKeeper(
@@ -182,7 +182,7 @@ func CreateTestInput(t *testing.T) TestInput {
 	)
 
 	stakingParams := stakingtypes.DefaultParams()
-	stakingParams.BondDenom = blackfury.AttoFuryDenom
+	stakingParams.BondDenom = kaiju.AttoKaijuDenom
 	stakingKeeper.SetParams(ctx, stakingParams)
 
 	distrKeeper := distrkeeper.NewKeeper(
@@ -205,7 +205,7 @@ func CreateTestInput(t *testing.T) TestInput {
 	distrAcc := authtypes.NewEmptyModuleAccount(distrtypes.ModuleName)
 	oracleAcc := authtypes.NewEmptyModuleAccount(types.ModuleName, authtypes.Minter)
 
-	bankKeeper.SendCoinsFromModuleToModule(ctx, faucetAccountName, stakingtypes.NotBondedPoolName, sdk.NewCoins(sdk.NewCoin(blackfury.AttoFuryDenom, InitTokens.MulRaw(int64(len(Addrs))))))
+	bankKeeper.SendCoinsFromModuleToModule(ctx, faucetAccountName, stakingtypes.NotBondedPoolName, sdk.NewCoins(sdk.NewCoin(kaiju.AttoKaijuDenom, InitTokens.MulRaw(int64(len(Addrs))))))
 
 	accountKeeper.SetModuleAccount(ctx, feeCollectorAcc)
 	accountKeeper.SetModuleAccount(ctx, bondPool)
@@ -233,8 +233,8 @@ func CreateTestInput(t *testing.T) TestInput {
 	defaults := types.DefaultParams()
 	keeper.SetParams(ctx, defaults)
 
-	keeper.SetVoteTarget(ctx, blackfury.AttoFuryDenom)
-	keeper.SetVoteTarget(ctx, blackfury.MicroFUSDDenom)
+	keeper.SetVoteTarget(ctx, kaiju.AttoKaijuDenom)
+	keeper.SetVoteTarget(ctx, kaiju.MicroFUSDDenom)
 
 	return TestInput{ctx, legacyAmino, accountKeeper, bankKeeper, *keeper, stakingKeeper, distrKeeper}
 }
@@ -243,7 +243,7 @@ func CreateTestInput(t *testing.T) TestInput {
 func NewTestMsgCreateValidator(address sdk.ValAddress, pubKey cryptotypes.PubKey, amt sdk.Int) *stakingtypes.MsgCreateValidator {
 	commission := stakingtypes.NewCommissionRates(sdk.ZeroDec(), sdk.ZeroDec(), sdk.ZeroDec())
 	msg, _ := stakingtypes.NewMsgCreateValidator(
-		address, pubKey, sdk.NewCoin(blackfury.AttoFuryDenom, amt),
+		address, pubKey, sdk.NewCoin(kaiju.AttoKaijuDenom, amt),
 		stakingtypes.Description{}, commission, sdk.OneInt(),
 	)
 

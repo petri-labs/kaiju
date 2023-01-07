@@ -5,8 +5,8 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/x/staking"
-	blackfury "github.com/furya-official/blackfury/types"
-	"github.com/furya-official/blackfury/x/oracle/types"
+	kaiju "github.com/petri-labs/kaiju/types"
+	"github.com/petri-labs/kaiju/x/oracle/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -47,7 +47,7 @@ func TestRewardBallotWinners(t *testing.T) {
 	}
 
 	// Prepare reward pool
-	givingAmt := sdk.NewCoins(sdk.NewInt64Coin(blackfury.AttoFuryDenom, 30000000), sdk.NewInt64Coin(blackfury.MicroFUSDDenom, 40000000))
+	givingAmt := sdk.NewCoins(sdk.NewInt64Coin(kaiju.AttoKaijuDenom, 30000000), sdk.NewInt64Coin(kaiju.MicroFUSDDenom, 40000000))
 	acc := input.AccountKeeper.GetModuleAccount(ctx, types.ModuleName)
 	err = FundAccount(input, acc.GetAddress(), givingAmt)
 	require.NoError(t, err)
@@ -64,15 +64,15 @@ func TestRewardBallotWinners(t *testing.T) {
 	input.OracleKeeper.RewardBallotWinners(ctx, (int64)(input.OracleKeeper.VotePeriod(input.Ctx)), (int64)(input.OracleKeeper.RewardDistributionWindow(input.Ctx)), voteTargets, claims)
 	outstandingRewardsDec := input.DistrKeeper.GetValidatorOutstandingRewardsCoins(ctx, addr)
 	outstandingRewards, _ := outstandingRewardsDec.TruncateDecimal()
-	require.Equal(t, sdk.NewDecFromInt(givingAmt.AmountOf(blackfury.AttoFuryDenom)).QuoInt64(votePeriodsPerWindow).QuoInt64(3).TruncateInt(),
-		outstandingRewards.AmountOf(blackfury.AttoFuryDenom))
-	require.Equal(t, sdk.NewDecFromInt(givingAmt.AmountOf(blackfury.MicroFUSDDenom)).QuoInt64(votePeriodsPerWindow).QuoInt64(3).TruncateInt(),
-		outstandingRewards.AmountOf(blackfury.MicroFUSDDenom))
+	require.Equal(t, sdk.NewDecFromInt(givingAmt.AmountOf(kaiju.AttoKaijuDenom)).QuoInt64(votePeriodsPerWindow).QuoInt64(3).TruncateInt(),
+		outstandingRewards.AmountOf(kaiju.AttoKaijuDenom))
+	require.Equal(t, sdk.NewDecFromInt(givingAmt.AmountOf(kaiju.MicroFUSDDenom)).QuoInt64(votePeriodsPerWindow).QuoInt64(3).TruncateInt(),
+		outstandingRewards.AmountOf(kaiju.MicroFUSDDenom))
 
 	outstandingRewardsDec1 := input.DistrKeeper.GetValidatorOutstandingRewardsCoins(ctx, addr1)
 	outstandingRewards1, _ := outstandingRewardsDec1.TruncateDecimal()
-	require.Equal(t, sdk.NewDecFromInt(givingAmt.AmountOf(blackfury.AttoFuryDenom)).QuoInt64(votePeriodsPerWindow).QuoInt64(3).MulInt64(2).TruncateInt(),
-		outstandingRewards1.AmountOf(blackfury.AttoFuryDenom))
-	require.Equal(t, sdk.NewDecFromInt(givingAmt.AmountOf(blackfury.MicroFUSDDenom)).QuoInt64(votePeriodsPerWindow).QuoInt64(3).MulInt64(2).TruncateInt(),
-		outstandingRewards1.AmountOf(blackfury.MicroFUSDDenom))
+	require.Equal(t, sdk.NewDecFromInt(givingAmt.AmountOf(kaiju.AttoKaijuDenom)).QuoInt64(votePeriodsPerWindow).QuoInt64(3).MulInt64(2).TruncateInt(),
+		outstandingRewards1.AmountOf(kaiju.AttoKaijuDenom))
+	require.Equal(t, sdk.NewDecFromInt(givingAmt.AmountOf(kaiju.MicroFUSDDenom)).QuoInt64(votePeriodsPerWindow).QuoInt64(3).MulInt64(2).TruncateInt(),
+		outstandingRewards1.AmountOf(kaiju.MicroFUSDDenom))
 }

@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"github.com/furya-official/blackfury/x/gauge/types"
+	"github.com/petri-labs/kaiju/x/gauge/types"
 )
 
 type msgServer struct {

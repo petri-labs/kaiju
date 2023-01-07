@@ -5,8 +5,8 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/furya-official/blackfury/x/erc20/keeper"
-	"github.com/furya-official/blackfury/x/erc20/types"
+	"github.com/petri-labs/kaiju/x/erc20/keeper"
+	"github.com/petri-labs/kaiju/x/erc20/types"
 )
 
 // NewHandler ...

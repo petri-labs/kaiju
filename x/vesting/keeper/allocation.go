@@ -4,8 +4,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	vestingtypes "github.com/cosmos/cosmos-sdk/x/auth/vesting/types"
-	blackfury "github.com/furya-official/blackfury/types"
-	"github.com/furya-official/blackfury/x/vesting/types"
+	kaiju "github.com/petri-labs/kaiju/types"
+	"github.com/petri-labs/kaiju/x/vesting/types"
 	ethermint "github.com/tharsis/ethermint/types"
 )
 
@@ -19,7 +19,7 @@ func (k Keeper) AllocateAtGenesis(ctx sdk.Context, genState types.GenesisState) 
 
 	k.veKeeper.AddTotalEmission(ctx, alloc.VeVestingAmount)
 
-	srAmount := sdk.NewCoin(blackfury.BaseDenom, alloc.StrategicReserveAmount)
+	srAmount := sdk.NewCoin(kaiju.BaseDenom, alloc.StrategicReserveAmount)
 	err := k.bankKeeper.MintCoins(ctx, types.ModuleName, sdk.NewCoins(srAmount))
 	if err != nil {
 		panic(err)
@@ -64,7 +64,7 @@ func (k Keeper) ClaimVested(ctx sdk.Context) {
 
 func (k Keeper) createContinuousVestingAccount(ctx sdk.Context, vestingName string, amount sdk.Int, startTime int64, duration int64) {
 	baseAccount := k.accountKeeper.NewAccountWithAddress(ctx, k.getVestingAddress(vestingName))
-	amt := sdk.NewCoin(blackfury.BaseDenom, amount)
+	amt := sdk.NewCoin(kaiju.BaseDenom, amount)
 	vestingAccount := vestingtypes.NewContinuousVestingAccount(baseAccount.(*ethermint.EthAccount).BaseAccount, sdk.NewCoins(amt), startTime, startTime+duration)
 	k.accountKeeper.SetAccount(ctx, vestingAccount)
 

@@ -3,7 +3,7 @@ package keeper
 import (
 	"sort"
 
-	"github.com/furya-official/blackfury/x/oracle/types"
+	"github.com/petri-labs/kaiju/x/oracle/types"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )

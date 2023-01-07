@@ -2,8 +2,8 @@ package keeper
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	blackfury "github.com/furya-official/blackfury/types"
-	"github.com/furya-official/blackfury/x/maker/types"
+	kaiju "github.com/petri-labs/kaiju/types"
+	"github.com/petri-labs/kaiju/x/maker/types"
 )
 
 // AdjustBackingRatio dynamically adjusts the backing ratio, according to black price change.
@@ -18,18 +18,18 @@ func (k Keeper) AdjustBackingRatio(ctx sdk.Context) {
 		return
 	}
 	backingRatio := k.GetBackingRatio(ctx)
-	priceBand := blackfury.MicroFUSDTarget.Mul(k.BackingRatioPriceBand(ctx))
+	priceBand := kaiju.MicroFUSDTarget.Mul(k.BackingRatioPriceBand(ctx))
 
-	merPrice, err := k.oracleKeeper.GetExchangeRate(ctx, blackfury.MicroFUSDDenom)
+	merPrice, err := k.oracleKeeper.GetExchangeRate(ctx, kaiju.MicroFUSDDenom)
 	if err != nil {
 		panic(err)
 	}
 
-	if merPrice.GT(blackfury.MicroFUSDTarget.Add(priceBand)) {
+	if merPrice.GT(kaiju.MicroFUSDTarget.Add(priceBand)) {
 		// black price is too high
 		// decrease backing ratio; min 0%
 		backingRatio = sdk.MaxDec(backingRatio.Sub(ratioStep), sdk.ZeroDec())
-	} else if merPrice.LT(blackfury.MicroFUSDTarget.Sub(priceBand)) {
+	} else if merPrice.LT(kaiju.MicroFUSDTarget.Sub(priceBand)) {
 		// black price is too low
 		// increase backing ratio; max 100%
 		backingRatio = sdk.MinDec(backingRatio.Add(ratioStep), sdk.OneDec())

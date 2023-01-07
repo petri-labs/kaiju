@@ -8,15 +8,15 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/crypto"
-	blackfury "github.com/furya-official/blackfury/types"
-	"github.com/furya-official/blackfury/x/erc20/types"
+	kaiju "github.com/petri-labs/kaiju/types"
+	"github.com/petri-labs/kaiju/x/erc20/types"
 	"github.com/tharsis/evmos/v4/contracts"
 )
 
 // RegisterCoin deploys an erc20 contract and creates the token pair for the existing cosmos coin
 func (k Keeper) RegisterCoin(ctx sdk.Context, denom string) (*types.TokenPair, error) {
-	// Prohibit denominations that contain the "fury" denom
-	if strings.Contains(denom, blackfury.DisplayDenom) {
+	// Prohibit denominations that contain the "kaiju" denom
+	if strings.Contains(denom, kaiju.DisplayDenom) {
 		return nil, sdkerrors.Wrapf(types.ErrEVMDenom, "cannot register the EVM denomination %s", denom)
 	}
 

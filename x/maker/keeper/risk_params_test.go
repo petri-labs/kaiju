@@ -2,7 +2,7 @@ package keeper_test
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/furya-official/blackfury/x/maker/types"
+	"github.com/petri-labs/kaiju/x/maker/types"
 )
 
 func (suite *KeeperTestSuite) TestSetGetBackingRiskParams() {
@@ -110,7 +110,7 @@ func (suite *KeeperTestSuite) dummyCollateralRiskParams() (crp, crp2 types.Colla
 	liquidationThreshold := sdk.NewDecWithPrec(90, 2)
 	loanToValue := sdk.NewDecWithPrec(80, 2)
 	basicLoanToValue := sdk.NewDecWithPrec(50, 2)
-	catalyticFuryRatio := sdk.NewDecWithPrec(5, 2)
+	catalyticKaijuRatio := sdk.NewDecWithPrec(5, 2)
 	liquidationFee := sdk.NewDecWithPrec(10, 2)
 	mintFee := sdk.NewDecWithPrec(1, 2)
 	interestFee := sdk.NewDec(4)
@@ -122,7 +122,7 @@ func (suite *KeeperTestSuite) dummyCollateralRiskParams() (crp, crp2 types.Colla
 		LiquidationThreshold: &liquidationThreshold,
 		LoanToValue:          &loanToValue,
 		BasicLoanToValue:     &basicLoanToValue,
-		CatalyticFuryRatio:   &catalyticFuryRatio,
+		CatalyticKaijuRatio:   &catalyticKaijuRatio,
 		LiquidationFee:       &liquidationFee,
 		MintFee:              &mintFee,
 		InterestFee:          &interestFee,
@@ -133,7 +133,7 @@ func (suite *KeeperTestSuite) dummyCollateralRiskParams() (crp, crp2 types.Colla
 	liquidationThreshold2 := sdk.NewDecWithPrec(91, 2)
 	loanToValue2 := sdk.NewDecWithPrec(71, 2)
 	basicLoanToValue2 := sdk.NewDecWithPrec(51, 2)
-	catalyticFuryRatio2 := sdk.NewDecWithPrec(6, 2)
+	catalyticKaijuRatio2 := sdk.NewDecWithPrec(6, 2)
 	liquidationFee2 := sdk.NewDecWithPrec(11, 2)
 	mintFee2 := sdk.NewDecWithPrec(2, 2)
 	interestFee2 := sdk.NewDecWithPrec(4, 2)
@@ -145,7 +145,7 @@ func (suite *KeeperTestSuite) dummyCollateralRiskParams() (crp, crp2 types.Colla
 		LiquidationThreshold: &liquidationThreshold2,
 		LoanToValue:          &loanToValue2,
 		BasicLoanToValue:     &basicLoanToValue2,
-		CatalyticFuryRatio:   &catalyticFuryRatio2,
+		CatalyticKaijuRatio:   &catalyticKaijuRatio2,
 		LiquidationFee:       &liquidationFee2,
 		MintFee:              &mintFee2,
 		InterestFee:          &interestFee2,

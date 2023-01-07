@@ -43,7 +43,7 @@ func (m *MsgAddAirdrops) ValidateBasic() error {
 		if err != nil {
 			return err
 		}
-		// Only native fury coin is allowed
+		// Only native kaiju coin is allowed
 		_, err = sdk.ParseCoinNormalized(airdrop.Amount.String())
 		if err != nil {
 			return err

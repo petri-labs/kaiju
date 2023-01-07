@@ -3,7 +3,7 @@ package types
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	blackfury "github.com/furya-official/blackfury/types"
+	kaiju "github.com/petri-labs/kaiju/types"
 )
 
 const (
@@ -53,11 +53,11 @@ func (m *MsgMintBySwap) ValidateBasic() error {
 			return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid receiver address (%s)", err)
 		}
 	}
-	if m.MintOutMin.Denom != blackfury.MicroFUSDDenom {
+	if m.MintOutMin.Denom != kaiju.MicroFUSDDenom {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid coin: %s", m.MintOutMin.Denom)
 	}
-	if m.FuryInMax.Denom != blackfury.AttoFuryDenom {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid coin: %s", m.FuryInMax.Denom)
+	if m.KaijuInMax.Denom != kaiju.AttoKaijuDenom {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid coin: %s", m.KaijuInMax.Denom)
 	}
 	if !m.MintOutMin.Amount.IsPositive() {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, "mint_out_min must be positive")
@@ -65,14 +65,14 @@ func (m *MsgMintBySwap) ValidateBasic() error {
 	if m.BackingInMax.Amount.IsNegative() {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, "backing_in_max must be positive or zero")
 	}
-	if m.FuryInMax.Amount.IsNegative() {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, "fury_in_max must be positive or zero")
+	if m.KaijuInMax.Amount.IsNegative() {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, "kaiju_in_max must be positive or zero")
 	}
-	if m.BackingInMax.Amount.IsZero() && m.FuryInMax.Amount.IsZero() {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, "backing_in_max and fury_in_max must not be both zero")
+	if m.BackingInMax.Amount.IsZero() && m.KaijuInMax.Amount.IsZero() {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, "backing_in_max and kaiju_in_max must not be both zero")
 	}
-	if m.FullBacking && m.FuryInMax.Amount.IsPositive() {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, "fury_in_max must be zero when full_backing is true")
+	if m.FullBacking && m.KaijuInMax.Amount.IsPositive() {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, "kaiju_in_max must be zero when full_backing is true")
 	}
 	return nil
 }
@@ -109,11 +109,11 @@ func (m *MsgBurnBySwap) ValidateBasic() error {
 			return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid receiver address (%s)", err)
 		}
 	}
-	if m.BurnIn.Denom != blackfury.MicroFUSDDenom {
+	if m.BurnIn.Denom != kaiju.MicroFUSDDenom {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid coin: %s", m.BurnIn.Denom)
 	}
-	if m.FuryOutMin.Denom != blackfury.AttoFuryDenom {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid coin: %s", m.FuryOutMin.Denom)
+	if m.KaijuOutMin.Denom != kaiju.AttoKaijuDenom {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid coin: %s", m.KaijuOutMin.Denom)
 	}
 	if !m.BurnIn.Amount.IsPositive() {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, m.BurnIn.String())
@@ -121,8 +121,8 @@ func (m *MsgBurnBySwap) ValidateBasic() error {
 	if m.BackingOutMin.Amount.IsNegative() {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, m.BackingOutMin.String())
 	}
-	if m.FuryOutMin.Amount.IsNegative() {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, m.FuryOutMin.String())
+	if m.KaijuOutMin.Amount.IsNegative() {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, m.KaijuOutMin.String())
 	}
 	return nil
 }
@@ -159,11 +159,11 @@ func (m *MsgBuyBacking) ValidateBasic() error {
 			return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid receiver address (%s)", err)
 		}
 	}
-	if m.FuryIn.Denom != blackfury.AttoFuryDenom {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid coin: %s", m.FuryIn.Denom)
+	if m.KaijuIn.Denom != kaiju.AttoKaijuDenom {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid coin: %s", m.KaijuIn.Denom)
 	}
-	if !m.FuryIn.Amount.IsPositive() {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, m.FuryIn.String())
+	if !m.KaijuIn.Amount.IsPositive() {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, m.KaijuIn.String())
 	}
 	if m.BackingOutMin.Amount.IsNegative() {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, m.BackingOutMin.String())
@@ -203,14 +203,14 @@ func (m *MsgSellBacking) ValidateBasic() error {
 			return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid receiver address (%s)", err)
 		}
 	}
-	if m.FuryOutMin.Denom != blackfury.AttoFuryDenom {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid coin: %s", m.FuryOutMin.Denom)
+	if m.KaijuOutMin.Denom != kaiju.AttoKaijuDenom {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid coin: %s", m.KaijuOutMin.Denom)
 	}
 	if !m.BackingIn.Amount.IsPositive() {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, m.BackingIn.String())
 	}
-	if m.FuryOutMin.Amount.IsNegative() {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, m.FuryOutMin.String())
+	if m.KaijuOutMin.Amount.IsNegative() {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, m.KaijuOutMin.String())
 	}
 	return nil
 }
@@ -247,7 +247,7 @@ func (m *MsgMintByCollateral) ValidateBasic() error {
 			return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid receiver address (%s)", err)
 		}
 	}
-	if m.MintOut.Denom != blackfury.MicroFUSDDenom {
+	if m.MintOut.Denom != kaiju.MicroFUSDDenom {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid coin: %s", m.MintOut.Denom)
 	}
 	if !m.MintOut.Amount.IsPositive() {
@@ -282,7 +282,7 @@ func (m *MsgBurnByCollateral) ValidateBasic() error {
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid sender address (%s)", err)
 	}
-	if m.RepayInMax.Denom != blackfury.MicroFUSDDenom {
+	if m.RepayInMax.Denom != kaiju.MicroFUSDDenom {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid coin: %s", m.RepayInMax.Denom)
 	}
 	if !m.RepayInMax.Amount.IsPositive() {
@@ -326,14 +326,14 @@ func (m *MsgDepositCollateral) ValidateBasic() error {
 	if m.CollateralIn.Amount.IsNegative() {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, m.CollateralIn.String())
 	}
-	if m.FuryIn.Denom != blackfury.AttoFuryDenom {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid coin: %s", m.FuryIn.Denom)
+	if m.KaijuIn.Denom != kaiju.AttoKaijuDenom {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid coin: %s", m.KaijuIn.Denom)
 	}
-	if m.FuryIn.Amount.IsNegative() {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, m.FuryIn.String())
+	if m.KaijuIn.Amount.IsNegative() {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, m.KaijuIn.String())
 	}
-	if m.CollateralIn.Amount.IsZero() && m.FuryIn.Amount.IsZero() {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, sdk.NewCoins(m.CollateralIn, m.FuryIn).String())
+	if m.CollateralIn.Amount.IsZero() && m.KaijuIn.Amount.IsZero() {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, sdk.NewCoins(m.CollateralIn, m.KaijuIn).String())
 	}
 	return nil
 }
@@ -373,14 +373,14 @@ func (m *MsgRedeemCollateral) ValidateBasic() error {
 	if m.CollateralOut.Amount.IsNegative() {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, m.CollateralOut.String())
 	}
-	if m.FuryOut.Denom != blackfury.AttoFuryDenom {
-		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid coin: %s", m.FuryOut.Denom)
+	if m.KaijuOut.Denom != kaiju.AttoKaijuDenom {
+		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid coin: %s", m.KaijuOut.Denom)
 	}
-	if m.FuryOut.Amount.IsNegative() {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, m.FuryOut.String())
+	if m.KaijuOut.Amount.IsNegative() {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, m.KaijuOut.String())
 	}
-	if m.CollateralOut.Amount.IsZero() && m.FuryOut.Amount.IsZero() {
-		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, sdk.NewCoins(m.CollateralOut, m.FuryOut).String())
+	if m.CollateralOut.Amount.IsZero() && m.KaijuOut.Amount.IsZero() {
+		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, sdk.NewCoins(m.CollateralOut, m.KaijuOut).String())
 	}
 	return nil
 }
@@ -424,7 +424,7 @@ func (m *MsgLiquidateCollateral) ValidateBasic() error {
 	if !m.Collateral.Amount.IsPositive() {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidCoins, m.Collateral.String())
 	}
-	if m.RepayInMax.Denom != blackfury.MicroFUSDDenom {
+	if m.RepayInMax.Denom != kaiju.MicroFUSDDenom {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidCoins, "invalid coin: %s", m.RepayInMax.Denom)
 	}
 	if !m.RepayInMax.Amount.IsPositive() {

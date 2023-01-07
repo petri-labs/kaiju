@@ -17,9 +17,9 @@ import (
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"github.com/furya-official/blackfury/x/oracle/client/cli"
-	"github.com/furya-official/blackfury/x/oracle/keeper"
-	"github.com/furya-official/blackfury/x/oracle/types"
+	"github.com/petri-labs/kaiju/x/oracle/client/cli"
+	"github.com/petri-labs/kaiju/x/oracle/keeper"
+	"github.com/petri-labs/kaiju/x/oracle/types"
 )
 
 var (

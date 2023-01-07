@@ -5,7 +5,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	blackfury "github.com/furya-official/blackfury/types"
+	kaiju "github.com/petri-labs/kaiju/types"
 	"gopkg.in/yaml.v2"
 )
 
@@ -24,7 +24,7 @@ func ParamKeyTable() paramtypes.KeyTable {
 // DefaultParams returns a default set of parameters
 func DefaultParams() Params {
 	return Params{
-		LockDenom: blackfury.BaseDenom,
+		LockDenom: kaiju.BaseDenom,
 	}
 }
 

@@ -7,8 +7,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/ethereum/go-ethereum/common"
-	blackfury "github.com/furya-official/blackfury/types"
-	"github.com/furya-official/blackfury/x/erc20/types"
+	kaiju "github.com/petri-labs/kaiju/types"
+	"github.com/petri-labs/kaiju/x/erc20/types"
 	"github.com/tharsis/evmos/v4/contracts"
 )
 
@@ -84,7 +84,7 @@ func (k Keeper) SendCoins(ctx sdk.Context, fromAddr sdk.AccAddress, toAddr sdk.A
 	var amounts []*big.Int
 
 	for _, coin := range nativeCoins {
-		if strings.Contains(coin.Denom, blackfury.DisplayDenom) {
+		if strings.Contains(coin.Denom, kaiju.DisplayDenom) {
 			// Do not touch gas token
 			continue
 		}

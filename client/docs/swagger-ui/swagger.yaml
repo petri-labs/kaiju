@@ -1,10 +1,10 @@
 swagger: '2.0'
 info:
-  title: Blackfury Chain - gRPC Gateway docs
+  title: Kaiju Chain - gRPC Gateway docs
   description: A REST interface for state queries and transactions
   version: 1.0.0
 paths:
-  /blackfury/erc20/v1/params:
+  /kaiju/erc20/v1/params:
     get:
       summary: Params retrieves the erc20 module params
       operationId: ERC20Params
@@ -44,7 +44,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /blackfury/erc20/v1/token_pairs:
+  /kaiju/erc20/v1/token_pairs:
     get:
       summary: Retrieves registered token pairs
       operationId: TokenPairs
@@ -192,7 +192,7 @@ paths:
           format: boolean
       tags:
         - Query
-  '/blackfury/erc20/v1/token_pairs/{token}':
+  '/kaiju/erc20/v1/token_pairs/{token}':
     get:
       summary: Retrieves a registered token pair
       operationId: TokenPair
@@ -271,7 +271,7 @@ paths:
           type: string
       tags:
         - Query
-  /furyaofficial/blackfury/gauge/params:
+  /kaijuaofficial/kaiju/gauge/params:
     get:
       summary: Parameters queries the parameters of the module.
       operationId: GaugeParams
@@ -311,7 +311,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /blackfury/maker/v1/all_backing_pools:
+  /kaiju/maker/v1/all_backing_pools:
     get:
       summary: AllBackingPools queries all the backing pools.
       operationId: AllBackingPools
@@ -358,8 +358,8 @@ paths:
                         custom method
 
                         signatures required by gogoproto.
-                    fury_burned:
-                      title: total burned fury
+                    kaiju_burned:
+                      title: total burned kaiju
                       type: object
                       properties:
                         denom:
@@ -398,7 +398,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /blackfury/maker/v1/all_backing_risk_params:
+  /kaiju/maker/v1/all_backing_risk_params:
     get:
       summary: AllBackingRiskParams queries risk params of all the backing pools.
       operationId: AllBackingRiskParams
@@ -465,7 +465,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /blackfury/maker/v1/all_collateral_pools:
+  /kaiju/maker/v1/all_collateral_pools:
     get:
       summary: AllCollateralPools queries all the collateral pools.
       operationId: AllCollateralPools
@@ -516,8 +516,8 @@ paths:
                         custom method
 
                         signatures required by gogoproto.
-                    mer_by_fury:
-                      title: total minted merl by burning fury
+                    mer_by_kaiju:
+                      title: total minted merl by burning kaiju
                       type: object
                       properties:
                         denom:
@@ -532,8 +532,8 @@ paths:
                         custom method
 
                         signatures required by gogoproto.
-                    fury_burned:
-                      title: total burned fury
+                    kaiju_burned:
+                      title: total burned kaiju
                       type: object
                       properties:
                         denom:
@@ -572,7 +572,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /blackfury/maker/v1/all_collateral_risk_params:
+  /kaiju/maker/v1/all_collateral_risk_params:
     get:
       summary: AllCollateralRiskParams queries risk params of all the collateral pools.
       operationId: AllCollateralRiskParams
@@ -619,10 +619,10 @@ paths:
                         borrowed with a
 
                         specific collateral
-                    catalytic_fury_ratio:
+                    catalytic_kaiju_ratio:
                       type: string
                       title: >-
-                        catalytic ratio of burned Fury to minted stablecoins, to
+                        catalytic ratio of burned Kaiju to minted stablecoins, to
                         maximize the LTV
 
                         in [basic-LTV, LTV]
@@ -666,7 +666,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /blackfury/maker/v1/backing_pool:
+  /kaiju/maker/v1/backing_pool:
     get:
       summary: BackingPool queries a backing pool.
       operationId: BackingPool
@@ -711,8 +711,8 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                  fury_burned:
-                    title: total burned fury
+                  kaiju_burned:
+                    title: total burned kaiju
                     type: object
                     properties:
                       denom:
@@ -756,7 +756,7 @@ paths:
           type: string
       tags:
         - Query
-  /blackfury/maker/v1/backing_ratio:
+  /kaiju/maker/v1/backing_ratio:
     get:
       summary: BackingRatio queries the backing ratio.
       operationId: BackingRatio
@@ -795,7 +795,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /blackfury/maker/v1/collateral_account:
+  /kaiju/maker/v1/collateral_account:
     get:
       summary: CollateralOfAccount queries the collateral of an account.
       operationId: CollateralOfAccount
@@ -845,8 +845,8 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                  mer_by_fury:
-                    title: minted black by burning fury
+                  mer_by_kaiju:
+                    title: minted black by burning kaiju
                     type: object
                     properties:
                       denom:
@@ -861,8 +861,8 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                  fury_burned:
-                    title: total burned fury
+                  kaiju_burned:
+                    title: total burned kaiju
                     type: object
                     properties:
                       denom:
@@ -930,7 +930,7 @@ paths:
           type: string
       tags:
         - Query
-  /blackfury/maker/v1/collateral_pool:
+  /kaiju/maker/v1/collateral_pool:
     get:
       summary: CollateralPool queries a collateral pool.
       operationId: CollateralPool
@@ -979,8 +979,8 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                  mer_by_fury:
-                    title: total minted merl by burning fury
+                  mer_by_kaiju:
+                    title: total minted merl by burning kaiju
                     type: object
                     properties:
                       denom:
@@ -995,8 +995,8 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                  fury_burned:
-                    title: total burned fury
+                  kaiju_burned:
+                    title: total burned kaiju
                     type: object
                     properties:
                       denom:
@@ -1040,7 +1040,7 @@ paths:
           type: string
       tags:
         - Query
-  /blackfury/maker/v1/estimate_burn_by_collateral_in:
+  /kaiju/maker/v1/estimate_burn_by_collateral_in:
     get:
       summary: EstimateBurnByCollateralIn estimates input of burning by collateral.
       operationId: EstimateBurnByCollateralIn
@@ -1103,7 +1103,7 @@ paths:
                       mint fee, last
 
                       interest
-                  mer_by_fury:
+                  mer_by_kaiju:
                     type: object
                     properties:
                       denom:
@@ -1118,8 +1118,8 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                    title: total minted merl by burning fury
-                  fury_burned:
+                    title: total minted merl by burning kaiju
+                  kaiju_burned:
                     type: object
                     properties:
                       denom:
@@ -1134,7 +1134,7 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                    title: total burned fury
+                    title: total burned kaiju
               pool_coll:
                 type: object
                 properties:
@@ -1174,8 +1174,8 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                  mer_by_fury:
-                    title: total minted merl by burning fury
+                  mer_by_kaiju:
+                    title: total minted merl by burning kaiju
                     type: object
                     properties:
                       denom:
@@ -1190,8 +1190,8 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                  fury_burned:
-                    title: total burned fury
+                  kaiju_burned:
+                    title: total burned kaiju
                     type: object
                     properties:
                       denom:
@@ -1246,8 +1246,8 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                  mer_by_fury:
-                    title: minted black by burning fury
+                  mer_by_kaiju:
+                    title: minted black by burning kaiju
                     type: object
                     properties:
                       denom:
@@ -1262,8 +1262,8 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                  fury_burned:
-                    title: total burned fury
+                  kaiju_burned:
+                    title: total burned kaiju
                     type: object
                     properties:
                       denom:
@@ -1339,7 +1339,7 @@ paths:
           type: string
       tags:
         - Query
-  /blackfury/maker/v1/estimate_burn_by_swap_out:
+  /kaiju/maker/v1/estimate_burn_by_swap_out:
     get:
       summary: EstimateBurnBySwapOut estimates output of burning by swap.
       operationId: EstimateBurnBySwapOut
@@ -1364,7 +1364,7 @@ paths:
                   method
 
                   signatures required by gogoproto.
-              fury_out:
+              kaiju_out:
                 type: object
                 properties:
                   denom:
@@ -1431,7 +1431,7 @@ paths:
           type: string
       tags:
         - Query
-  /blackfury/maker/v1/estimate_buy_backing_out:
+  /kaiju/maker/v1/estimate_buy_backing_out:
     get:
       summary: EstimateBuyBackingOut estimates output of buying backing assets.
       operationId: EstimateBuyBackingOut
@@ -1494,11 +1494,11 @@ paths:
                       type: string
                       format: byte
       parameters:
-        - name: fury_in.denom
+        - name: kaiju_in.denom
           in: query
           required: false
           type: string
-        - name: fury_in.amount
+        - name: kaiju_in.amount
           in: query
           required: false
           type: string
@@ -1508,7 +1508,7 @@ paths:
           type: string
       tags:
         - Query
-  /blackfury/maker/v1/estimate_mint_by_collateral_in:
+  /kaiju/maker/v1/estimate_mint_by_collateral_in:
     get:
       summary: EstimateMintByCollateralIn estimates input of minting by collateral.
       operationId: EstimateMintByCollateralIn
@@ -1518,7 +1518,7 @@ paths:
           schema:
             type: object
             properties:
-              fury_in:
+              kaiju_in:
                 type: object
                 properties:
                   denom:
@@ -1571,7 +1571,7 @@ paths:
                       mint fee, last
 
                       interest
-                  mer_by_fury:
+                  mer_by_kaiju:
                     type: object
                     properties:
                       denom:
@@ -1586,8 +1586,8 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                    title: total minted merl by burning fury
-                  fury_burned:
+                    title: total minted merl by burning kaiju
+                  kaiju_burned:
                     type: object
                     properties:
                       denom:
@@ -1602,7 +1602,7 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                    title: total burned fury
+                    title: total burned kaiju
               pool_coll:
                 type: object
                 properties:
@@ -1642,8 +1642,8 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                  mer_by_fury:
-                    title: total minted merl by burning fury
+                  mer_by_kaiju:
+                    title: total minted merl by burning kaiju
                     type: object
                     properties:
                       denom:
@@ -1658,8 +1658,8 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                  fury_burned:
-                    title: total burned fury
+                  kaiju_burned:
+                    title: total burned kaiju
                     type: object
                     properties:
                       denom:
@@ -1714,8 +1714,8 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                  mer_by_fury:
-                    title: minted black by burning fury
+                  mer_by_kaiju:
+                    title: minted black by burning kaiju
                     type: object
                     properties:
                       denom:
@@ -1730,8 +1730,8 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                  fury_burned:
-                    title: total burned fury
+                  kaiju_burned:
+                    title: total burned kaiju
                     type: object
                     properties:
                       denom:
@@ -1805,17 +1805,17 @@ paths:
           in: query
           required: false
           type: string
-        - name: fury_in_max.denom
+        - name: kaiju_in_max.denom
           in: query
           required: false
           type: string
-        - name: fury_in_max.amount
+        - name: kaiju_in_max.amount
           in: query
           required: false
           type: string
       tags:
         - Query
-  /blackfury/maker/v1/estimate_mint_by_swap_in:
+  /kaiju/maker/v1/estimate_mint_by_swap_in:
     get:
       summary: EstimateMintBySwapIn estimates input of minting by swap.
       operationId: EstimateMintBySwapIn
@@ -1840,7 +1840,7 @@ paths:
                   method
 
                   signatures required by gogoproto.
-              fury_in:
+              kaiju_in:
                 type: object
                 properties:
                   denom:
@@ -1912,7 +1912,7 @@ paths:
           format: boolean
       tags:
         - Query
-  /blackfury/maker/v1/estimate_mint_by_swap_out:
+  /kaiju/maker/v1/estimate_mint_by_swap_out:
     get:
       summary: EstimateMintBySwapOut estimates output of minting by swap.
       operationId: EstimateMintBySwapOut
@@ -1937,7 +1937,7 @@ paths:
                   method
 
                   signatures required by gogoproto.
-              fury_in:
+              kaiju_in:
                 type: object
                 properties:
                   denom:
@@ -2013,17 +2013,17 @@ paths:
           in: query
           required: false
           type: string
-        - name: fury_in_max.denom
+        - name: kaiju_in_max.denom
           in: query
           required: false
           type: string
-        - name: fury_in_max.amount
+        - name: kaiju_in_max.amount
           in: query
           required: false
           type: string
       tags:
         - Query
-  /blackfury/maker/v1/estimate_sell_backing_out:
+  /kaiju/maker/v1/estimate_sell_backing_out:
     get:
       summary: EstimateSellBackingOut estimates output of selling backing assets.
       operationId: EstimateSellBackingOut
@@ -2033,7 +2033,7 @@ paths:
           schema:
             type: object
             properties:
-              fury_out:
+              kaiju_out:
                 type: object
                 properties:
                   denom:
@@ -2096,7 +2096,7 @@ paths:
           type: string
       tags:
         - Query
-  /blackfury/maker/v1/params:
+  /kaiju/maker/v1/params:
     get:
       summary: Parameters queries the parameters of the module.
       operationId: MakerParams
@@ -2159,7 +2159,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /blackfury/maker/v1/total_backing:
+  /kaiju/maker/v1/total_backing:
     get:
       summary: TotalBacking queries the total backing.
       operationId: TotalBacking
@@ -2188,7 +2188,7 @@ paths:
 
                       signatures required by gogoproto.
                     title: total minted black
-                  fury_burned:
+                  kaiju_burned:
                     type: object
                     properties:
                       denom:
@@ -2203,7 +2203,7 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                    title: total burned fury
+                    title: total burned kaiju
         default:
           description: An unexpected error response
           schema:
@@ -2228,7 +2228,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /blackfury/maker/v1/total_collateral:
+  /kaiju/maker/v1/total_collateral:
     get:
       summary: TotalCollateral queries the total collateral.
       operationId: TotalCollateral
@@ -2261,7 +2261,7 @@ paths:
                       mint fee, last
 
                       interest
-                  mer_by_fury:
+                  mer_by_kaiju:
                     type: object
                     properties:
                       denom:
@@ -2276,8 +2276,8 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                    title: total minted merl by burning fury
-                  fury_burned:
+                    title: total minted merl by burning kaiju
+                  kaiju_burned:
                     type: object
                     properties:
                       denom:
@@ -2292,7 +2292,7 @@ paths:
                       custom method
 
                       signatures required by gogoproto.
-                    title: total burned fury
+                    title: total burned kaiju
         default:
           description: An unexpected error response
           schema:
@@ -2317,7 +2317,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /blackfury/oracle/v1/denoms/actives:
+  /kaiju/oracle/v1/denoms/actives:
     get:
       summary: Actives returns all active denoms.
       operationId: Actives
@@ -2363,7 +2363,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /blackfury/oracle/v1/denoms/exchange_rates:
+  /kaiju/oracle/v1/denoms/exchange_rates:
     get:
       summary: ExchangeRates returns exchange rates of all denoms.
       operationId: ExchangeRates
@@ -2423,7 +2423,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /blackfury/oracle/v1/denoms/targets:
+  /kaiju/oracle/v1/denoms/targets:
     get:
       summary: Targets returns all target denoms (including vote targets).
       operationId: Targets
@@ -2467,7 +2467,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /blackfury/oracle/v1/denoms/vote_targets:
+  /kaiju/oracle/v1/denoms/vote_targets:
     get:
       summary: VoteTargets returns all vote target denoms.
       operationId: VoteTargets
@@ -2513,7 +2513,7 @@ paths:
                       format: byte
       tags:
         - Query
-  '/blackfury/oracle/v1/denoms/{denom}/exchange_rate':
+  '/kaiju/oracle/v1/denoms/{denom}/exchange_rate':
     get:
       summary: ExchangeRate returns exchange rate of a denom.
       operationId: ExchangeRate
@@ -2563,7 +2563,7 @@ paths:
           type: string
       tags:
         - Query
-  '/blackfury/oracle/v1/valdiators/{validator_addr}/aggregate_vote':
+  '/kaiju/oracle/v1/valdiators/{validator_addr}/aggregate_vote':
     get:
       summary: AggregateVote returns an aggregate vote of a validator.
       operationId: AggregateVote
@@ -2628,7 +2628,7 @@ paths:
           type: string
       tags:
         - Query
-  /blackfury/oracle/v1/validators/aggregate_prevotes:
+  /kaiju/oracle/v1/validators/aggregate_prevotes:
     get:
       summary: AggregatePrevotes returns aggregate prevotes of all validators.
       operationId: AggregatePrevotes
@@ -2693,7 +2693,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /blackfury/oracle/v1/validators/aggregate_votes:
+  /kaiju/oracle/v1/validators/aggregate_votes:
     get:
       summary: AggregateVotes returns aggregate votes of all validators.
       operationId: AggregateVotes
@@ -2757,7 +2757,7 @@ paths:
                       format: byte
       tags:
         - Query
-  '/blackfury/oracle/v1/validators/{validator_addr}/aggregate_prevote':
+  '/kaiju/oracle/v1/validators/{validator_addr}/aggregate_prevote':
     get:
       summary: AggregatePrevote returns an aggregate prevote of a validator.
       operationId: AggregatePrevote
@@ -2826,7 +2826,7 @@ paths:
           type: string
       tags:
         - Query
-  '/blackfury/oracle/v1/validators/{validator_addr}/feeder':
+  '/kaiju/oracle/v1/validators/{validator_addr}/feeder':
     get:
       summary: FeederDelegation returns feeder delegation of a validator.
       operationId: FeederDelegation
@@ -2872,7 +2872,7 @@ paths:
           type: string
       tags:
         - Query
-  '/blackfury/oracle/v1/validators/{validator_addr}/miss':
+  '/kaiju/oracle/v1/validators/{validator_addr}/miss':
     get:
       summary: MissCounter returns oracle miss counter of a validator.
       operationId: MissCounter
@@ -2919,7 +2919,7 @@ paths:
           type: string
       tags:
         - Query
-  /furyaofficial/blackfury/oracle/params:
+  /kaijuaofficial/kaiju/oracle/params:
     get:
       summary: Parameters queries the parameters of the module.
       operationId: OracleParams
@@ -2977,7 +2977,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /blackfury/ve/v1/params:
+  /kaiju/ve/v1/params:
     get:
       summary: Parameters queries the parameters of the module.
       operationId: VeParams
@@ -3020,7 +3020,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /blackfury/ve/v1/total_voting_power:
+  /kaiju/ve/v1/total_voting_power:
     get:
       summary: TotalVotingPower queries the total voting power.
       operationId: TotalVotingPower
@@ -3067,7 +3067,7 @@ paths:
           format: int64
       tags:
         - Query
-  '/blackfury/ve/v1/voting_power/{ve_id}':
+  '/kaiju/ve/v1/voting_power/{ve_id}':
     get:
       summary: VotingPower queries the voting power of a veNFT.
       operationId: VotingPower
@@ -3118,7 +3118,7 @@ paths:
           format: int64
       tags:
         - Query
-  /blackfury/vesting/v1/airdrops:
+  /kaiju/vesting/v1/airdrops:
     get:
       summary: Airdrops queries airdrop targets.
       operationId: Airdrops
@@ -3258,7 +3258,7 @@ paths:
           format: boolean
       tags:
         - Query
-  '/blackfury/vesting/v1/airdrops/{target_addr}':
+  '/kaiju/vesting/v1/airdrops/{target_addr}':
     get:
       summary: Airdrops queries airdrop target for given address.
       operationId: Airdrop
@@ -3322,7 +3322,7 @@ paths:
           format: boolean
       tags:
         - Query
-  /blackfury/vesting/v1/params:
+  /kaiju/vesting/v1/params:
     get:
       summary: Parameters queries the parameters of the module.
       operationId: VestingParams
@@ -3380,7 +3380,7 @@ paths:
                       format: byte
       tags:
         - Query
-  /blackfury/voter/v1/params:
+  /kaiju/voter/v1/params:
     get:
       summary: Parameters queries the parameters of the module.
       operationId: VoterParams
@@ -29667,7 +29667,7 @@ definitions:
                   "@type": "type.googleapis.com/google.protobuf.Duration",
                   "value": "1.212s"
                 }
-  blackfury.erc20.v1.Owner:
+  kaiju.erc20.v1.Owner:
     type: string
     enum:
       - OWNER_UNSPECIFIED
@@ -29680,10 +29680,10 @@ definitions:
        - OWNER_UNSPECIFIED: OWNER_UNSPECIFIED defines an invalid/undefined owner.
        - OWNER_MODULE: OWNER_MODULE erc20 is owned by the erc20 module account.
        - OWNER_EXTERNAL: EXTERNAL erc20 is owned by an external account.
-  blackfury.erc20.v1.Params:
+  kaiju.erc20.v1.Params:
     type: object
     title: Params defines the erc20 module params
-  blackfury.erc20.v1.QueryParamsResponse:
+  kaiju.erc20.v1.QueryParamsResponse:
     type: object
     properties:
       params:
@@ -29692,7 +29692,7 @@ definitions:
     description: |-
       QueryParamsResponse is the response type for the Query/Params RPC
       method.
-  blackfury.erc20.v1.QueryTokenPairResponse:
+  kaiju.erc20.v1.QueryTokenPairResponse:
     type: object
     properties:
       token_pair:
@@ -29728,7 +29728,7 @@ definitions:
     description: |-
       QueryTokenPairResponse is the response type for the Query/TokenPair RPC
       method.
-  blackfury.erc20.v1.QueryTokenPairsResponse:
+  kaiju.erc20.v1.QueryTokenPairsResponse:
     type: object
     properties:
       token_pairs:
@@ -29784,7 +29784,7 @@ definitions:
     description: |-
       QueryTokenPairsResponse is the response type for the Query/TokenPairs RPC
       method.
-  blackfury.erc20.v1.TokenPair:
+  kaiju.erc20.v1.TokenPair:
     type: object
     properties:
       erc20_address:
@@ -29812,10 +29812,10 @@ definitions:
     description: |-
       TokenPair defines an instance that records pairing consisting of a Cosmos
       native Coin and an ERC20 token address.
-  blackfury.gauge.v1.Params:
+  kaiju.gauge.v1.Params:
     type: object
     description: Params defines the parameters for the module.
-  blackfury.gauge.v1.QueryParamsResponse:
+  kaiju.gauge.v1.QueryParamsResponse:
     type: object
     properties:
       params:
@@ -29834,7 +29834,7 @@ definitions:
 
       NOTE: The amount field is an Int which implements the custom method
       signatures required by gogoproto.
-  blackfury.maker.v1.AccountCollateral:
+  kaiju.maker.v1.AccountCollateral:
     type: object
     properties:
       account:
@@ -29868,8 +29868,8 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-      mer_by_fury:
-        title: minted black by burning fury
+      mer_by_kaiju:
+        title: minted black by burning kaiju
         type: object
         properties:
           denom:
@@ -29881,8 +29881,8 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-      fury_burned:
-        title: total burned fury
+      kaiju_burned:
+        title: total burned kaiju
         type: object
         properties:
           denom:
@@ -29911,7 +29911,7 @@ definitions:
         type: string
         format: int64
         title: the block of last settlement
-  blackfury.maker.v1.BackingRiskParams:
+  kaiju.maker.v1.BackingRiskParams:
     type: object
     properties:
       backing_denom:
@@ -29940,7 +29940,7 @@ definitions:
         type: string
         title: reback fee rate
     description: BackingRiskParams represents an object of backing coin risk parameters.
-  blackfury.maker.v1.CollateralRiskParams:
+  kaiju.maker.v1.CollateralRiskParams:
     type: object
     properties:
       collateral_denom:
@@ -29971,10 +29971,10 @@ definitions:
         title: |-
           basic ratio of maximum amount of currency that can be borrowed with a
           specific collateral
-      catalytic_fury_ratio:
+      catalytic_kaiju_ratio:
         type: string
         title: >-
-          catalytic ratio of burned Fury to minted stablecoins, to maximize the
+          catalytic ratio of burned Kaiju to minted stablecoins, to maximize the
           LTV
 
           in [basic-LTV, LTV]
@@ -29990,7 +29990,7 @@ definitions:
         type: string
         title: annual interest fee rate (APR)
     description: CollateralRiskParams represents an object of collateral risk parameters.
-  blackfury.maker.v1.EstimateBurnByCollateralInResponse:
+  kaiju.maker.v1.EstimateBurnByCollateralInResponse:
     type: object
     properties:
       repay_in:
@@ -30040,7 +30040,7 @@ definitions:
               last
 
               interest
-          mer_by_fury:
+          mer_by_kaiju:
             type: object
             properties:
               denom:
@@ -30055,8 +30055,8 @@ definitions:
               method
 
               signatures required by gogoproto.
-            title: total minted merl by burning fury
-          fury_burned:
+            title: total minted merl by burning kaiju
+          kaiju_burned:
             type: object
             properties:
               denom:
@@ -30071,7 +30071,7 @@ definitions:
               method
 
               signatures required by gogoproto.
-            title: total burned fury
+            title: total burned kaiju
       pool_coll:
         type: object
         properties:
@@ -30111,8 +30111,8 @@ definitions:
               method
 
               signatures required by gogoproto.
-          mer_by_fury:
-            title: total minted merl by burning fury
+          mer_by_kaiju:
+            title: total minted merl by burning kaiju
             type: object
             properties:
               denom:
@@ -30127,8 +30127,8 @@ definitions:
               method
 
               signatures required by gogoproto.
-          fury_burned:
-            title: total burned fury
+          kaiju_burned:
+            title: total burned kaiju
             type: object
             properties:
               denom:
@@ -30183,8 +30183,8 @@ definitions:
               method
 
               signatures required by gogoproto.
-          mer_by_fury:
-            title: minted black by burning fury
+          mer_by_kaiju:
+            title: minted black by burning kaiju
             type: object
             properties:
               denom:
@@ -30199,8 +30199,8 @@ definitions:
               method
 
               signatures required by gogoproto.
-          fury_burned:
-            title: total burned fury
+          kaiju_burned:
+            title: total burned kaiju
             type: object
             properties:
               denom:
@@ -30235,7 +30235,7 @@ definitions:
             type: string
             format: int64
             title: the block of last settlement
-  blackfury.maker.v1.EstimateBurnBySwapOutResponse:
+  kaiju.maker.v1.EstimateBurnBySwapOutResponse:
     type: object
     properties:
       backing_out:
@@ -30250,7 +30250,7 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-      fury_out:
+      kaiju_out:
         type: object
         properties:
           denom:
@@ -30274,7 +30274,7 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-  blackfury.maker.v1.EstimateBuyBackingOutResponse:
+  kaiju.maker.v1.EstimateBuyBackingOutResponse:
     type: object
     properties:
       backing_out:
@@ -30301,10 +30301,10 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-  blackfury.maker.v1.EstimateMintByCollateralInResponse:
+  kaiju.maker.v1.EstimateMintByCollateralInResponse:
     type: object
     properties:
-      fury_in:
+      kaiju_in:
         type: object
         properties:
           denom:
@@ -30351,7 +30351,7 @@ definitions:
               last
 
               interest
-          mer_by_fury:
+          mer_by_kaiju:
             type: object
             properties:
               denom:
@@ -30366,8 +30366,8 @@ definitions:
               method
 
               signatures required by gogoproto.
-            title: total minted merl by burning fury
-          fury_burned:
+            title: total minted merl by burning kaiju
+          kaiju_burned:
             type: object
             properties:
               denom:
@@ -30382,7 +30382,7 @@ definitions:
               method
 
               signatures required by gogoproto.
-            title: total burned fury
+            title: total burned kaiju
       pool_coll:
         type: object
         properties:
@@ -30422,8 +30422,8 @@ definitions:
               method
 
               signatures required by gogoproto.
-          mer_by_fury:
-            title: total minted merl by burning fury
+          mer_by_kaiju:
+            title: total minted merl by burning kaiju
             type: object
             properties:
               denom:
@@ -30438,8 +30438,8 @@ definitions:
               method
 
               signatures required by gogoproto.
-          fury_burned:
-            title: total burned fury
+          kaiju_burned:
+            title: total burned kaiju
             type: object
             properties:
               denom:
@@ -30494,8 +30494,8 @@ definitions:
               method
 
               signatures required by gogoproto.
-          mer_by_fury:
-            title: minted black by burning fury
+          mer_by_kaiju:
+            title: minted black by burning kaiju
             type: object
             properties:
               denom:
@@ -30510,8 +30510,8 @@ definitions:
               method
 
               signatures required by gogoproto.
-          fury_burned:
-            title: total burned fury
+          kaiju_burned:
+            title: total burned kaiju
             type: object
             properties:
               denom:
@@ -30546,7 +30546,7 @@ definitions:
             type: string
             format: int64
             title: the block of last settlement
-  blackfury.maker.v1.EstimateMintBySwapInResponse:
+  kaiju.maker.v1.EstimateMintBySwapInResponse:
     type: object
     properties:
       backing_in:
@@ -30561,7 +30561,7 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-      fury_in:
+      kaiju_in:
         type: object
         properties:
           denom:
@@ -30585,7 +30585,7 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-  blackfury.maker.v1.EstimateMintBySwapOutResponse:
+  kaiju.maker.v1.EstimateMintBySwapOutResponse:
     type: object
     properties:
       backing_in:
@@ -30600,7 +30600,7 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-      fury_in:
+      kaiju_in:
         type: object
         properties:
           denom:
@@ -30636,10 +30636,10 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-  blackfury.maker.v1.EstimateSellBackingOutResponse:
+  kaiju.maker.v1.EstimateSellBackingOutResponse:
     type: object
     properties:
-      fury_out:
+      kaiju_out:
         type: object
         properties:
           denom:
@@ -30663,7 +30663,7 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-  blackfury.maker.v1.Params:
+  kaiju.maker.v1.Params:
     type: object
     properties:
       backing_ratio_step:
@@ -30689,7 +30689,7 @@ definitions:
         type: string
         title: liquidation commission fee ratio
     description: Params defines the parameters for the maker module.
-  blackfury.maker.v1.PoolBacking:
+  kaiju.maker.v1.PoolBacking:
     type: object
     properties:
       mer_minted:
@@ -30718,8 +30718,8 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-      fury_burned:
-        title: total burned fury
+      kaiju_burned:
+        title: total burned kaiju
         type: object
         properties:
           denom:
@@ -30731,7 +30731,7 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-  blackfury.maker.v1.PoolCollateral:
+  kaiju.maker.v1.PoolCollateral:
     type: object
     properties:
       collateral:
@@ -30764,8 +30764,8 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-      mer_by_fury:
-        title: total minted merl by burning fury
+      mer_by_kaiju:
+        title: total minted merl by burning kaiju
         type: object
         properties:
           denom:
@@ -30777,8 +30777,8 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-      fury_burned:
-        title: total burned fury
+      kaiju_burned:
+        title: total burned kaiju
         type: object
         properties:
           denom:
@@ -30790,7 +30790,7 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-  blackfury.maker.v1.QueryAllBackingPoolsResponse:
+  kaiju.maker.v1.QueryAllBackingPoolsResponse:
     type: object
     properties:
       backing_pools:
@@ -30830,8 +30830,8 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-            fury_burned:
-              title: total burned fury
+            kaiju_burned:
+              title: total burned kaiju
               type: object
               properties:
                 denom:
@@ -30846,7 +30846,7 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-  blackfury.maker.v1.QueryAllBackingRiskParamsResponse:
+  kaiju.maker.v1.QueryAllBackingRiskParamsResponse:
     type: object
     properties:
       risk_params:
@@ -30882,7 +30882,7 @@ definitions:
           description: >-
             BackingRiskParams represents an object of backing coin risk
             parameters.
-  blackfury.maker.v1.QueryAllCollateralPoolsResponse:
+  kaiju.maker.v1.QueryAllCollateralPoolsResponse:
     type: object
     properties:
       collateral_pools:
@@ -30926,8 +30926,8 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-            mer_by_fury:
-              title: total minted merl by burning fury
+            mer_by_kaiju:
+              title: total minted merl by burning kaiju
               type: object
               properties:
                 denom:
@@ -30942,8 +30942,8 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-            fury_burned:
-              title: total burned fury
+            kaiju_burned:
+              title: total burned kaiju
               type: object
               properties:
                 denom:
@@ -30958,7 +30958,7 @@ definitions:
                 method
 
                 signatures required by gogoproto.
-  blackfury.maker.v1.QueryAllCollateralRiskParamsResponse:
+  kaiju.maker.v1.QueryAllCollateralRiskParamsResponse:
     type: object
     properties:
       risk_params:
@@ -30996,10 +30996,10 @@ definitions:
                 with a
 
                 specific collateral
-            catalytic_fury_ratio:
+            catalytic_kaiju_ratio:
               type: string
               title: >-
-                catalytic ratio of burned Fury to minted stablecoins, to
+                catalytic ratio of burned Kaiju to minted stablecoins, to
                 maximize the LTV
 
                 in [basic-LTV, LTV]
@@ -31019,7 +31019,7 @@ definitions:
           description: >-
             CollateralRiskParams represents an object of collateral risk
             parameters.
-  blackfury.maker.v1.QueryBackingPoolResponse:
+  kaiju.maker.v1.QueryBackingPoolResponse:
     type: object
     properties:
       backing_pool:
@@ -31057,8 +31057,8 @@ definitions:
               method
 
               signatures required by gogoproto.
-          fury_burned:
-            title: total burned fury
+          kaiju_burned:
+            title: total burned kaiju
             type: object
             properties:
               denom:
@@ -31073,7 +31073,7 @@ definitions:
               method
 
               signatures required by gogoproto.
-  blackfury.maker.v1.QueryBackingRatioResponse:
+  kaiju.maker.v1.QueryBackingRatioResponse:
     type: object
     properties:
       backing_ratio:
@@ -31081,7 +31081,7 @@ definitions:
       last_update_block:
         type: string
         format: int64
-  blackfury.maker.v1.QueryCollateralOfAccountResponse:
+  kaiju.maker.v1.QueryCollateralOfAccountResponse:
     type: object
     properties:
       account_collateral:
@@ -31124,8 +31124,8 @@ definitions:
               method
 
               signatures required by gogoproto.
-          mer_by_fury:
-            title: minted black by burning fury
+          mer_by_kaiju:
+            title: minted black by burning kaiju
             type: object
             properties:
               denom:
@@ -31140,8 +31140,8 @@ definitions:
               method
 
               signatures required by gogoproto.
-          fury_burned:
-            title: total burned fury
+          kaiju_burned:
+            title: total burned kaiju
             type: object
             properties:
               denom:
@@ -31176,7 +31176,7 @@ definitions:
             type: string
             format: int64
             title: the block of last settlement
-  blackfury.maker.v1.QueryCollateralPoolResponse:
+  kaiju.maker.v1.QueryCollateralPoolResponse:
     type: object
     properties:
       collateral_pool:
@@ -31218,8 +31218,8 @@ definitions:
               method
 
               signatures required by gogoproto.
-          mer_by_fury:
-            title: total minted merl by burning fury
+          mer_by_kaiju:
+            title: total minted merl by burning kaiju
             type: object
             properties:
               denom:
@@ -31234,8 +31234,8 @@ definitions:
               method
 
               signatures required by gogoproto.
-          fury_burned:
-            title: total burned fury
+          kaiju_burned:
+            title: total burned kaiju
             type: object
             properties:
               denom:
@@ -31250,7 +31250,7 @@ definitions:
               method
 
               signatures required by gogoproto.
-  blackfury.maker.v1.QueryParamsResponse:
+  kaiju.maker.v1.QueryParamsResponse:
     type: object
     properties:
       params:
@@ -31280,7 +31280,7 @@ definitions:
             type: string
             title: liquidation commission fee ratio
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  blackfury.maker.v1.QueryTotalBackingResponse:
+  kaiju.maker.v1.QueryTotalBackingResponse:
     type: object
     properties:
       total_backing:
@@ -31302,7 +31302,7 @@ definitions:
 
               signatures required by gogoproto.
             title: total minted black
-          fury_burned:
+          kaiju_burned:
             type: object
             properties:
               denom:
@@ -31317,8 +31317,8 @@ definitions:
               method
 
               signatures required by gogoproto.
-            title: total burned fury
-  blackfury.maker.v1.QueryTotalCollateralResponse:
+            title: total burned kaiju
+  kaiju.maker.v1.QueryTotalCollateralResponse:
     type: object
     properties:
       total_collateral:
@@ -31344,7 +31344,7 @@ definitions:
               last
 
               interest
-          mer_by_fury:
+          mer_by_kaiju:
             type: object
             properties:
               denom:
@@ -31359,8 +31359,8 @@ definitions:
               method
 
               signatures required by gogoproto.
-            title: total minted merl by burning fury
-          fury_burned:
+            title: total minted merl by burning kaiju
+          kaiju_burned:
             type: object
             properties:
               denom:
@@ -31375,8 +31375,8 @@ definitions:
               method
 
               signatures required by gogoproto.
-            title: total burned fury
-  blackfury.maker.v1.TotalBacking:
+            title: total burned kaiju
+  kaiju.maker.v1.TotalBacking:
     type: object
     properties:
       mer_minted:
@@ -31392,7 +31392,7 @@ definitions:
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
         title: total minted black
-      fury_burned:
+      kaiju_burned:
         type: object
         properties:
           denom:
@@ -31404,8 +31404,8 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-        title: total burned fury
-  blackfury.maker.v1.TotalCollateral:
+        title: total burned kaiju
+  kaiju.maker.v1.TotalCollateral:
     type: object
     properties:
       mer_debt:
@@ -31425,7 +31425,7 @@ definitions:
           last
 
           interest
-      mer_by_fury:
+      mer_by_kaiju:
         type: object
         properties:
           denom:
@@ -31437,8 +31437,8 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-        title: total minted merl by burning fury
-      fury_burned:
+        title: total minted merl by burning kaiju
+      kaiju_burned:
         type: object
         properties:
           denom:
@@ -31450,7 +31450,7 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-        title: total burned fury
+        title: total burned kaiju
   cosmos.base.v1beta1.DecCoin:
     type: object
     properties:
@@ -31463,7 +31463,7 @@ definitions:
 
       NOTE: The amount field is an Dec which implements the custom method
       signatures required by gogoproto.
-  blackfury.oracle.v1.AggregateExchangeRatePrevote:
+  kaiju.oracle.v1.AggregateExchangeRatePrevote:
     type: object
     properties:
       hash:
@@ -31483,7 +31483,7 @@ definitions:
       SHA256("{salt}:{exchange
 
       rate}{denom},...,{exchange rate}{denom}:{voter}")
-  blackfury.oracle.v1.AggregateExchangeRateVote:
+  kaiju.oracle.v1.AggregateExchangeRateVote:
     type: object
     properties:
       exchange_rate_tuples:
@@ -31501,7 +31501,7 @@ definitions:
     description: |-
       AggregateExchangeRateVote represents the voting on
       the exchange rates of various assets denominated in uUSD.
-  blackfury.oracle.v1.ExchangeRateTuple:
+  kaiju.oracle.v1.ExchangeRateTuple:
     type: object
     properties:
       denom:
@@ -31509,7 +31509,7 @@ definitions:
       exchange_rate:
         type: string
     description: ExchangeRateTuple stores interpreted exchange rates data.
-  blackfury.oracle.v1.Params:
+  kaiju.oracle.v1.Params:
     type: object
     properties:
       vote_period:
@@ -31530,7 +31530,7 @@ definitions:
       min_valid_per_window:
         type: string
     description: Params defines the parameters for the oracle module.
-  blackfury.oracle.v1.QueryActivesResponse:
+  kaiju.oracle.v1.QueryActivesResponse:
     type: object
     properties:
       actives:
@@ -31543,7 +31543,7 @@ definitions:
     description: |-
       QueryActivesResponse is response type for the
       Query/Actives RPC method.
-  blackfury.oracle.v1.QueryAggregatePrevoteResponse:
+  kaiju.oracle.v1.QueryAggregatePrevoteResponse:
     type: object
     properties:
       aggregate_prevote:
@@ -31574,7 +31574,7 @@ definitions:
     description: |-
       QueryAggregatePrevoteResponse is response type for the
       Query/AggregatePrevote RPC method.
-  blackfury.oracle.v1.QueryAggregatePrevotesResponse:
+  kaiju.oracle.v1.QueryAggregatePrevotesResponse:
     type: object
     properties:
       aggregate_prevotes:
@@ -31608,7 +31608,7 @@ definitions:
     description: |-
       QueryAggregatePrevotesResponse is response type for the
       Query/AggregatePrevotes RPC method.
-  blackfury.oracle.v1.QueryAggregateVoteResponse:
+  kaiju.oracle.v1.QueryAggregateVoteResponse:
     type: object
     properties:
       aggregate_vote:
@@ -31634,7 +31634,7 @@ definitions:
     description: |-
       QueryAggregateVoteResponse is response type for the
       Query/AggregateVote RPC method.
-  blackfury.oracle.v1.QueryAggregateVotesResponse:
+  kaiju.oracle.v1.QueryAggregateVotesResponse:
     type: object
     properties:
       aggregate_votes:
@@ -31665,7 +31665,7 @@ definitions:
     description: |-
       QueryAggregateVotesResponse is response type for the
       Query/AggregateVotes RPC method.
-  blackfury.oracle.v1.QueryExchangeRateResponse:
+  kaiju.oracle.v1.QueryExchangeRateResponse:
     type: object
     properties:
       exchange_rate:
@@ -31678,7 +31678,7 @@ definitions:
     description: |-
       QueryExchangeRateResponse is response type for the
       Query/ExchangeRate RPC method.
-  blackfury.oracle.v1.QueryExchangeRatesResponse:
+  kaiju.oracle.v1.QueryExchangeRatesResponse:
     type: object
     properties:
       exchange_rates:
@@ -31701,7 +31701,7 @@ definitions:
     description: |-
       QueryExchangeRatesResponse is response type for the
       Query/ExchangeRates RPC method.
-  blackfury.oracle.v1.QueryFeederDelegationResponse:
+  kaiju.oracle.v1.QueryFeederDelegationResponse:
     type: object
     properties:
       feeder_addr:
@@ -31710,7 +31710,7 @@ definitions:
     description: |-
       QueryFeederDelegationResponse is response type for the
       Query/FeederDelegation RPC method.
-  blackfury.oracle.v1.QueryMissCounterResponse:
+  kaiju.oracle.v1.QueryMissCounterResponse:
     type: object
     properties:
       miss_counter:
@@ -31720,7 +31720,7 @@ definitions:
     description: |-
       QueryMissCounterResponse is response type for the
       Query/MissCounter RPC method.
-  blackfury.oracle.v1.QueryParamsResponse:
+  kaiju.oracle.v1.QueryParamsResponse:
     type: object
     properties:
       params:
@@ -31745,7 +31745,7 @@ definitions:
           min_valid_per_window:
             type: string
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  blackfury.oracle.v1.QueryTargetsResponse:
+  kaiju.oracle.v1.QueryTargetsResponse:
     type: object
     properties:
       targets:
@@ -31758,7 +31758,7 @@ definitions:
     description: |-
       QueryTargetsResponse is response type for the
       Query/Targets RPC method.
-  blackfury.oracle.v1.QueryVoteTargetsResponse:
+  kaiju.oracle.v1.QueryVoteTargetsResponse:
     type: object
     properties:
       vote_targets:
@@ -31771,13 +31771,13 @@ definitions:
     description: |-
       QueryVoteTargetsResponse is response type for the
       Query/VoteTargets RPC method.
-  blackfury.ve.v1.Params:
+  kaiju.ve.v1.Params:
     type: object
     properties:
       lock_denom:
         type: string
     description: Params defines the parameters for the module.
-  blackfury.ve.v1.QueryParamsResponse:
+  kaiju.ve.v1.QueryParamsResponse:
     type: object
     properties:
       params:
@@ -31787,17 +31787,17 @@ definitions:
           lock_denom:
             type: string
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  blackfury.ve.v1.QueryTotalVotingPowerResponse:
+  kaiju.ve.v1.QueryTotalVotingPowerResponse:
     type: object
     properties:
       power:
         type: string
-  blackfury.ve.v1.QueryVotingPowerResponse:
+  kaiju.ve.v1.QueryVotingPowerResponse:
     type: object
     properties:
       power:
         type: string
-  blackfury.vesting.v1.Airdrop:
+  kaiju.vesting.v1.Airdrop:
     type: object
     properties:
       target_addr:
@@ -31814,7 +31814,7 @@ definitions:
 
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
-  blackfury.vesting.v1.AllocationAmounts:
+  kaiju.vesting.v1.AllocationAmounts:
     type: object
     properties:
       total_amount:
@@ -31831,7 +31831,7 @@ definitions:
         type: string
       team_vesting_amount:
         type: string
-  blackfury.vesting.v1.Params:
+  kaiju.vesting.v1.Params:
     type: object
     properties:
       allocation:
@@ -31852,7 +31852,7 @@ definitions:
           team_vesting_amount:
             type: string
     description: Params defines the parameters for the module.
-  blackfury.vesting.v1.QueryAirdropResponse:
+  kaiju.vesting.v1.QueryAirdropResponse:
     type: object
     properties:
       airdrop:
@@ -31875,7 +31875,7 @@ definitions:
               method
 
               signatures required by gogoproto.
-  blackfury.vesting.v1.QueryAirdropsResponse:
+  kaiju.vesting.v1.QueryAirdropsResponse:
     type: object
     properties:
       airdrops:
@@ -31919,7 +31919,7 @@ definitions:
               PageRequest.count_total
 
               was set, its value is undefined otherwise
-  blackfury.vesting.v1.QueryParamsResponse:
+  kaiju.vesting.v1.QueryParamsResponse:
     type: object
     properties:
       params:
@@ -31944,10 +31944,10 @@ definitions:
               team_vesting_amount:
                 type: string
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  blackfury.voter.v1.Params:
+  kaiju.voter.v1.Params:
     type: object
     description: Params defines the parameters for the module.
-  blackfury.voter.v1.QueryParamsResponse:
+  kaiju.voter.v1.QueryParamsResponse:
     type: object
     properties:
       params:

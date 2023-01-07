@@ -160,8 +160,8 @@ func validateCollateralRiskParams(params *CollateralRiskParams) error {
 	if params.BasicLoanToValue != nil && (params.BasicLoanToValue.IsNegative() || params.BasicLoanToValue.GT(sdk.OneDec())) {
 		return fmt.Errorf("basic loan-to-value must be in [0, 1]")
 	}
-	if params.CatalyticFuryRatio != nil && (params.CatalyticFuryRatio.IsNegative() || params.CatalyticFuryRatio.GT(sdk.OneDec())) {
-		return fmt.Errorf("catalytic fury ratio must be in [0, 1]")
+	if params.CatalyticKaijuRatio != nil && (params.CatalyticKaijuRatio.IsNegative() || params.CatalyticKaijuRatio.GT(sdk.OneDec())) {
+		return fmt.Errorf("catalytic kaiju ratio must be in [0, 1]")
 	}
 	if params.LiquidationFee != nil && (params.LiquidationFee.IsNegative() || params.LiquidationFee.GT(sdk.OneDec())) {
 		return fmt.Errorf("liquidation fee must be in [0, 1]")

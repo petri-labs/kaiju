@@ -3,8 +3,8 @@ package keeper
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	blackfury "github.com/furya-official/blackfury/types"
-	"github.com/furya-official/blackfury/x/oracle/types"
+	kaiju "github.com/petri-labs/kaiju/types"
+	"github.com/petri-labs/kaiju/x/oracle/types"
 )
 
 func HandleRegisterTargetProposal(ctx sdk.Context, k Keeper, p *types.RegisterTargetProposal) error {
@@ -15,7 +15,7 @@ func HandleRegisterTargetProposal(ctx sdk.Context, k Keeper, p *types.RegisterTa
 	}
 
 	// Check if the coin exists by ensuring the supply is set
-	if !k.bankKeeper.HasSupply(ctx, params.Denom) && params.Denom != blackfury.MicroFUSDDenom {
+	if !k.bankKeeper.HasSupply(ctx, params.Denom) && params.Denom != kaiju.MicroFUSDDenom {
 		return sdkerrors.Wrapf(
 			sdkerrors.ErrInvalidCoins,
 			"target denom '%s' cannot have a supply of 0", params.Denom,

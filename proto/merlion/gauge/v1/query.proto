@@ -1,18 +1,18 @@
 syntax = "proto3";
-package blackfury.gauge.v1;
+package kaiju.gauge.v1;
 
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
-import "blackfury/gauge/v1/genesis.proto";
+import "kaiju/gauge/v1/genesis.proto";
 
-option go_package = "github.com/furya-official/blackfury/x/gauge/types";
+option go_package = "github.com/petri-labs/kaiju/x/gauge/types";
 
 // Query defines the gRPC querier service.
 service Query {
   // Parameters queries the parameters of the module.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/furyaofficial/blackfury/gauge/params";
+    option (google.api.http).get = "/kaijuaofficial/kaiju/gauge/params";
   }
 }
 

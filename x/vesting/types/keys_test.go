@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/furya-official/blackfury/app"
-	"github.com/furya-official/blackfury/x/vesting/types"
+	"github.com/petri-labs/kaiju/app"
+	"github.com/petri-labs/kaiju/x/vesting/types"
 	"github.com/stretchr/testify/require"
 )
 

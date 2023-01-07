@@ -3,8 +3,8 @@ package keeper
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	blackfury "github.com/furya-official/blackfury/types"
-	"github.com/furya-official/blackfury/x/maker/types"
+	kaiju "github.com/petri-labs/kaiju/types"
+	"github.com/petri-labs/kaiju/x/maker/types"
 )
 
 func HandleRegisterBackingProposal(ctx sdk.Context, k Keeper, p *types.RegisterBackingProposal) error {
@@ -47,15 +47,15 @@ func HandleRegisterBackingProposal(ctx sdk.Context, k Keeper, p *types.RegisterB
 	_, found := k.GetTotalBacking(ctx)
 	if !found {
 		k.SetTotalBacking(ctx, types.TotalBacking{
-			MerMinted:  sdk.NewCoin(blackfury.MicroFUSDDenom, sdk.ZeroInt()),
-			FuryBurned: sdk.NewCoin(blackfury.AttoFuryDenom, sdk.ZeroInt()),
+			MerMinted:  sdk.NewCoin(kaiju.MicroFUSDDenom, sdk.ZeroInt()),
+			KaijuBurned: sdk.NewCoin(kaiju.AttoKaijuDenom, sdk.ZeroInt()),
 		})
 	}
 
 	k.SetPoolBacking(ctx, types.PoolBacking{
-		MerMinted:  sdk.NewCoin(blackfury.MicroFUSDDenom, sdk.ZeroInt()),
+		MerMinted:  sdk.NewCoin(kaiju.MicroFUSDDenom, sdk.ZeroInt()),
 		Backing:    sdk.NewCoin(params.BackingDenom, sdk.ZeroInt()),
-		FuryBurned: sdk.NewCoin(blackfury.AttoFuryDenom, sdk.ZeroInt()),
+		KaijuBurned: sdk.NewCoin(kaiju.AttoKaijuDenom, sdk.ZeroInt()),
 	})
 
 	ctx.EventManager().EmitEvents(sdk.Events{
@@ -97,9 +97,9 @@ func HandleRegisterCollateralProposal(ctx sdk.Context, k Keeper, p *types.Regist
 		dec := sdk.NewDecWithPrec(40, 2)
 		params.BasicLoanToValue = &dec
 	}
-	if params.CatalyticFuryRatio == nil {
+	if params.CatalyticKaijuRatio == nil {
 		dec := sdk.NewDecWithPrec(10, 2)
-		params.CatalyticFuryRatio = &dec
+		params.CatalyticKaijuRatio = &dec
 	}
 	if params.LiquidationFee == nil {
 		dec := sdk.NewDecWithPrec(10, 2)
@@ -123,15 +123,15 @@ func HandleRegisterCollateralProposal(ctx sdk.Context, k Keeper, p *types.Regist
 	_, found := k.GetTotalCollateral(ctx)
 	if !found {
 		k.SetTotalCollateral(ctx, types.TotalCollateral{
-			MerDebt:            sdk.NewCoin(blackfury.MicroFUSDDenom, sdk.ZeroInt()),
-			FuryCollateralized: sdk.NewCoin(blackfury.AttoFuryDenom, sdk.ZeroInt()),
+			MerDebt:            sdk.NewCoin(kaiju.MicroFUSDDenom, sdk.ZeroInt()),
+			KaijuCollateralized: sdk.NewCoin(kaiju.AttoKaijuDenom, sdk.ZeroInt()),
 		})
 	}
 
 	k.SetPoolCollateral(ctx, types.PoolCollateral{
 		Collateral:         sdk.NewCoin(params.CollateralDenom, sdk.ZeroInt()),
-		MerDebt:            sdk.NewCoin(blackfury.MicroFUSDDenom, sdk.ZeroInt()),
-		FuryCollateralized: sdk.NewCoin(blackfury.AttoFuryDenom, sdk.ZeroInt()),
+		MerDebt:            sdk.NewCoin(kaiju.MicroFUSDDenom, sdk.ZeroInt()),
+		KaijuCollateralized: sdk.NewCoin(kaiju.AttoKaijuDenom, sdk.ZeroInt()),
 	})
 
 	ctx.EventManager().EmitEvents(sdk.Events{
@@ -221,7 +221,7 @@ func setCollateralRiskParamsProposal(ctx sdk.Context, k Keeper, patch *types.Col
 	updated |= updateDecimal(params.LiquidationThreshold, patch.LiquidationThreshold)
 	updated |= updateDecimal(params.LoanToValue, patch.LoanToValue)
 	updated |= updateDecimal(params.BasicLoanToValue, patch.BasicLoanToValue)
-	updated |= updateDecimal(params.CatalyticFuryRatio, patch.CatalyticFuryRatio)
+	updated |= updateDecimal(params.CatalyticKaijuRatio, patch.CatalyticKaijuRatio)
 	updated |= updateDecimal(params.LiquidationFee, patch.LiquidationFee)
 	updated |= updateDecimal(params.MintFee, patch.MintFee)
 	updated |= updateDecimal(params.InterestFee, patch.InterestFee)

@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/furya-official/blackfury/x/maker/keeper"
-	"github.com/furya-official/blackfury/x/maker/types"
+	"github.com/petri-labs/kaiju/x/maker/keeper"
+	"github.com/petri-labs/kaiju/x/maker/types"
 )
 
 // InitGenesis initializes the capability module's state from a provided genesis

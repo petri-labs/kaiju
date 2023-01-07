@@ -9,16 +9,16 @@ TMVERSION := $(shell go list -m github.com/tendermint/tendermint | sed 's:.* ::'
 COMMIT := $(shell git log -1 --format='%H')
 LEDGER_ENABLED ?= true
 BINDIR ?= $(GOPATH)/bin
-BLACKFURY_BINARY = blackfuryd
-BLACKFURY_DIR = blackfury
+KAIJU_BINARY = kaijud
+KAIJU_DIR = kaiju
 BUILDDIR ?= $(CURDIR)/build
 BUILD_BRIDGING_DIR ?= $(CURDIR)/build-bridging
 SIMAPP = ./app
-HTTPS_GIT := https://github.com/furya-official/blackfury.git
+HTTPS_GIT := https://github.com/petri-labs/kaiju.git
 DOCKER := $(shell which docker)
 DOCKER_BUF := $(DOCKER) run --rm -v $(CURDIR):/workspace --workdir /workspace bufbuild/buf
-NAMESPACE := furyaofficial
-PROJECT := blackfury
+NAMESPACE := kaijuaofficial
+PROJECT := kaiju
 DOCKER_IMAGE := $(NAMESPACE)/$(PROJECT)
 COMMIT_HASH := $(shell git rev-parse --short=7 HEAD)
 DOCKER_TAG := $(COMMIT_HASH)
@@ -69,8 +69,8 @@ build_tags_comma_sep := $(subst $(whitespace),$(comma),$(build_tags))
 
 # process linker flags
 
-ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=blackfury \
-          -X github.com/cosmos/cosmos-sdk/version.AppName=$(BLACKFURY_BINARY) \
+ldflags = -X github.com/cosmos/cosmos-sdk/version.Name=kaiju \
+          -X github.com/cosmos/cosmos-sdk/version.AppName=$(KAIJU_BINARY) \
           -X github.com/cosmos/cosmos-sdk/version.Version=$(VERSION) \
           -X github.com/cosmos/cosmos-sdk/version.Commit=$(COMMIT) \
           -X "github.com/cosmos/cosmos-sdk/version.BuildTags=$(build_tags_comma_sep)" \
@@ -130,7 +130,7 @@ build-reproducible: go.sum
 	$(DOCKER) rm latest-build || true
 	$(DOCKER) run --volume=$(CURDIR):/sources:ro \
         --env TARGET_PLATFORMS='linux/amd64' \
-        --env APP=blackfuryd \
+        --env APP=kaijud \
         --env VERSION=$(VERSION) \
         --env COMMIT=$(COMMIT) \
         --env CGO_ENABLED=1 \
@@ -145,12 +145,12 @@ build-docker:
 	$(DOCKER) tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:latest
 	# docker tag ${DOCKER_IMAGE}:${DOCKER_TAG} ${DOCKER_IMAGE}:${COMMIT_HASH}
 	# update old container
-	$(DOCKER) rm blackfury || true
+	$(DOCKER) rm kaiju || true
 	# create a new container from the latest image
-	$(DOCKER) create --name blackfury -t -i ${DOCKER_IMAGE}:latest blackfury
+	$(DOCKER) create --name kaiju -t -i ${DOCKER_IMAGE}:latest kaiju
 	# move the binaries to the ./build directory
 	mkdir -p ./build/
-	$(DOCKER) cp blackfury:/usr/bin/blackfuryd ./build/
+	$(DOCKER) cp kaiju:/usr/bin/kaijud ./build/
 
 push-docker: build-docker
 	$(DOCKER) push ${DOCKER_IMAGE}:${DOCKER_TAG}
@@ -287,7 +287,7 @@ update-swagger-docs: statik
 .PHONY: update-swagger-docs
 
 godocs:
-	@echo "--> Wait a few seconds and visit http://localhost:6060/pkg/github.com/furya-official/blackfury/types"
+	@echo "--> Wait a few seconds and visit http://localhost:6060/pkg/github.com/petri-labs/kaiju/types"
 	godoc -http=:6060
 
 # Start docs site at localhost:8080
@@ -363,8 +363,8 @@ test-sim-nondeterminism:
 
 test-sim-custom-genesis-fast:
 	@echo "Running custom genesis simulation..."
-	@echo "By default, ${HOME}/.$(BLACKFURY_DIR)/config/genesis.json will be used."
-	@go test -mod=readonly $(SIMAPP) -run TestFullAppSimulation -Genesis=${HOME}/.$(BLACKFURY_DIR)/config/genesis.json \
+	@echo "By default, ${HOME}/.$(KAIJU_DIR)/config/genesis.json will be used."
+	@go test -mod=readonly $(SIMAPP) -run TestFullAppSimulation -Genesis=${HOME}/.$(KAIJU_DIR)/config/genesis.json \
 		-Enabled=true -NumBlocks=100 -BlockSize=200 -Commit=true -Seed=99 -Period=5 -v -timeout 24h
 
 test-sim-import-export: runsim
@@ -377,8 +377,8 @@ test-sim-after-import: runsim
 
 test-sim-custom-genesis-multi-seed: runsim
 	@echo "Running multi-seed custom genesis simulation..."
-	@echo "By default, ${HOME}/.$(BLACKFURY_DIR)/config/genesis.json will be used."
-	@$(BINDIR)/runsim -Genesis=${HOME}/.$(BLACKFURY_DIR)/config/genesis.json -SimAppPkg=$(SIMAPP) -ExitOnFail 400 5 TestFullAppSimulation
+	@echo "By default, ${HOME}/.$(KAIJU_DIR)/config/genesis.json will be used."
+	@$(BINDIR)/runsim -Genesis=${HOME}/.$(KAIJU_DIR)/config/genesis.json -SimAppPkg=$(SIMAPP) -ExitOnFail 400 5 TestFullAppSimulation
 
 test-sim-multi-seed-long: runsim
 	@echo "Running long multi-seed application simulation. This may take awhile!"
@@ -433,7 +433,7 @@ lint-fix-contracts:
 format:
 	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/docs/statik/statik.go" -not -name '*.pb.go' | xargs gofmt -w -s
 	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/docs/statik/statik.go" -not -name '*.pb.go' | xargs misspell -w
-	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/docs/statik/statik.go" -not -name '*.pb.go' | xargs goimports -w -local github.com/furya-official/blackfury
+	find . -name '*.go' -type f -not -path "./vendor*" -not -path "*.git*" -not -path "./client/docs/statik/statik.go" -not -name '*.pb.go' | xargs goimports -w -local github.com/petri-labs/kaiju
 .PHONY: format
 
 ###############################################################################
@@ -519,8 +519,8 @@ localnet-build:
 
 # Start a multi-node testnet locally
 localnet-start: localnet-stop build-linux localnet-build
-	@if ! [ -f $(BUILDDIR)/node0/blackfuryd/config/genesis.json ]; \
-	then docker run --rm -v $(BUILDDIR):/blackfury:Z furyaofficial/localnetnode testnet init-files -v 4 -o /blackfury --starting-ip-address 192.168.10.2 --predetermined-mnemonic --keyring-backend=test; \
+	@if ! [ -f $(BUILDDIR)/node0/kaijud/config/genesis.json ]; \
+	then docker run --rm -v $(BUILDDIR):/kaiju:Z kaijuaofficial/localnetnode testnet init-files -v 4 -o /kaiju --starting-ip-address 192.168.10.2 --predetermined-mnemonic --keyring-backend=test; \
 	fi
 	docker-compose up -d
 
@@ -537,15 +537,15 @@ localnet-clean:
 localnet-unsafe-reset:
 	docker-compose down
 ifeq ($(OS),Windows_NT)
-	@docker run --rm -v $(CURDIR)\localnet-setup\node0\blackfuryd:blackfury\Z blackfuryd/node "./blackfuryd unsafe-reset-all --home=/blackfury"
-	@docker run --rm -v $(CURDIR)\localnet-setup\node1\blackfuryd:blackfury\Z blackfuryd/node "./blackfuryd unsafe-reset-all --home=/blackfury"
-	@docker run --rm -v $(CURDIR)\localnet-setup\node2\blackfuryd:blackfury\Z blackfuryd/node "./blackfuryd unsafe-reset-all --home=/blackfury"
-	@docker run --rm -v $(CURDIR)\localnet-setup\node3\blackfuryd:blackfury\Z blackfuryd/node "./blackfuryd unsafe-reset-all --home=/blackfury"
+	@docker run --rm -v $(CURDIR)\localnet-setup\node0\kaijud:kaiju\Z kaijud/node "./kaijud unsafe-reset-all --home=/kaiju"
+	@docker run --rm -v $(CURDIR)\localnet-setup\node1\kaijud:kaiju\Z kaijud/node "./kaijud unsafe-reset-all --home=/kaiju"
+	@docker run --rm -v $(CURDIR)\localnet-setup\node2\kaijud:kaiju\Z kaijud/node "./kaijud unsafe-reset-all --home=/kaiju"
+	@docker run --rm -v $(CURDIR)\localnet-setup\node3\kaijud:kaiju\Z kaijud/node "./kaijud unsafe-reset-all --home=/kaiju"
 else
-	@docker run --rm -v $(CURDIR)/localnet-setup/node0/blackfuryd:/blackfury:Z blackfuryd/node "./blackfuryd unsafe-reset-all --home=/blackfury"
-	@docker run --rm -v $(CURDIR)/localnet-setup/node1/blackfuryd:/blackfury:Z blackfuryd/node "./blackfuryd unsafe-reset-all --home=/blackfury"
-	@docker run --rm -v $(CURDIR)/localnet-setup/node2/blackfuryd:/blackfury:Z blackfuryd/node "./blackfuryd unsafe-reset-all --home=/blackfury"
-	@docker run --rm -v $(CURDIR)/localnet-setup/node3/blackfuryd:/blackfury:Z blackfuryd/node "./blackfuryd unsafe-reset-all --home=/blackfury"
+	@docker run --rm -v $(CURDIR)/localnet-setup/node0/kaijud:/kaiju:Z kaijud/node "./kaijud unsafe-reset-all --home=/kaiju"
+	@docker run --rm -v $(CURDIR)/localnet-setup/node1/kaijud:/kaiju:Z kaijud/node "./kaijud unsafe-reset-all --home=/kaiju"
+	@docker run --rm -v $(CURDIR)/localnet-setup/node2/kaijud:/kaiju:Z kaijud/node "./kaijud unsafe-reset-all --home=/kaiju"
+	@docker run --rm -v $(CURDIR)/localnet-setup/node3/kaijud:/kaiju:Z kaijud/node "./kaijud unsafe-reset-all --home=/kaiju"
 endif
 
 localnet-show-logstream:
@@ -558,9 +558,9 @@ localnet-show-logstream:
 ###############################################################################
 
 bridging-localnet-start: bridging-localnet-stop build-linux localnet-build
-	sudo mkdir -p $(BUILD_BRIDGING_DIR) && sudo cp -r $(BUILDDIR)/$(BLACKFURY_BINARY) $(BUILD_BRIDGING_DIR)/
-	@if ! [ -f $(BUILD_BRIDGING_DIR)/node0/blackfuryd/config/genesis.json ]; \
-	then docker run --rm -v $(BUILD_BRIDGING_DIR):/blackfury:Z furyaofficial/localnetnode testnet init-files -v 4 -o /blackfury --starting-ip-address 192.168.11.2 --predetermined-mnemonic --keyring-backend=test; \
+	sudo mkdir -p $(BUILD_BRIDGING_DIR) && sudo cp -r $(BUILDDIR)/$(KAIJU_BINARY) $(BUILD_BRIDGING_DIR)/
+	@if ! [ -f $(BUILD_BRIDGING_DIR)/node0/kaijud/config/genesis.json ]; \
+	then docker run --rm -v $(BUILD_BRIDGING_DIR):/kaiju:Z kaijuaofficial/localnetnode testnet init-files -v 4 -o /kaiju --starting-ip-address 192.168.11.2 --predetermined-mnemonic --keyring-backend=test; \
 	fi
 	docker-compose -f docker-compose-bridging.yml up -d
 
@@ -577,7 +577,7 @@ bridging-localnet-clean:
 ###                                Releasing                                ###
 ###############################################################################
 
-PACKAGE_NAME:=github.com/furya-official/blackfury
+PACKAGE_NAME:=github.com/petri-labs/kaiju
 GOLANG_CROSS_VERSION  = v1.17.1
 GOPATH ?= '$(HOME)/go'
 release-dry-run:

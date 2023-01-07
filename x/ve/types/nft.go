@@ -16,7 +16,7 @@ var VeNftClass = nft.Class{
 	Id:          "veNFT",
 	Name:        "veNFT",
 	Symbol:      "veNFT",
-	Description: "Blackfury locks, can be used to boost gauge yields, vote on token emission, and receive bribes",
+	Description: "Kaiju locks, can be used to boost gauge yields, vote on token emission, and receive bribes",
 }
 
 // VeIDFromUint64 converts ve id from integer to string

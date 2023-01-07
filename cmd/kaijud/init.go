@@ -15,7 +15,7 @@ import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
 	"github.com/cosmos/go-bip39"
 	"github.com/gogo/protobuf/proto"
-	blackfury "github.com/furya-official/blackfury/types"
+	kaiju "github.com/petri-labs/kaiju/types"
 	evmtypes "github.com/tharsis/ethermint/x/evm/types"
 
 	genutilcli "github.com/cosmos/cosmos-sdk/x/genutil/client/cli"
@@ -88,7 +88,7 @@ func InitCmd(mbm module.BasicManager, defaultNodeHome string) *cobra.Command {
 
 			chainID, _ := cmd.Flags().GetString(flags.FlagChainID)
 			if chainID == "" {
-				chainID = fmt.Sprintf("blackfury_5000-%v", tmrand.Str(6))
+				chainID = fmt.Sprintf("kaiju_5000-%v", tmrand.Str(6))
 			}
 
 			// Get bip39 mnemonic
@@ -164,22 +164,22 @@ func InitCmd(mbm module.BasicManager, defaultNodeHome string) *cobra.Command {
 func overwriteDefaultGenState(cdc codec.JSONCodec, appState map[string]json.RawMessage) ([]byte, error) {
 	var stakingGenState stakingtypes.GenesisState
 	cdc.MustUnmarshalJSON(appState[stakingtypes.ModuleName], &stakingGenState)
-	stakingGenState.Params.BondDenom = blackfury.AttoFuryDenom
+	stakingGenState.Params.BondDenom = kaiju.AttoKaijuDenom
 	appState[stakingtypes.ModuleName] = cdc.MustMarshalJSON(&stakingGenState)
 
 	var govGenState govtypes.GenesisState
 	cdc.MustUnmarshalJSON(appState[govtypes.ModuleName], &govGenState)
-	govGenState.DepositParams.MinDeposit[0].Denom = blackfury.AttoFuryDenom
+	govGenState.DepositParams.MinDeposit[0].Denom = kaiju.AttoKaijuDenom
 	appState[govtypes.ModuleName] = cdc.MustMarshalJSON(&govGenState)
 
 	var crisisGenState crisistypes.GenesisState
 	cdc.MustUnmarshalJSON(appState[crisistypes.ModuleName], &crisisGenState)
-	crisisGenState.ConstantFee.Denom = blackfury.AttoFuryDenom
+	crisisGenState.ConstantFee.Denom = kaiju.AttoKaijuDenom
 	appState[crisistypes.ModuleName] = cdc.MustMarshalJSON(&crisisGenState)
 
 	var evmGenState evmtypes.GenesisState
 	cdc.MustUnmarshalJSON(appState[evmtypes.ModuleName], &evmGenState)
-	evmGenState.Params.EvmDenom = blackfury.AttoFuryDenom
+	evmGenState.Params.EvmDenom = kaiju.AttoKaijuDenom
 	appState[evmtypes.ModuleName] = cdc.MustMarshalJSON(&evmGenState)
 
 	return json.MarshalIndent(appState, "", " ")

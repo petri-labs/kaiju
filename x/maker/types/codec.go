@@ -10,15 +10,15 @@ import (
 )
 
 func RegisterCodec(cdc *codec.LegacyAmino) {
-	cdc.RegisterConcrete(&MsgMintBySwap{}, "blackfury/MsgMintBySwap", nil)
-	cdc.RegisterConcrete(&MsgBurnBySwap{}, "blackfury/MsgBurnBySwap", nil)
-	cdc.RegisterConcrete(&MsgBuyBacking{}, "blackfury/MsgBuyBacking", nil)
-	cdc.RegisterConcrete(&MsgSellBacking{}, "blackfury/MsgSellBacking", nil)
-	cdc.RegisterConcrete(&MsgMintByCollateral{}, "blackfury/MsgMintByCollateral", nil)
-	cdc.RegisterConcrete(&MsgBurnByCollateral{}, "blackfury/MsgBurnByCollateral", nil)
-	cdc.RegisterConcrete(&MsgDepositCollateral{}, "blackfury/MsgDepositCollateral", nil)
-	cdc.RegisterConcrete(&MsgRedeemCollateral{}, "blackfury/MsgRedeemCollateral", nil)
-	cdc.RegisterConcrete(&MsgLiquidateCollateral{}, "blackfury/MsgLiquidateCollateral", nil)
+	cdc.RegisterConcrete(&MsgMintBySwap{}, "kaiju/MsgMintBySwap", nil)
+	cdc.RegisterConcrete(&MsgBurnBySwap{}, "kaiju/MsgBurnBySwap", nil)
+	cdc.RegisterConcrete(&MsgBuyBacking{}, "kaiju/MsgBuyBacking", nil)
+	cdc.RegisterConcrete(&MsgSellBacking{}, "kaiju/MsgSellBacking", nil)
+	cdc.RegisterConcrete(&MsgMintByCollateral{}, "kaiju/MsgMintByCollateral", nil)
+	cdc.RegisterConcrete(&MsgBurnByCollateral{}, "kaiju/MsgBurnByCollateral", nil)
+	cdc.RegisterConcrete(&MsgDepositCollateral{}, "kaiju/MsgDepositCollateral", nil)
+	cdc.RegisterConcrete(&MsgRedeemCollateral{}, "kaiju/MsgRedeemCollateral", nil)
+	cdc.RegisterConcrete(&MsgLiquidateCollateral{}, "kaiju/MsgLiquidateCollateral", nil)
 }
 
 func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {

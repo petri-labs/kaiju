@@ -8,7 +8,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/query"
 	"github.com/cosmos/cosmos-sdk/x/bank/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	mertypes "github.com/furya-official/blackfury/types"
+	mertypes "github.com/petri-labs/kaiju/types"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -19,7 +19,7 @@ func (suite *KeeperTestSuite) TestKeeper_Balance() {
 	var (
 		t     = suite.T()
 		k     = suite.app.BankKeeper
-		denom = mertypes.AttoFuryDenom
+		denom = mertypes.AttoKaijuDenom
 	)
 
 	res, err := k.Balance(sdk.WrapSDKContext(suite.ctx), nil)
@@ -51,7 +51,7 @@ func (suite *KeeperTestSuite) TestKeeper_AllBalances() {
 	var (
 		t     = suite.T()
 		k     = suite.app.BankKeeper
-		denom = mertypes.AttoFuryDenom
+		denom = mertypes.AttoKaijuDenom
 	)
 
 	req := &types.QueryAllBalancesRequest{
@@ -69,7 +69,7 @@ func (suite *KeeperTestSuite) TestKeeper_SpendableBalances() {
 	var (
 		t     = suite.T()
 		k     = suite.app.BankKeeper
-		denom = mertypes.AttoFuryDenom
+		denom = mertypes.AttoKaijuDenom
 	)
 
 	req := &types.QuerySpendableBalancesRequest{
@@ -87,7 +87,7 @@ func (suite *KeeperTestSuite) TestKeeper_TotalSupply() {
 	var (
 		t     = suite.T()
 		k     = suite.app.BankKeeper
-		denom = mertypes.AttoFuryDenom
+		denom = mertypes.AttoKaijuDenom
 	)
 
 	req := &types.QueryTotalSupplyRequest{
@@ -107,7 +107,7 @@ func (suite *KeeperTestSuite) TestKeeper_SupplyOf() {
 	var (
 		t     = suite.T()
 		k     = suite.app.BankKeeper
-		denom = mertypes.AttoFuryDenom
+		denom = mertypes.AttoKaijuDenom
 	)
 
 	res, err := k.SupplyOf(sdk.WrapSDKContext(suite.ctx), nil)
@@ -153,7 +153,7 @@ func (suite *KeeperTestSuite) TestKeeper_DenomsMetadata() {
 		base     = denom
 		display  = base[1:]
 		ufusdMeta = banktypes.Metadata{
-			Description: "The native stable token of the Blackfury.",
+			Description: "The native stable token of the Kaiju.",
 			DenomUnits: []*banktypes.DenomUnit{
 				{Denom: "u" + display, Exponent: uint32(0), Aliases: []string{"micro" + display}}, // e.g., ufusd
 				{Denom: "m" + display, Exponent: uint32(3), Aliases: []string{"milli" + display}}, // e.g., musm
@@ -192,7 +192,7 @@ func (suite *KeeperTestSuite) TestKeeper_DenomMetadata() {
 		base     = denom
 		display  = base[1:]
 		ufusdMeta = banktypes.Metadata{
-			Description: "The native stable token of the Blackfury.",
+			Description: "The native stable token of the Kaiju.",
 			DenomUnits: []*banktypes.DenomUnit{
 				{Denom: "u" + display, Exponent: uint32(0), Aliases: []string{"micro" + display}}, // e.g., ufusd
 				{Denom: "m" + display, Exponent: uint32(3), Aliases: []string{"milli" + display}}, // e.g., musm

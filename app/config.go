@@ -9,11 +9,11 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	ethermint "github.com/tharsis/ethermint/types"
 
-	blackfury "github.com/furya-official/blackfury/types"
+	kaiju "github.com/petri-labs/kaiju/types"
 )
 
 const (
-	AccountAddressPrefix = "fury"
+	AccountAddressPrefix = "kaiju"
 )
 
 // SetBech32Prefixes sets the global prefixes to be used when serializing addresses and public keys to Bech32 strings.
@@ -39,29 +39,29 @@ func SetBip44CoinType(config *sdk.Config) {
 
 // RegisterDenoms registers the base and display denominations to the SDK.
 func RegisterDenoms() {
-	if err := sdk.RegisterDenom(blackfury.DisplayDenom, sdk.OneDec()); err != nil {
+	if err := sdk.RegisterDenom(kaiju.DisplayDenom, sdk.OneDec()); err != nil {
 		panic(err)
 	}
 
-	if err := sdk.RegisterDenom(blackfury.BaseDenom, sdk.NewDecWithPrec(1, ethermint.BaseDenomUnit)); err != nil {
+	if err := sdk.RegisterDenom(kaiju.BaseDenom, sdk.NewDecWithPrec(1, ethermint.BaseDenomUnit)); err != nil {
 		panic(err)
 	}
 
 	mgravitytypes.SetGasCoinMetata(banktypes.Metadata{
-		Description: "The native gas token of the Blackfury.",
+		Description: "The native gas token of the Kaiju.",
 		DenomUnits: []*banktypes.DenomUnit{{
-			Denom:    blackfury.DisplayDenom,
+			Denom:    kaiju.DisplayDenom,
 			Exponent: ethermint.BaseDenomUnit,
 			Aliases:  []string{},
 		}, {
-			Denom:    blackfury.BaseDenom,
+			Denom:    kaiju.BaseDenom,
 			Exponent: 0,
 			Aliases:  []string{},
 		}},
-		Base:    blackfury.BaseDenom,
-		Display: blackfury.DisplayDenom,
-		Name:    strings.ToUpper(blackfury.DisplayDenom),
-		Symbol:  strings.ToUpper(blackfury.DisplayDenom),
+		Base:    kaiju.BaseDenom,
+		Display: kaiju.DisplayDenom,
+		Name:    strings.ToUpper(kaiju.DisplayDenom),
+		Symbol:  strings.ToUpper(kaiju.DisplayDenom),
 	})
 }
 

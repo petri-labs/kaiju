@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"github.com/furya-official/blackfury/x/maker/types"
+	"github.com/petri-labs/kaiju/x/maker/types"
 	"github.com/stretchr/testify/require"
 )
 

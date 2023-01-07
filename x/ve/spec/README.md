@@ -9,14 +9,14 @@ parent:
 
 ## Abstract
 
-This document specifies the ve module of Blackfury.
+This document specifies the ve module of Kaiju.
 
-The ve module is responsible for providing voting escrow capability and distributing FURY to ve holders and gauge target
+The ve module is responsible for providing voting escrow capability and distributing KAIJU to ve holders and gauge target
 audiences each cycle according to the established distribution algorithm.
 
 ### ve NFT and veID
 
-FURY holders lock their FURY amount to the ve module account for a specific duration, and create a **NFT** token (or
+KAIJU holders lock their KAIJU amount to the ve module account for a specific duration, and create a **NFT** token (or
 namely **ve**) which represents their locked amount and locking time. Every user can own several ve NFTs, each with its
 own locked amount and locking time.
 
@@ -35,7 +35,7 @@ The locked amount and the **remaining** locking time together determine the voti
 VotingPower = LockedAmount * RemainingLockingTime / <209 Weeks>
 ```
 
-That is, if a user locks 100 $FURY for 209 weeks, he will gain a voting power of 100. If he only locks for 1 week, the
+That is, if a user locks 100 $KAIJU for 209 weeks, he will gain a voting power of 100. If he only locks for 1 week, the
 voting power will be `100 / 209 = 0.478469`.
 
 As time elapse, the voting power will decay continuously. For the above example, if the locking time is 209 weeks and

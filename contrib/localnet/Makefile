@@ -1,4 +1,4 @@
 all:
-	docker build --tag furyaofficial/localnetnode .
+	docker build --tag kaijuaofficial/localnetnode .
 
 .PHONY: all

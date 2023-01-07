@@ -17,7 +17,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
-	blackfury "github.com/furya-official/blackfury/types"
+	kaiju "github.com/petri-labs/kaiju/types"
 	"github.com/spf13/cobra"
 	tmcfg "github.com/tendermint/tendermint/config"
 	tmflags "github.com/tendermint/tendermint/libs/cli/flags"
@@ -48,7 +48,7 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	"github.com/cosmos/cosmos-sdk/x/genutil"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	"github.com/furya-official/blackfury/app"
+	"github.com/petri-labs/kaiju/app"
 	"github.com/tharsis/ethermint/crypto/hd"
 
 	"github.com/tharsis/ethermint/encoding"
@@ -108,10 +108,10 @@ func DefaultConfig() Config {
 		AppConstructor:    NewAppConstructor(encCfg),
 		GenesisState:      app.ModuleBasics.DefaultGenesis(encCfg.Marshaler),
 		TimeoutCommit:     2 * time.Second,
-		ChainID:           fmt.Sprintf("blackfury_%d-1", tmrand.Intn(1000000)),
+		ChainID:           fmt.Sprintf("kaiju_%d-1", tmrand.Intn(1000000)),
 		NumValidators:     4,
-		BondDenom:         blackfury.BaseDenom,
-		MinGasPrices:      fmt.Sprintf("0.000006%s", blackfury.BaseDenom),
+		BondDenom:         kaiju.BaseDenom,
+		MinGasPrices:      fmt.Sprintf("0.000006%s", kaiju.BaseDenom),
 		AccountTokens:     sdk.TokensFromConsensusPower(1000, ethermint.PowerReduction),
 		StakingTokens:     sdk.TokensFromConsensusPower(500, ethermint.PowerReduction),
 		BondedTokens:      sdk.TokensFromConsensusPower(100, ethermint.PowerReduction),
@@ -126,7 +126,7 @@ func DefaultConfig() Config {
 // NewAppConstructor returns a new AppConstructor
 func NewAppConstructor(encodingCfg params.EncodingConfig) AppConstructor {
 	return func(val Validator) servertypes.Application {
-		return app.NewBlackfury(
+		return app.NewKaiju(
 			val.Ctx.Logger, dbm.NewMemDB(), nil, true, make(map[int64]bool), val.Ctx.Config.RootDir, 0,
 			encodingCfg,
 			simapp.EmptyAppOptions{},
@@ -331,8 +331,8 @@ func New(l Logger, baseDir string, cfg Config) (*Network, error) {
 		ctx.Logger = logger
 
 		nodeDirName := fmt.Sprintf("node%d", i)
-		nodeDir := filepath.Join(network.BaseDir, nodeDirName, "blackfuryd")
-		clientDir := filepath.Join(network.BaseDir, nodeDirName, "blackfurycli")
+		nodeDir := filepath.Join(network.BaseDir, nodeDirName, "kaijud")
+		clientDir := filepath.Join(network.BaseDir, nodeDirName, "kaijucli")
 		gentxsDir := filepath.Join(network.BaseDir, "gentxs")
 
 		err := os.MkdirAll(filepath.Join(nodeDir, "config"), 0o750)
@@ -469,7 +469,7 @@ func New(l Logger, baseDir string, cfg Config) (*Network, error) {
 			return nil, err
 		}
 
-		customAppTemplate, _ := config.AppConfig(blackfury.BaseDenom)
+		customAppTemplate, _ := config.AppConfig(kaiju.BaseDenom)
 		srvconfig.SetConfigTemplate(customAppTemplate)
 		srvconfig.WriteConfigFile(filepath.Join(nodeDir, "config/app.toml"), appCfg)
 

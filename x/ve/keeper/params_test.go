@@ -1,12 +1,12 @@
 package keeper_test
 
-import "github.com/furya-official/blackfury/x/ve/types"
+import "github.com/petri-labs/kaiju/x/ve/types"
 
 func (suite *KeeperTestSuite) TestKeeper_GetParams() {
 	suite.SetupTest()
 	k := suite.app.VeKeeper
 	params := k.GetParams(suite.ctx)
-	suite.Require().Equal("afury", params.LockDenom)
+	suite.Require().Equal("akaiju", params.LockDenom)
 }
 
 func (suite *KeeperTestSuite) TestKeeper_SetParams() {
@@ -21,5 +21,5 @@ func (suite *KeeperTestSuite) TestKeeper_LockDenom() {
 	suite.SetupTest()
 	k := suite.app.VeKeeper
 	res := k.LockDenom(suite.ctx)
-	suite.Require().Equal("afury", res)
+	suite.Require().Equal("akaiju", res)
 }

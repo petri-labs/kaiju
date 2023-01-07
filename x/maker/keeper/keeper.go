@@ -9,7 +9,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	"github.com/furya-official/blackfury/x/maker/types"
+	"github.com/petri-labs/kaiju/x/maker/types"
 )
 
 type (

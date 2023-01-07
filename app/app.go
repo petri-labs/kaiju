@@ -103,36 +103,36 @@ import (
 	feemarkettypes "github.com/tharsis/ethermint/x/feemarket/types"
 	"github.com/tharsis/evmos/v4/app/ante"
 
-	_ "github.com/furya-official/blackfury/client/docs/statik"
-	custombank "github.com/furya-official/blackfury/x/bank"
-	custombankclient "github.com/furya-official/blackfury/x/bank/client"
-	custombankkeeper "github.com/furya-official/blackfury/x/bank/keeper"
-	custombanktypes "github.com/furya-official/blackfury/x/bank/types"
-	"github.com/furya-official/blackfury/x/erc20"
-	erc20keeper "github.com/furya-official/blackfury/x/erc20/keeper"
-	erc20types "github.com/furya-official/blackfury/x/erc20/types"
-	"github.com/furya-official/blackfury/x/gauge"
-	gaugekeeper "github.com/furya-official/blackfury/x/gauge/keeper"
-	gaugetypes "github.com/furya-official/blackfury/x/gauge/types"
-	"github.com/furya-official/blackfury/x/maker"
-	makerclient "github.com/furya-official/blackfury/x/maker/client"
-	makerkeeper "github.com/furya-official/blackfury/x/maker/keeper"
-	makertypes "github.com/furya-official/blackfury/x/maker/types"
-	"github.com/furya-official/blackfury/x/oracle"
-	oracleclient "github.com/furya-official/blackfury/x/oracle/client"
-	oraclekeeper "github.com/furya-official/blackfury/x/oracle/keeper"
-	oracletypes "github.com/furya-official/blackfury/x/oracle/types"
-	customstaking "github.com/furya-official/blackfury/x/staking"
-	customstakingkeeper "github.com/furya-official/blackfury/x/staking/keeper"
-	"github.com/furya-official/blackfury/x/ve"
-	vekeeper "github.com/furya-official/blackfury/x/ve/keeper"
-	vetypes "github.com/furya-official/blackfury/x/ve/types"
-	customvesting "github.com/furya-official/blackfury/x/vesting"
-	customvestingkeeper "github.com/furya-official/blackfury/x/vesting/keeper"
-	customvestingtypes "github.com/furya-official/blackfury/x/vesting/types"
-	"github.com/furya-official/blackfury/x/voter"
-	voterkeeper "github.com/furya-official/blackfury/x/voter/keeper"
-	votertypes "github.com/furya-official/blackfury/x/voter/types"
+	_ "github.com/petri-labs/kaiju/client/docs/statik"
+	custombank "github.com/petri-labs/kaiju/x/bank"
+	custombankclient "github.com/petri-labs/kaiju/x/bank/client"
+	custombankkeeper "github.com/petri-labs/kaiju/x/bank/keeper"
+	custombanktypes "github.com/petri-labs/kaiju/x/bank/types"
+	"github.com/petri-labs/kaiju/x/erc20"
+	erc20keeper "github.com/petri-labs/kaiju/x/erc20/keeper"
+	erc20types "github.com/petri-labs/kaiju/x/erc20/types"
+	"github.com/petri-labs/kaiju/x/gauge"
+	gaugekeeper "github.com/petri-labs/kaiju/x/gauge/keeper"
+	gaugetypes "github.com/petri-labs/kaiju/x/gauge/types"
+	"github.com/petri-labs/kaiju/x/maker"
+	makerclient "github.com/petri-labs/kaiju/x/maker/client"
+	makerkeeper "github.com/petri-labs/kaiju/x/maker/keeper"
+	makertypes "github.com/petri-labs/kaiju/x/maker/types"
+	"github.com/petri-labs/kaiju/x/oracle"
+	oracleclient "github.com/petri-labs/kaiju/x/oracle/client"
+	oraclekeeper "github.com/petri-labs/kaiju/x/oracle/keeper"
+	oracletypes "github.com/petri-labs/kaiju/x/oracle/types"
+	customstaking "github.com/petri-labs/kaiju/x/staking"
+	customstakingkeeper "github.com/petri-labs/kaiju/x/staking/keeper"
+	"github.com/petri-labs/kaiju/x/ve"
+	vekeeper "github.com/petri-labs/kaiju/x/ve/keeper"
+	vetypes "github.com/petri-labs/kaiju/x/ve/types"
+	customvesting "github.com/petri-labs/kaiju/x/vesting"
+	customvestingkeeper "github.com/petri-labs/kaiju/x/vesting/keeper"
+	customvestingtypes "github.com/petri-labs/kaiju/x/vesting/types"
+	"github.com/petri-labs/kaiju/x/voter"
+	voterkeeper "github.com/petri-labs/kaiju/x/voter/keeper"
+	votertypes "github.com/petri-labs/kaiju/x/voter/types"
 )
 
 // App represents a Cosmos SDK application that can be run as a server and with an exportable state
@@ -151,7 +151,7 @@ type ExportableApp interface {
 }
 
 const (
-	Name = "blackfury"
+	Name = "kaiju"
 )
 
 func getGovProposalHandlers() []govclient.ProposalHandler {
@@ -244,9 +244,9 @@ var (
 )
 
 var (
-	_ App                     = (*Blackfury)(nil)
-	_ servertypes.Application = (*Blackfury)(nil)
-	_ simapp.App              = (*Blackfury)(nil)
+	_ App                     = (*Kaiju)(nil)
+	_ servertypes.Application = (*Kaiju)(nil)
+	_ simapp.App              = (*Kaiju)(nil)
 )
 
 func init() {
@@ -261,10 +261,10 @@ func init() {
 	sdk.DefaultPowerReduction = ethermint.PowerReduction
 }
 
-// Blackfury extends an ABCI application, but with most of its parameters exported.
+// Kaiju extends an ABCI application, but with most of its parameters exported.
 // They are exported for convenience in creating helper functions, as object
 // capabilities aren't needed for testing.
-type Blackfury struct {
+type Kaiju struct {
 	*baseapp.BaseApp
 
 	cdc               *codec.LegacyAmino
@@ -326,8 +326,8 @@ type Blackfury struct {
 	tpsCounter *tpsCounter
 }
 
-// NewBlackfury returns a reference to an initialized blockchain app
-func NewBlackfury(
+// NewKaiju returns a reference to an initialized blockchain app
+func NewKaiju(
 	logger log.Logger,
 	db dbm.DB,
 	traceStore io.Writer,
@@ -368,7 +368,7 @@ func NewBlackfury(
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey, evmtypes.TransientKey)
 	memKeys := sdk.NewMemoryStoreKeys(capabilitytypes.MemStoreKey)
 
-	app := &Blackfury{
+	app := &Kaiju{
 		BaseApp:           bApp,
 		cdc:               cdc,
 		appCodec:          appCodec,
@@ -807,23 +807,23 @@ func NewBlackfury(
 	return app
 }
 
-// Name returns the name of the Blackfury
-func (app *Blackfury) Name() string { return app.BaseApp.Name() }
+// Name returns the name of the Kaiju
+func (app *Kaiju) Name() string { return app.BaseApp.Name() }
 
 // GetBaseApp returns the base app of the application
-func (app Blackfury) GetBaseApp() *baseapp.BaseApp { return app.BaseApp }
+func (app Kaiju) GetBaseApp() *baseapp.BaseApp { return app.BaseApp }
 
 // BeginBlocker application updates every begin block
-func (app *Blackfury) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
+func (app *Kaiju) BeginBlocker(ctx sdk.Context, req abci.RequestBeginBlock) abci.ResponseBeginBlock {
 	return app.mm.BeginBlock(ctx, req)
 }
 
 // EndBlocker application updates every end block
-func (app *Blackfury) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
+func (app *Kaiju) EndBlocker(ctx sdk.Context, req abci.RequestEndBlock) abci.ResponseEndBlock {
 	return app.mm.EndBlock(ctx, req)
 }
 
-func (app *Blackfury) DeliverTx(req abci.RequestDeliverTx) (res abci.ResponseDeliverTx) {
+func (app *Kaiju) DeliverTx(req abci.RequestDeliverTx) (res abci.ResponseDeliverTx) {
 	defer func() {
 		// TODO: Record the count along with the code and or reason so as to display
 		// in the transactions per second live dashboards.
@@ -838,7 +838,7 @@ func (app *Blackfury) DeliverTx(req abci.RequestDeliverTx) (res abci.ResponseDel
 }
 
 // InitChainer application update at chain initialization
-func (app *Blackfury) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
+func (app *Kaiju) InitChainer(ctx sdk.Context, req abci.RequestInitChain) abci.ResponseInitChain {
 	var genesisState GenesisState
 	if err := tmjson.Unmarshal(req.AppStateBytes, &genesisState); err != nil {
 		panic(err)
@@ -848,12 +848,12 @@ func (app *Blackfury) InitChainer(ctx sdk.Context, req abci.RequestInitChain) ab
 }
 
 // LoadHeight loads a particular height
-func (app *Blackfury) LoadHeight(height int64) error {
+func (app *Kaiju) LoadHeight(height int64) error {
 	return app.LoadVersion(height)
 }
 
 // ModuleAccountAddrs returns all the app's module account addresses.
-func (app *Blackfury) ModuleAccountAddrs() map[string]bool {
+func (app *Kaiju) ModuleAccountAddrs() map[string]bool {
 	modAccAddrs := make(map[string]bool)
 	for acc := range maccPerms {
 		modAccAddrs[authtypes.NewModuleAddress(acc).String()] = true
@@ -864,7 +864,7 @@ func (app *Blackfury) ModuleAccountAddrs() map[string]bool {
 
 // BlockedAddrs returns all the app's module account addresses that are not
 // allowed to receive tokens.
-func (app *Blackfury) BlockedAddrs() map[string]bool {
+func (app *Kaiju) BlockedAddrs() map[string]bool {
 	blockedAddrs := make(map[string]bool)
 	for acc := range maccPerms {
 		blockedAddrs[authtypes.NewModuleAddress(acc).String()] = !allowedReceivingModAcc[acc]
@@ -877,7 +877,7 @@ func (app *Blackfury) BlockedAddrs() map[string]bool {
 //
 // NOTE: This is solely to be used for testing purposes as it may be desirable
 // for modules to register their own custom testing types.
-func (app *Blackfury) LegacyAmino() *codec.LegacyAmino {
+func (app *Kaiju) LegacyAmino() *codec.LegacyAmino {
 	return app.cdc
 }
 
@@ -885,47 +885,47 @@ func (app *Blackfury) LegacyAmino() *codec.LegacyAmino {
 //
 // NOTE: This is solely to be used for testing purposes as it may be desirable
 // for modules to register their own custom testing types.
-func (app *Blackfury) AppCodec() codec.Codec {
+func (app *Kaiju) AppCodec() codec.Codec {
 	return app.appCodec
 }
 
 // InterfaceRegistry returns an InterfaceRegistry
-func (app *Blackfury) InterfaceRegistry() types.InterfaceRegistry {
+func (app *Kaiju) InterfaceRegistry() types.InterfaceRegistry {
 	return app.interfaceRegistry
 }
 
 // GetKey returns the KVStoreKey for the provided store key.
 //
 // NOTE: This is solely to be used for testing purposes.
-func (app *Blackfury) GetKey(storeKey string) *sdk.KVStoreKey {
+func (app *Kaiju) GetKey(storeKey string) *sdk.KVStoreKey {
 	return app.keys[storeKey]
 }
 
 // GetTKey returns the TransientStoreKey for the provided store key.
 //
 // NOTE: This is solely to be used for testing purposes.
-func (app *Blackfury) GetTKey(storeKey string) *sdk.TransientStoreKey {
+func (app *Kaiju) GetTKey(storeKey string) *sdk.TransientStoreKey {
 	return app.tkeys[storeKey]
 }
 
 // GetMemKey returns the MemStoreKey for the provided mem key.
 //
 // NOTE: This is solely used for testing purposes.
-func (app *Blackfury) GetMemKey(storeKey string) *sdk.MemoryStoreKey {
+func (app *Kaiju) GetMemKey(storeKey string) *sdk.MemoryStoreKey {
 	return app.memKeys[storeKey]
 }
 
 // GetSubspace returns a param subspace for a given module name.
 //
 // NOTE: This is solely to be used for testing purposes.
-func (app *Blackfury) GetSubspace(moduleName string) paramstypes.Subspace {
+func (app *Kaiju) GetSubspace(moduleName string) paramstypes.Subspace {
 	subspace, _ := app.ParamsKeeper.GetSubspace(moduleName)
 	return subspace
 }
 
 // RegisterAPIRoutes registers all application module routes with the provided
 // API server.
-func (app *Blackfury) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig) {
+func (app *Kaiju) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.APIConfig) {
 	clientCtx := apiSvr.ClientCtx
 	rpc.RegisterRoutes(clientCtx, apiSvr.Router)
 	// Register legacy tx routes.
@@ -949,12 +949,12 @@ func (app *Blackfury) RegisterAPIRoutes(apiSvr *api.Server, apiConfig config.API
 }
 
 // RegisterTxService implements the Application.RegisterTxService method.
-func (app *Blackfury) RegisterTxService(clientCtx client.Context) {
+func (app *Kaiju) RegisterTxService(clientCtx client.Context) {
 	authtx.RegisterTxService(app.BaseApp.GRPCQueryRouter(), clientCtx, app.BaseApp.Simulate, app.interfaceRegistry)
 }
 
 // RegisterTendermintService implements the Application.RegisterTendermintService method.
-func (app *Blackfury) RegisterTendermintService(clientCtx client.Context) {
+func (app *Kaiju) RegisterTendermintService(clientCtx client.Context) {
 	tmservice.RegisterTendermintService(app.BaseApp.GRPCQueryRouter(), clientCtx, app.interfaceRegistry)
 }
 
@@ -996,6 +996,6 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 }
 
 // SimulationManager implements the SimulationApp interface
-func (app *Blackfury) SimulationManager() *module.SimulationManager {
+func (app *Kaiju) SimulationManager() *module.SimulationManager {
 	return app.sm
 }

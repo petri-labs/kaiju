@@ -1,13 +1,13 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Blackfury Chain - gRPC Gateway docs",
+    "title": "Kaiju Chain - gRPC Gateway docs",
     "description": "A REST interface for state queries and transactions",
     "version": "1.0.0"
   },
   "apis": [
     {
-      "url": "./tmp-swagger-gen/blackfury/erc20/v1/query.swagger.json",
+      "url": "./tmp-swagger-gen/kaiju/erc20/v1/query.swagger.json",
       "operationIds": {
         "rename": {
           "Params": "ERC20Params"
@@ -15,7 +15,7 @@
       }
     },
     {
-      "url": "./tmp-swagger-gen/blackfury/gauge/v1/query.swagger.json",
+      "url": "./tmp-swagger-gen/kaiju/gauge/v1/query.swagger.json",
       "operationIds": {
         "rename": {
           "Params": "GaugeParams"
@@ -23,7 +23,7 @@
       }
     },
     {
-      "url": "./tmp-swagger-gen/blackfury/maker/v1/query.swagger.json",
+      "url": "./tmp-swagger-gen/kaiju/maker/v1/query.swagger.json",
       "operationIds": {
         "rename": {
           "Params": "MakerParams"
@@ -31,7 +31,7 @@
       }
     },
     {
-      "url": "./tmp-swagger-gen/blackfury/oracle/v1/query.swagger.json",
+      "url": "./tmp-swagger-gen/kaiju/oracle/v1/query.swagger.json",
       "operationIds": {
         "rename": {
           "Params": "OracleParams"
@@ -39,10 +39,10 @@
       }
     },
     {
-      "url": "./tmp-swagger-gen/blackfury/staking/v1/query.swagger.json",
+      "url": "./tmp-swagger-gen/kaiju/staking/v1/query.swagger.json",
     },
     {
-      "url": "./tmp-swagger-gen/blackfury/ve/v1/query.swagger.json",
+      "url": "./tmp-swagger-gen/kaiju/ve/v1/query.swagger.json",
       "operationIds": {
         "rename": {
           "Params": "VeParams"
@@ -50,7 +50,7 @@
       }
     },
     {
-      "url": "./tmp-swagger-gen/blackfury/vesting/v1/query.swagger.json",
+      "url": "./tmp-swagger-gen/kaiju/vesting/v1/query.swagger.json",
       "operationIds": {
         "rename": {
           "Params": "VestingParams"
@@ -58,7 +58,7 @@
       }
     },
     {
-      "url": "./tmp-swagger-gen/blackfury/voter/v1/query.swagger.json",
+      "url": "./tmp-swagger-gen/kaiju/voter/v1/query.swagger.json",
       "operationIds": {
         "rename": {
           "Params": "VoterParams"

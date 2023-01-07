@@ -6,8 +6,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
-	"github.com/furya-official/blackfury/x/oracle/keeper"
-	"github.com/furya-official/blackfury/x/oracle/types"
+	"github.com/petri-labs/kaiju/x/oracle/keeper"
+	"github.com/petri-labs/kaiju/x/oracle/types"
 )
 
 func SimulateMsgAggregateExchangeRatePrevote(

@@ -15,7 +15,7 @@ func TestCreateDenomDescription(t *testing.T) {
 		{
 			desc:      "CreateDenomDescription is ok",
 			address:   "address",
-			denomDesc: "Blackfury coin token representation of address",
+			denomDesc: "Kaiju coin token representation of address",
 		},
 	} {
 		t.Run(tc.desc, func(t *testing.T) {

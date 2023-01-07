@@ -7,16 +7,16 @@ import (
 	"github.com/stretchr/testify/suite"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 
-	"github.com/furya-official/blackfury/app"
-	blackfury "github.com/furya-official/blackfury/types"
-	"github.com/furya-official/blackfury/x/ve"
-	"github.com/furya-official/blackfury/x/ve/types"
+	"github.com/petri-labs/kaiju/app"
+	kaiju "github.com/petri-labs/kaiju/types"
+	"github.com/petri-labs/kaiju/x/ve"
+	"github.com/petri-labs/kaiju/x/ve/types"
 )
 
 type GenesisTestSuite struct {
 	suite.Suite
 	ctx sdk.Context
-	app *app.Blackfury
+	app *app.Kaiju
 }
 
 func TestGenesisTestSuite(t *testing.T) {
@@ -37,7 +37,7 @@ func (suite *GenesisTestSuite) TestVeInitGenesis() {
 	})
 
 	params := veKeeper.GetParams(suite.ctx)
-	suite.Require().Equal(params.GetLockDenom(), blackfury.BaseDenom)
+	suite.Require().Equal(params.GetLockDenom(), kaiju.BaseDenom)
 	suite.Require().Equal(sdk.ZeroInt(), veKeeper.GetTotalLockedAmount(suite.ctx))
 	suite.Require().EqualValues(types.FirstVeID, veKeeper.GetNextVeID(suite.ctx))
 	suite.Require().EqualValues(types.EmptyEpoch, veKeeper.GetEpoch(suite.ctx))
@@ -58,5 +58,5 @@ func (suite *GenesisTestSuite) TestVeExportGenesis() {
 	})
 
 	genesisExported := ve.ExportGenesis(suite.ctx, veKeeper)
-	suite.Require().Equal(genesisExported.Params.GetLockDenom(), blackfury.BaseDenom)
+	suite.Require().Equal(genesisExported.Params.GetLockDenom(), kaiju.BaseDenom)
 }

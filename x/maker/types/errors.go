@@ -24,7 +24,7 @@ var (
 
 	ErrMerSlippage         = sdkerrors.Register(ModuleName, 12, "black over slippage")
 	ErrBackingCoinSlippage = sdkerrors.Register(ModuleName, 13, "backing coin over slippage")
-	ErrFuryCoinSlippage    = sdkerrors.Register(ModuleName, 14, "fury coin over slippage")
+	ErrKaijuCoinSlippage    = sdkerrors.Register(ModuleName, 14, "kaiju coin over slippage")
 
 	ErrBackingCeiling    = sdkerrors.Register(ModuleName, 15, "total backing coin over ceiling")
 	ErrCollateralCeiling = sdkerrors.Register(ModuleName, 16, "total collateral coin over ceiling")
@@ -32,7 +32,7 @@ var (
 
 	ErrBackingCoinInsufficient    = sdkerrors.Register(ModuleName, 18, "backing coin balance insufficient")
 	ErrCollateralCoinInsufficient = sdkerrors.Register(ModuleName, 19, "collateral coin balance insufficient")
-	ErrFuryCoinInsufficient       = sdkerrors.Register(ModuleName, 20, "insufficient available fury coin")
+	ErrKaijuCoinInsufficient       = sdkerrors.Register(ModuleName, 20, "insufficient available kaiju coin")
 
 	ErrAccountNoCollateral           = sdkerrors.Register(ModuleName, 21, "account has no collateral")
 	ErrAccountInsufficientCollateral = sdkerrors.Register(ModuleName, 22, "account collateral insufficient")

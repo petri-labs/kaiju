@@ -8,8 +8,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/baseapp"
 	"github.com/cosmos/cosmos-sdk/crypto/keyring"
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/furya-official/blackfury/app"
-	"github.com/furya-official/blackfury/x/maker/types"
+	"github.com/petri-labs/kaiju/app"
+	"github.com/petri-labs/kaiju/x/maker/types"
 	"github.com/stretchr/testify/suite"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	tmversion "github.com/tendermint/tendermint/proto/tendermint/version"
@@ -21,7 +21,7 @@ import (
 type KeeperTestSuite struct {
 	suite.Suite
 	ctx         sdk.Context
-	app         *app.Blackfury
+	app         *app.Kaiju
 	queryClient types.QueryClient
 	accAddress  sdk.AccAddress
 	signer      keyring.Signer
@@ -56,7 +56,7 @@ func (suite *KeeperTestSuite) SetupTest() {
 		Version: tmversion.Consensus{
 			Block: version.BlockProtocol,
 		},
-		ChainID:         "blackfury_5000-101",
+		ChainID:         "kaiju_5000-101",
 		Height:          1,
 		Time:            time.Now().UTC(),
 		ProposerAddress: suite.consAddress.Bytes(),

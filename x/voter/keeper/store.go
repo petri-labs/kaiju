@@ -2,7 +2,7 @@ package keeper
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/furya-official/blackfury/x/voter/types"
+	"github.com/petri-labs/kaiju/x/voter/types"
 )
 
 func (k Keeper) SetTotalVotes(ctx sdk.Context, votes sdk.Int) {

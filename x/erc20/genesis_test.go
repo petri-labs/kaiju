@@ -7,15 +7,15 @@ import (
 	"github.com/stretchr/testify/suite"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 
-	"github.com/furya-official/blackfury/app"
-	"github.com/furya-official/blackfury/x/erc20"
-	"github.com/furya-official/blackfury/x/erc20/types"
+	"github.com/petri-labs/kaiju/app"
+	"github.com/petri-labs/kaiju/x/erc20"
+	"github.com/petri-labs/kaiju/x/erc20/types"
 )
 
 type GenesisTestSuite struct {
 	suite.Suite
 	ctx sdk.Context
-	app *app.Blackfury
+	app *app.Kaiju
 }
 
 func TestGenesisTestSuite(t *testing.T) {

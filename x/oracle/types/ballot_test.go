@@ -9,8 +9,8 @@ import (
 	"testing"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	blackfury "github.com/furya-official/blackfury/types"
-	"github.com/furya-official/blackfury/x/oracle/types"
+	kaiju "github.com/petri-labs/kaiju/types"
+	"github.com/petri-labs/kaiju/x/oracle/types"
 	"github.com/stretchr/testify/require"
 	"github.com/tendermint/tendermint/crypto/secp256k1"
 )
@@ -25,21 +25,21 @@ func TestToMap(t *testing.T) {
 			{
 
 				Voter:        sdk.ValAddress(secp256k1.GenPrivKey().PubKey().Address()),
-				Denom:        blackfury.AttoFuryDenom,
+				Denom:        kaiju.AttoKaijuDenom,
 				ExchangeRate: sdk.NewDec(1600),
 				Power:        100,
 			},
 			{
 
 				Voter:        sdk.ValAddress(secp256k1.GenPrivKey().PubKey().Address()),
-				Denom:        blackfury.AttoFuryDenom,
+				Denom:        kaiju.AttoKaijuDenom,
 				ExchangeRate: sdk.ZeroDec(),
 				Power:        100,
 			},
 			{
 
 				Voter:        sdk.ValAddress(secp256k1.GenPrivKey().PubKey().Address()),
-				Denom:        blackfury.AttoFuryDenom,
+				Denom:        kaiju.AttoKaijuDenom,
 				ExchangeRate: sdk.NewDec(1500),
 				Power:        100,
 			},
@@ -89,15 +89,15 @@ func TestToCrossRate(t *testing.T) {
 	for _, data := range data {
 		valAddr := sdk.ValAddress(secp256k1.GenPrivKey().PubKey().Address())
 		if !data.base.IsZero() {
-			pbBase = append(pbBase, types.NewVoteForTally(data.base, blackfury.AttoFuryDenom, valAddr, 100))
+			pbBase = append(pbBase, types.NewVoteForTally(data.base, kaiju.AttoKaijuDenom, valAddr, 100))
 		}
 
-		pbQuote = append(pbQuote, types.NewVoteForTally(data.quote, blackfury.AttoFuryDenom, valAddr, 100))
+		pbQuote = append(pbQuote, types.NewVoteForTally(data.quote, kaiju.AttoKaijuDenom, valAddr, 100))
 
 		if !data.base.IsZero() && !data.quote.IsZero() {
-			cb = append(cb, types.NewVoteForTally(data.base.Quo(data.quote), blackfury.AttoFuryDenom, valAddr, 100))
+			cb = append(cb, types.NewVoteForTally(data.base.Quo(data.quote), kaiju.AttoKaijuDenom, valAddr, 100))
 		} else {
-			cb = append(cb, types.NewVoteForTally(sdk.ZeroDec(), blackfury.AttoFuryDenom, valAddr, 0))
+			cb = append(cb, types.NewVoteForTally(sdk.ZeroDec(), kaiju.AttoKaijuDenom, valAddr, 0))
 		}
 	}
 
@@ -131,7 +131,7 @@ func TestPBPower(t *testing.T) {
 		power := sk.Validator(ctx, valAccAddrs[i]).GetConsensusPower(sdk.DefaultPowerReduction)
 		vote := types.NewVoteForTally(
 			sdk.ZeroDec(),
-			blackfury.AttoFuryDenom,
+			kaiju.AttoKaijuDenom,
 			valAccAddrs[i],
 			power,
 		)
@@ -150,7 +150,7 @@ func TestPBPower(t *testing.T) {
 	faceValAddr := sdk.ValAddress(pubKey.Address())
 	fakeVote := types.NewVoteForTally(
 		sdk.OneDec(),
-		blackfury.AttoFuryDenom,
+		kaiju.AttoKaijuDenom,
 		faceValAddr,
 		0,
 	)
@@ -221,7 +221,7 @@ func TestPBWeightedMedian(t *testing.T) {
 
 			vote := types.NewVoteForTally(
 				sdk.NewDec(int64(input)),
-				blackfury.AttoFuryDenom,
+				kaiju.AttoKaijuDenom,
 				valAddr,
 				power,
 			)
@@ -288,7 +288,7 @@ func TestPBStandardDeviation(t *testing.T) {
 
 			vote := types.NewVoteForTally(
 				sdk.NewDecWithPrec(int64(input*base), int64(types.OracleDecPrecision)),
-				blackfury.AttoFuryDenom,
+				kaiju.AttoKaijuDenom,
 				valAddr,
 				power,
 			)
@@ -307,12 +307,12 @@ func TestPBStandardDeviationOverflow(t *testing.T) {
 
 	pb := types.ExchangeRateBallot{types.NewVoteForTally(
 		sdk.ZeroDec(),
-		blackfury.AttoFuryDenom,
+		kaiju.AttoKaijuDenom,
 		valAddr,
 		2,
 	), types.NewVoteForTally(
 		exchangeRate,
-		blackfury.AttoFuryDenom,
+		kaiju.AttoKaijuDenom,
 		valAddr,
 		1,
 	)}

@@ -6,7 +6,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/simapp"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
-	erc20types "github.com/furya-official/blackfury/x/erc20/types"
+	erc20types "github.com/petri-labs/kaiju/x/erc20/types"
 	abci "github.com/tendermint/tendermint/abci/types"
 	"github.com/tendermint/tendermint/crypto/ed25519"
 	"github.com/tendermint/tendermint/libs/log"
@@ -14,12 +14,12 @@ import (
 	"github.com/tharsis/ethermint/encoding"
 )
 
-// Setup initializes a new Blackfury
-func Setup(isCheckTx bool) *Blackfury {
+// Setup initializes a new Kaiju
+func Setup(isCheckTx bool) *Kaiju {
 	SetupConfig()
 
 	db := dbm.NewMemDB()
-	app := NewBlackfury(log.NewNopLogger(), db, nil, true, map[int64]bool{}, DefaultNodeHome, 5, encoding.MakeConfig(ModuleBasics), simapp.EmptyAppOptions{})
+	app := NewKaiju(log.NewNopLogger(), db, nil, true, map[int64]bool{}, DefaultNodeHome, 5, encoding.MakeConfig(ModuleBasics), simapp.EmptyAppOptions{})
 
 	if !isCheckTx {
 		genesisState := NewDefaultGenesisState()
@@ -31,7 +31,7 @@ func Setup(isCheckTx bool) *Blackfury {
 
 		app.InitChain(
 			abci.RequestInitChain{
-				ChainId:         "blackfury_5000-101",
+				ChainId:         "kaiju_5000-101",
 				Validators:      []abci.ValidatorUpdate{},
 				ConsensusParams: simapp.DefaultConsensusParams,
 				AppStateBytes:   stateBytes,
@@ -39,7 +39,7 @@ func Setup(isCheckTx bool) *Blackfury {
 		)
 	}
 
-	return app.(*Blackfury)
+	return app.(*Kaiju)
 }
 
 // FundAccount is a utility function that funds an account by minting and
@@ -79,11 +79,11 @@ func createRandomAccounts(accNum int) []sdk.AccAddress {
 
 // AddTestAddrs constructs and returns accNum amount of accounts with an
 // initial balance of accAmt in random order
-func AddTestAddrs(app *Blackfury, ctx sdk.Context, accNum int, accAmt sdk.Int) []sdk.AccAddress {
+func AddTestAddrs(app *Kaiju, ctx sdk.Context, accNum int, accAmt sdk.Int) []sdk.AccAddress {
 	return addTestAddrs(app, ctx, accNum, accAmt, createRandomAccounts)
 }
 
-func FundTestAddrs(app *Blackfury, ctx sdk.Context, addrs []sdk.AccAddress, accAmt sdk.Int) {
+func FundTestAddrs(app *Kaiju, ctx sdk.Context, addrs []sdk.AccAddress, accAmt sdk.Int) {
 	initCoins := sdk.NewCoins(sdk.NewCoin(app.StakingKeeper.BondDenom(ctx), accAmt))
 
 	for _, addr := range addrs {
@@ -91,7 +91,7 @@ func FundTestAddrs(app *Blackfury, ctx sdk.Context, addrs []sdk.AccAddress, accA
 	}
 }
 
-func addTestAddrs(app *Blackfury, ctx sdk.Context, accNum int, accAmt sdk.Int, strategy GenerateAccountStrategy) []sdk.AccAddress {
+func addTestAddrs(app *Kaiju, ctx sdk.Context, accNum int, accAmt sdk.Int, strategy GenerateAccountStrategy) []sdk.AccAddress {
 	testAddrs := strategy(accNum)
 
 	initCoins := sdk.NewCoins(sdk.NewCoin(app.StakingKeeper.BondDenom(ctx), accAmt))
@@ -103,7 +103,7 @@ func addTestAddrs(app *Blackfury, ctx sdk.Context, accNum int, accAmt sdk.Int, s
 	return testAddrs
 }
 
-func initAccountWithCoins(app *Blackfury, ctx sdk.Context, addr sdk.AccAddress, coins sdk.Coins) {
+func initAccountWithCoins(app *Kaiju, ctx sdk.Context, addr sdk.AccAddress, coins sdk.Coins) {
 	err := app.BankKeeper.MintCoins(ctx, erc20types.ModuleName, coins)
 	if err != nil {
 		panic(err)

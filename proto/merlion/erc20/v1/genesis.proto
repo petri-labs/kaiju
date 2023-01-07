@@ -1,10 +1,10 @@
 syntax = "proto3";
-package blackfury.erc20.v1;
+package kaiju.erc20.v1;
 
 import "gogoproto/gogo.proto";
-import "blackfury/erc20/v1/erc20.proto";
+import "kaiju/erc20/v1/erc20.proto";
 
-option go_package = "github.com/furya-official/blackfury/x/erc20/types";
+option go_package = "github.com/petri-labs/kaiju/x/erc20/types";
 
 // GenesisState defines the module's genesis state.
 message GenesisState {

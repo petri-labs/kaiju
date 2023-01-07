@@ -2,7 +2,7 @@ package types
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	erc20types "github.com/furya-official/blackfury/x/erc20/types"
+	erc20types "github.com/petri-labs/kaiju/x/erc20/types"
 )
 
 type Erc20Keeper interface {

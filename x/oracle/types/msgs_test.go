@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	blackfury "github.com/furya-official/blackfury/types"
-	"github.com/furya-official/blackfury/x/oracle/types"
+	kaiju "github.com/petri-labs/kaiju/types"
+	"github.com/petri-labs/kaiju/x/oracle/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -15,7 +15,7 @@ func TestMsgAggregateExchangeRatePrevote(t *testing.T) {
 		sdk.AccAddress([]byte("addr1_______________")),
 	}
 
-	exchangeRates := sdk.DecCoins{sdk.NewDecCoinFromDec(blackfury.AttoFuryDenom, sdk.OneDec()), sdk.NewDecCoinFromDec(blackfury.MicroFUSDDenom, sdk.NewDecWithPrec(32121, 1))}
+	exchangeRates := sdk.DecCoins{sdk.NewDecCoinFromDec(kaiju.AttoKaijuDenom, sdk.OneDec()), sdk.NewDecCoinFromDec(kaiju.MicroFUSDDenom, sdk.NewDecWithPrec(32121, 1))}
 	bz := types.GetAggregateVoteHash("1", exchangeRates.String(), sdk.ValAddress(addrs[0]))
 
 	tests := []struct {

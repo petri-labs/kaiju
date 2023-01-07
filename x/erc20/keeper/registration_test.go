@@ -3,8 +3,8 @@ package keeper_test
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	blackfury "github.com/furya-official/blackfury/types"
-	erc20types "github.com/furya-official/blackfury/x/erc20/types"
+	kaiju "github.com/petri-labs/kaiju/types"
+	erc20types "github.com/petri-labs/kaiju/x/erc20/types"
 	"github.com/stretchr/testify/require"
 )
 
@@ -12,8 +12,8 @@ func (suite *KeeperTestSuite) TestKeeper_RegisterCoin() {
 	suite.SetupTest()
 	t := suite.T()
 
-	_, err := suite.app.Erc20Keeper.RegisterCoin(suite.ctx, blackfury.DisplayDenom)
-	require.Error(t, err, sdkerrors.Wrapf(erc20types.ErrEVMDenom, "cannot register the EVM denomination %s", blackfury.DisplayDenom))
+	_, err := suite.app.Erc20Keeper.RegisterCoin(suite.ctx, kaiju.DisplayDenom)
+	require.Error(t, err, sdkerrors.Wrapf(erc20types.ErrEVMDenom, "cannot register the EVM denomination %s", kaiju.DisplayDenom))
 
 	_, err = suite.app.Erc20Keeper.RegisterCoin(suite.ctx, "USDT")
 	require.Error(t, err, sdkerrors.Wrapf(erc20types.ErrEVMDenom, "cannot get metadata of denom %s", "USDT"))

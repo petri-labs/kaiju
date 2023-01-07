@@ -1,7 +1,7 @@
 package keeper
 
 import (
-	"github.com/furya-official/blackfury/x/voter/types"
+	"github.com/petri-labs/kaiju/x/voter/types"
 )
 
 type msgServer struct {

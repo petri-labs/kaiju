@@ -1,10 +1,10 @@
 syntax = "proto3";
-package blackfury.bank.v1beta1;
+package kaiju.bank.v1beta1;
 
 import "gogoproto/gogo.proto";
 import "cosmos/bank/v1beta1/bank.proto";
 
-option go_package = "github.com/furya-official/blackfury/x/bank/types";
+option go_package = "github.com/petri-labs/kaiju/x/bank/types";
 
 // SetDenomMetaDataProposal is a gov Content type to register a DenomMetaData
 message SetDenomMetadataProposal {

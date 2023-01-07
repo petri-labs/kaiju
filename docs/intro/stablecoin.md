@@ -4,7 +4,7 @@ order: 2
 
 # The Next Gen Chain-native Stablecoin
 
-This document describes the native stablecoin protocol of Blackfury. {synopsis}
+This document describes the native stablecoin protocol of Kaiju. {synopsis}
 
 ## Why Does the Crypto Need Another Stablecoin?
 
@@ -17,15 +17,15 @@ mechanism and operation, one cannot conclude that one or a few of them can satis
 centralized stablecoins, we have seen too many failures of some algorithmic stablecoins. Innovation of stablecoin will
 never stop, and the endgame battle is yet to come.
 
-The chain-native stablecoin of Blackfury hopes to challenge many old competing projects and become one of the next
+The chain-native stablecoin of Kaiju hopes to challenge many old competing projects and become one of the next
 generation of stablecoin with innovative mechanisms. First, it will be a fully decentralized stablecoin that does not
 rely on the 1:1 backing of centralized fiat currency. Second, it will be collateralized or backed by any selected
-external cryptocurrency with good long-term value. Blackfury stablecoins are not minted using just one method, but through
+external cryptocurrency with good long-term value. Kaiju stablecoins are not minted using just one method, but through
 multiple approaches. We have determined two kinds of mintage at present: collateralized lending and backed swapping. In
 the future, we do not rule out introducing other innovative mintage mechanisms, but the premise is that they are
 sufficiently safe and reliable.
 
-For Blackfury stablecoin, we have now set a few core principles that need to be adhered to over the long term.
+For Kaiju stablecoin, we have now set a few core principles that need to be adhered to over the long term.
 
 - The first principle is that **pure algorithmic mintage is not allowed**. We believe that pure algorithmic stablecoins
   have neither withstood the test of confidence nor made any practical sense from the past to the present. Generating
@@ -40,18 +40,18 @@ For Blackfury stablecoin, we have now set a few core principles that need to be 
   of Bitcoin - electronic cash - provided that the founders hand over the future to the crypto community at the right
   time, as Satoshi Nakamoto did.
 
-In order to uphold the above principles and achieve our goals, Blackfury stablecoin will be built on the innovative
+In order to uphold the above principles and achieve our goals, Kaiju stablecoin will be built on the innovative
 DeFi-specific blockchain and become one of its two core tokens.
 
 ## The Minting and Burning Protocol
 
-As mentioned above, we designed the Blackfury stablecoin with the fundamental insistence that even if the stablecoin
+As mentioned above, we designed the Kaiju stablecoin with the fundamental insistence that even if the stablecoin
 deviates from its anchor price during extreme market volatility, the system is able to use its own well-established
 mechanisms to automatically trigger or incentivize the price to return to the peg without relying on the intervention of
 external human strategies.
 For this reason, we have avoided becoming a pure algorithmic stablecoin. We have seen firsthand that the highly
 respected and massively huge [Terra](https://terra.money) still cannot escape the spiral of collapse caused by targeted
-sniping during extreme market conditions. The two kinds of minting/burning mechanisms for Blackfury stablecoin (called Black
+sniping during extreme market conditions. The two kinds of minting/burning mechanisms for Kaiju stablecoin (called Black
 USD or FUSD) are as follows.
 
 ### Fractional-Backing-Algorithmic (FBA)
@@ -60,21 +60,21 @@ This minting approach was actually invented by [FRAX](https://frax.finance), whe
 algorithmic supply. We define the ratio of backing value to algorithmic value is called **BR (Backing Ratio)**.
 
 What we need to highlight here is the algorithmic part. As mentioned above, pure algorithmic stablecoins are extremely
-risky. However, as a native token that captures the value of the network, it makes sense for FURY to participate in the
+risky. However, as a native token that captures the value of the network, it makes sense for KAIJU to participate in the
 FUSD minting process, but the participation extent needs to be regulated by the system based on the current demand for
 FUSD. Especially at the beginning of the network, we recommend setting the BR to 95%, which means that only $0.05 worth
-of FURYs are allowed to be minted for 1 $FUSD. Formula follows:
+of KAIJUs are allowed to be minted for 1 $FUSD. Formula follows:
 
 ```
 For 0 < BR <= 1,
 BackingValue = MintFUSD * BR
-FURYValue = MintFUSD * (1 - BR)
+KAIJUValue = MintFUSD * (1 - BR)
 ```
 
-When the market demand for FUSD rises, the system automatically decreases the BR value, allowing more FURYs to be burned
+When the market demand for FUSD rises, the system automatically decreases the BR value, allowing more KAIJUs to be burned
 in the minting of FUSDs. When the market demand for FUSDs falls, the system automatically increases the BR value, allowing
-fewer FURYs to be burned in the minting of FUSDs. In turn, FUSDs can be burned to swap for the reserved backing assets and
-minted FURYs, again in a proportion controlled by the BR value.
+fewer KAIJUs to be burned in the minting of FUSDs. In turn, FUSDs can be burned to swap for the reserved backing assets and
+minted KAIJUs, again in a proportion controlled by the BR value.
 
 This dynamic adaptive capability to changes in market demand absorbs the possible volatility of FUSD into the composition
 of the reserving asset portfolio of the system pool. Any small disturbance is absorbed very quickly, avoiding the
@@ -95,11 +95,11 @@ the collateral value is $100, then a maximum of 67 $FUSD can be minted. We also 
 
 We have made a slight change to the overcollateralization method by also defining **Basic LTV**, which is generally less
 than LTV, i.e., the user can only mint FUSD at the Basic LTV ratio of the collateral value in the most basic case; if the
-user wants to achieve the maximum LTV ratio, it must burn a certain amount of FURY, which we call the ratio of the
-maximum burned FURY value to the minted FUSD value as **CLR (Catalytic Fury Ratio)**. Taking the previous example, with
+user wants to achieve the maximum LTV ratio, it must burn a certain amount of KAIJU, which we call the ratio of the
+maximum burned KAIJU value to the minted FUSD value as **CLR (Catalytic Kaiju Ratio)**. Taking the previous example, with
 an LTV of 67%, a Basic LTV of 45%, and a CLR of 2%, a user can mint a maximum of 45 $FUSD when the collateral value is
-$100; if the user tries to mint 67 $FUSD, he needs to burn $67 * 2% = $1.34 worth of FURYs; if he tries to mint 55 $FUSD,
-he needs to burn $55 * 2% * ( 55% - 45%) / (67% - 45%) = $0.5 value of FURY, where the CLR involved in the calculation
+$100; if the user tries to mint 67 $FUSD, he needs to burn $67 * 2% = $1.34 worth of KAIJUs; if he tries to mint 55 $FUSD,
+he needs to burn $55 * 2% * ( 55% - 45%) / (67% - 45%) = $0.5 value of KAIJU, where the CLR involved in the calculation
 is adjusted by the position of the actual LTV in a linear scale between the Basic LTV and the maximum LTV. The formula
 is:
 
@@ -107,23 +107,23 @@ is:
 MaxFUSD = CollateralValue * LTV
 BasicFUSD = CollateralValue * BasicLTV
 For MintFUSD, and BasicFUSD < MintFUSD < MaxFUSD,
-BurnedFURYValue = MintFUSD * CLR * (MintFUSD / CollateralValue - BasicLTV) / (LTV - BasicLTV)
+BurnedKAIJUValue = MintFUSD * CLR * (MintFUSD / CollateralValue - BasicLTV) / (LTV - BasicLTV)
 ```
 
 ![over-collateralized-catalytic](../images/occ.png)
 
 ## Oracle
 
-Blackfury has a built-in price oracle module that periodically accepts near real-time quotes from active staking
+Kaiju has a built-in price oracle module that periodically accepts near real-time quotes from active staking
 validators, and first removes outliers with large deviations, and then takes the median as the final true and fair
-on-chain price. Since the Blackfury stablecoin is anchored in $USD, the oracle quotes will also be denominated in $USD,
-which is actually `$1 * 1e-6` given the need for some precision. The tokens to be quoted are first FURY and FUSD, and
-then all the asset tokens used to back or collateralize the stablecoin (e.g. ETH) will also need to be quoted. Blackfury
+on-chain price. Since the Kaiju stablecoin is anchored in $USD, the oracle quotes will also be denominated in $USD,
+which is actually `$1 * 1e-6` given the need for some precision. The tokens to be quoted are first KAIJU and FUSD, and
+then all the asset tokens used to back or collateralize the stablecoin (e.g. ETH) will also need to be quoted. Kaiju
 encourages staking validators to take diversified market price sources that help the oracle's final quotes faithfully
 reflect real market prices.
 
 The price data from the oracle will be directly applied to the exchange rate calculations during the minting and burning
-of FUSD, which is critical to the operation of the entire system and the pegging stability of FUSD. Therefore, Blackfury
+of FUSD, which is critical to the operation of the entire system and the pegging stability of FUSD. Therefore, Kaiju
 does not rule out the possibility of introducing quotes from professional oracles with sufficient credibility, such as
 Chainlink, in the future.
 
@@ -131,24 +131,24 @@ Chainlink, in the future.
 
 The supply and demand for stablecoins is invisibly regulated by the free market, with equilibrium prices targeting
 pegged fiat currencies (e.g. USD), and generally works well, with both suppliers and demanders satisfying their trading
-positions well. Blackfury will have a good variety of configurable system-level parameters and will also have a range of
-built-in adaptive monetary policies that are robust enough to deal with common bad cases. Blackfury will be iteratively
+positions well. Kaiju will have a good variety of configurable system-level parameters and will also have a range of
+built-in adaptive monetary policies that are robust enough to deal with common bad cases. Kaiju will be iteratively
 upgraded to incorporate more and better auto-adjustment strategies as the FUSD becomes more widely used.
 
 However, just as almost all software systems cannot respond to extreme situations in a very timely manner and always
 make the very right changes, we cannot fully trust that established parameter auto-adjustment strategies will always
-handle market extremes and even capital sniping well. Therefore, Blackfury will also put into practice the role of DAO and
+handle market extremes and even capital sniping well. Therefore, Kaiju will also put into practice the role of DAO and
 governance by encouraging highly experienced financial experts and even academic economists in the community to publish
 proposals for forward monetary policy regulation or emergency proposals to deal with unexpected situations, and then
 have the community vote on whether to adopt the governance proposals as a basis for regulating the monetary policy of
-the Blackfury stablecoin system.
+the Kaiju stablecoin system.
 
 ## Diverse Application Scenarios with Sufficient Breadth and Depth
 
 With the advent of the Web3 era, crypto technologies and protocols will be used in a wider and deeper variety of
-scenarios, and we aim to make more people want to hold and use Blackfury stablecoins in this wave sweeping the globe. FUSD
+scenarios, and we aim to make more people want to hold and use Kaiju stablecoins in this wave sweeping the globe. FUSD
 can be used as the basic exchange medium for various DeFi protocols or projects on the chain, as a circulating currency
 within GameFi, and also used by NFT creators and collectors to value their NFTs. FUSD is inherently suited for pricing
 and payment for data sharing and rentals in new Web3 social and information applications that emphasize user ownership
-of data. FUSD does not exclude the connection to the offline world, but we believe it would be a sign of Blackfury's
+of data. FUSD does not exclude the connection to the offline world, but we believe it would be a sign of Kaiju's
 success to be one of the circulation currencies in the vast Web3 world of the future.

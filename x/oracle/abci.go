@@ -3,9 +3,9 @@ package oracle
 import (
 	"time"
 
-	blackfury "github.com/furya-official/blackfury/types"
-	"github.com/furya-official/blackfury/x/oracle/keeper"
-	"github.com/furya-official/blackfury/x/oracle/types"
+	kaiju "github.com/petri-labs/kaiju/types"
+	"github.com/petri-labs/kaiju/x/oracle/keeper"
+	"github.com/petri-labs/kaiju/x/oracle/types"
 
 	"github.com/cosmos/cosmos-sdk/telemetry"
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -16,7 +16,7 @@ func EndBlocker(ctx sdk.Context, k keeper.Keeper) {
 	defer telemetry.ModuleMeasureSince(types.ModuleName, time.Now(), telemetry.MetricKeyEndBlocker)
 
 	params := k.GetParams(ctx)
-	if blackfury.IsPeriodLastBlock(ctx, params.VotePeriod) {
+	if kaiju.IsPeriodLastBlock(ctx, params.VotePeriod) {
 		stakingKeeper := k.StakingKeeper()
 
 		// Build claim map over all validators in active set
@@ -123,7 +123,7 @@ func EndBlocker(ctx sdk.Context, k keeper.Keeper) {
 	// Do slash who did miss voting over threshold and
 	// reset miss counters of all validators
 	// at the last block of slash window
-	if blackfury.IsPeriodLastBlock(ctx, params.SlashWindow) {
+	if kaiju.IsPeriodLastBlock(ctx, params.SlashWindow) {
 		k.SlashAndResetMissCounters(ctx)
 	}
 

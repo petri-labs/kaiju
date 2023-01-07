@@ -2,13 +2,13 @@ package types
 
 import (
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	blackfury "github.com/furya-official/blackfury/types"
+	kaiju "github.com/petri-labs/kaiju/types"
 )
 
 // DefaultGenesis gets the raw genesis raw message for testing
 func DefaultGenesis() *stakingtypes.GenesisState {
 	params := stakingtypes.DefaultParams()
-	params.BondDenom = blackfury.BaseDenom
+	params.BondDenom = kaiju.BaseDenom
 	return &stakingtypes.GenesisState{
 		Params: params,
 	}

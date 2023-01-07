@@ -9,8 +9,8 @@ import (
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	"github.com/cosmos/cosmos-sdk/x/staking/teststaking"
 	stakingtypes "github.com/cosmos/cosmos-sdk/x/staking/types"
-	"github.com/furya-official/blackfury/app"
-	mertypes "github.com/furya-official/blackfury/types"
+	"github.com/petri-labs/kaiju/app"
+	mertypes "github.com/petri-labs/kaiju/types"
 	"github.com/stretchr/testify/suite"
 	tmproto "github.com/tendermint/tendermint/proto/tendermint/types"
 	tmversion "github.com/tendermint/tendermint/proto/tendermint/version"
@@ -20,7 +20,7 @@ import (
 type KeeperTestSuite struct {
 	suite.Suite
 	ctx          sdk.Context
-	app          *app.Blackfury
+	app          *app.Kaiju
 	coinMetadata banktypes.Metadata
 }
 
@@ -65,7 +65,7 @@ func (suite *KeeperTestSuite) SetupTest() {
 		Version: tmversion.Consensus{
 			Block: version.BlockProtocol,
 		},
-		ChainID:         "blackfury_5000-101",
+		ChainID:         "kaiju_5000-101",
 		Height:          1,
 		Time:            time.Now().UTC(),
 		ProposerAddress: addrs[0].Bytes(),
@@ -73,7 +73,7 @@ func (suite *KeeperTestSuite) SetupTest() {
 
 	// setup validator
 	tstaking := teststaking.NewHelper(suite.T(), suite.ctx, suite.app.StakingKeeper.Keeper)
-	tstaking.Denom = mertypes.AttoFuryDenom
+	tstaking.Denom = mertypes.AttoKaijuDenom
 
 	// create validator with 50% commission
 	tstaking.Commission = stakingtypes.NewCommissionRates(sdk.NewDecWithPrec(5, 1), sdk.NewDecWithPrec(5, 1), sdk.NewDec(0))

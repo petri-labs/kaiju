@@ -1,9 +1,9 @@
 syntax = "proto3";
-package blackfury.maker.v1;
+package kaiju.maker.v1;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/furya-official/blackfury/x/maker/types";
+option go_package = "github.com/petri-labs/kaiju/x/maker/types";
 
 // GenesisState defines the maker module's genesis state.
 message GenesisState {

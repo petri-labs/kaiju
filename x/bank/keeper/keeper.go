@@ -11,8 +11,8 @@ import (
 	bankkeeper "github.com/cosmos/cosmos-sdk/x/bank/keeper"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	blackfury "github.com/furya-official/blackfury/types"
-	"github.com/furya-official/blackfury/x/bank/types"
+	kaiju "github.com/petri-labs/kaiju/types"
+	"github.com/petri-labs/kaiju/x/bank/types"
 )
 
 // Keeper manages transfers between accounts.
@@ -176,7 +176,7 @@ func (k Keeper) MintCoins(ctx sdk.Context, moduleName string, amounts sdk.Coins)
 		return err
 	}
 	for _, coin := range nativeCoins {
-		if !strings.Contains(coin.Denom, blackfury.DisplayDenom) && !k.erc20Keeper().IsDenomRegistered(ctx, coin.Denom) {
+		if !strings.Contains(coin.Denom, kaiju.DisplayDenom) && !k.erc20Keeper().IsDenomRegistered(ctx, coin.Denom) {
 			if _, err := k.erc20Keeper().RegisterCoin(ctx, coin.Denom); err != nil {
 				return err
 			}

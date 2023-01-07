@@ -2,7 +2,7 @@ package keeper
 
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/furya-official/blackfury/x/maker/types"
+	"github.com/petri-labs/kaiju/x/maker/types"
 )
 
 // GetParams get all parameters as types.Params

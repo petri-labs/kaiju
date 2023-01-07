@@ -6,9 +6,9 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	blackfury "github.com/furya-official/blackfury/types"
-	"github.com/furya-official/blackfury/x/oracle/keeper"
-	"github.com/furya-official/blackfury/x/oracle/types"
+	kaiju "github.com/petri-labs/kaiju/types"
+	"github.com/petri-labs/kaiju/x/oracle/keeper"
+	"github.com/petri-labs/kaiju/x/oracle/types"
 	"github.com/stretchr/testify/require"
 	"github.com/tendermint/tendermint/crypto/secp256k1"
 )
@@ -105,10 +105,10 @@ func TestAggregatePrevoteVote(t *testing.T) {
 	input, h := setup(t)
 
 	salt := "1"
-	exchangeRatesStr := fmt.Sprintf("%s:1000.23,%s:0.29,%s:0.27", denom2, blackfury.MicroFUSDDenom, denom1)
-	otherExchangeRateStr := fmt.Sprintf("%s:1000.12,%s:0.29,%s:0.27", denom2, blackfury.MicroFUSDDenom, blackfury.MicroFUSDDenom)
-	unintendedExchageRateStr := fmt.Sprintf("%s:1000.23,%s:0.29,%s:0.27", denom2, blackfury.MicroFUSDDenom, "denom3")
-	invalidExchangeRateStr := fmt.Sprintf("%s:1000.23,%s:0.29,0.27", denom2, blackfury.MicroFUSDDenom)
+	exchangeRatesStr := fmt.Sprintf("%s:1000.23,%s:0.29,%s:0.27", denom2, kaiju.MicroFUSDDenom, denom1)
+	otherExchangeRateStr := fmt.Sprintf("%s:1000.12,%s:0.29,%s:0.27", denom2, kaiju.MicroFUSDDenom, kaiju.MicroFUSDDenom)
+	unintendedExchageRateStr := fmt.Sprintf("%s:1000.23,%s:0.29,%s:0.27", denom2, kaiju.MicroFUSDDenom, "denom3")
+	invalidExchangeRateStr := fmt.Sprintf("%s:1000.23,%s:0.29,0.27", denom2, kaiju.MicroFUSDDenom)
 
 	hash := types.GetAggregateVoteHash(salt, exchangeRatesStr, keeper.ValAddrs[0])
 

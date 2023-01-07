@@ -3,9 +3,9 @@ package keeper_test
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/types/query"
-	mertypes "github.com/furya-official/blackfury/types"
-	"github.com/furya-official/blackfury/x/vesting/keeper"
-	"github.com/furya-official/blackfury/x/vesting/types"
+	mertypes "github.com/petri-labs/kaiju/types"
+	"github.com/petri-labs/kaiju/x/vesting/keeper"
+	"github.com/petri-labs/kaiju/x/vesting/types"
 	"github.com/tharsis/ethermint/crypto/ethsecp256k1"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -24,7 +24,7 @@ func (suite *KeeperTestSuite) TestKeeper_Airdrops() {
 	suite.Require().NoError(err)
 	sender := sdk.AccAddress(priv.PubKey().Address())
 	receiver := sdk.AccAddress(suite.address.Bytes())
-	denom := mertypes.AttoFuryDenom
+	denom := mertypes.AttoKaijuDenom
 	k.SetAllocationAddresses(suite.ctx, types.AllocationAddresses{
 		TeamVestingAddr: receiver.String(),
 	})
@@ -82,7 +82,7 @@ func (suite *KeeperTestSuite) TestKeeper_Airdrop() {
 	suite.Require().NoError(err)
 	sender := sdk.AccAddress(priv.PubKey().Address())
 	receiver := sdk.AccAddress(suite.address.Bytes())
-	denom := mertypes.AttoFuryDenom
+	denom := mertypes.AttoKaijuDenom
 	k.SetAllocationAddresses(suite.ctx, types.AllocationAddresses{
 		TeamVestingAddr: receiver.String(),
 	})

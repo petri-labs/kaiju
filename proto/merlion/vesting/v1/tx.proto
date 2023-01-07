@@ -1,24 +1,24 @@
 syntax = "proto3";
-package blackfury.vesting.v1;
+package kaiju.vesting.v1;
 
 import "google/api/annotations.proto";
 import "gogoproto/gogo.proto";
-import "blackfury/vesting/v1/vesting.proto";
+import "kaiju/vesting/v1/vesting.proto";
 
-option go_package = "github.com/furya-official/blackfury/x/vesting/types";
+option go_package = "github.com/petri-labs/kaiju/x/vesting/types";
 
 // Msg defines the vesting Msg service.
 service Msg {
   // AddAirdrops adds airdrop targets.
   // Should only be called by core team multisig.
   rpc AddAirdrops(MsgAddAirdrops) returns (MsgAddAirdropsResponse) {
-    option (google.api.http).get = "/blackfury/vesting/v1/tx/add_airdrops";
+    option (google.api.http).get = "/kaiju/vesting/v1/tx/add_airdrops";
   }
 
   // ExecuteAirdrops performs airdrops.
   // Should only be called by core team multisig.
   rpc ExecuteAirdrops(MsgExecuteAirdrops) returns (MsgExecuteAirdropsResponse) {
-    option (google.api.http).get = "/blackfury/vesting/v1/tx/exec_airdrops";
+    option (google.api.http).get = "/kaiju/vesting/v1/tx/exec_airdrops";
   }
 
   // SetAllocationAddress sets allocation address of team vesting or
@@ -26,7 +26,7 @@ service Msg {
   rpc SetAllocationAddress(MsgSetAllocationAddress)
       returns (MsgSetAllocationAddressResponse) {
     option (google.api.http).get =
-        "/blackfury/vesting/v1/tx/set_allocation_address";
+        "/kaiju/vesting/v1/tx/set_allocation_address";
   }
 }
 

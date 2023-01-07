@@ -10,7 +10,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/spf13/cobra"
 
-	"github.com/furya-official/blackfury/x/oracle/types"
+	"github.com/petri-labs/kaiju/x/oracle/types"
 )
 
 // GetQueryCmd returns the cli query commands for this module
@@ -49,11 +49,11 @@ func CmdQueryExchangeRates() *cobra.Command {
 Query the current exchange rate of an asset with an $uUSD. 
 You can find the current list of active denoms by running
 
-$ blackfuryd query oracle exchange-rates 
+$ kaijud query oracle exchange-rates 
 
 Or, can filter with denom
 
-$ blackfuryd query oracle exchange-rates uusd
+$ kaijud query oracle exchange-rates uusd
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
@@ -98,7 +98,7 @@ func CmdQueryActives() *cobra.Command {
 		Long: strings.TrimSpace(`
 Query the active list of Black assets recognized by the types.
 
-$ blackfuryd query oracle actives
+$ kaijud query oracle actives
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
@@ -158,7 +158,7 @@ func CmdQueryFeederDelegation() *cobra.Command {
 		Long: strings.TrimSpace(`
 Query the account the validator's oracle voting right is delegated to.
 
-$ blackfuryd query oracle feeder mervaloper...
+$ kaijud query oracle feeder mervaloper...
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
@@ -199,7 +199,7 @@ func CmdQueryMissCounter() *cobra.Command {
 		Long: strings.TrimSpace(`
 Query the # of vote periods missed in this oracle slash window.
 
-$ blackfuryd query oracle miss mervaloper...
+$ kaijud query oracle miss mervaloper...
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
@@ -239,11 +239,11 @@ func CmdQueryAggregatePrevote() *cobra.Command {
 		Long: strings.TrimSpace(`
 Query outstanding oracle aggregate prevotes.
 
-$ blackfuryd query oracle aggregate-prevotes
+$ kaijud query oracle aggregate-prevotes
 
 Or, can filter with voter address
 
-$ blackfuryd query oracle aggregate-prevotes mervaloper...
+$ kaijud query oracle aggregate-prevotes mervaloper...
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)
@@ -295,11 +295,11 @@ func CmdQueryAggregateVote() *cobra.Command {
 		Long: strings.TrimSpace(`
 Query outstanding oracle aggregate vote.
 
-$ blackfuryd query oracle aggregate-votes 
+$ kaijud query oracle aggregate-votes 
 
 Or, can filter with voter address
 
-$ blackfuryd query oracle aggregate-votes mervaloper...
+$ kaijud query oracle aggregate-votes mervaloper...
 `),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			clientCtx, err := client.GetClientQueryContext(cmd)

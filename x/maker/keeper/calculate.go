@@ -3,8 +3,8 @@ package keeper
 import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	blackfury "github.com/furya-official/blackfury/types"
-	"github.com/furya-official/blackfury/x/maker/types"
+	kaiju "github.com/petri-labs/kaiju/types"
+	"github.com/petri-labs/kaiju/x/maker/types"
 )
 
 func (k Keeper) calculateMintBySwapIn(
@@ -14,13 +14,13 @@ func (k Keeper) calculateMintBySwapIn(
 	fullBacking bool,
 ) (
 	backingIn sdk.Coin,
-	furyIn sdk.Coin,
+	kaijuIn sdk.Coin,
 	mintFee sdk.Coin,
 	err error,
 ) {
 	backingIn = sdk.NewCoin(backingDenom, sdk.ZeroInt())
-	furyIn = sdk.NewCoin(blackfury.AttoFuryDenom, sdk.ZeroInt())
-	mintFee = sdk.NewCoin(blackfury.MicroFUSDDenom, sdk.ZeroInt())
+	kaijuIn = sdk.NewCoin(kaiju.AttoKaijuDenom, sdk.ZeroInt())
+	mintFee = sdk.NewCoin(kaiju.MicroFUSDDenom, sdk.ZeroInt())
 
 	err = k.checkMintPriceLowerBound(ctx)
 	if err != nil {
@@ -37,14 +37,14 @@ func (k Keeper) calculateMintBySwapIn(
 	if err != nil {
 		return
 	}
-	furyPrice, err := k.oracleKeeper.GetExchangeRate(ctx, blackfury.AttoFuryDenom)
+	kaijuPrice, err := k.oracleKeeper.GetExchangeRate(ctx, kaiju.AttoKaijuDenom)
 	if err != nil {
 		return
 	}
 
 	mintFee = computeFee(mintOut, backingParams.MintFee)
 	mintTotal := mintOut.Add(mintFee)
-	mintTotalInUSD := mintTotal.Amount.ToDec().Mul(blackfury.MicroFUSDTarget)
+	mintTotalInUSD := mintTotal.Amount.ToDec().Mul(kaiju.MicroFUSDTarget)
 
 	_, poolBacking, err := k.getBacking(ctx, backingDenom)
 	if err != nil {
@@ -62,11 +62,11 @@ func (k Keeper) calculateMintBySwapIn(
 		backingIn.Amount = mintTotalInUSD.QuoRoundUp(backingPrice).RoundInt()
 	} else if backingRatio.IsZero() {
 		// full algorithmic
-		furyIn.Amount = mintTotalInUSD.QuoRoundUp(furyPrice).RoundInt()
+		kaijuIn.Amount = mintTotalInUSD.QuoRoundUp(kaijuPrice).RoundInt()
 	} else {
 		// fractional
 		backingIn.Amount = mintTotalInUSD.Mul(backingRatio).QuoRoundUp(backingPrice).RoundInt()
-		furyIn.Amount = mintTotalInUSD.Mul(sdk.OneDec().Sub(backingRatio)).QuoRoundUp(furyPrice).RoundInt()
+		kaijuIn.Amount = mintTotalInUSD.Mul(sdk.OneDec().Sub(backingRatio)).QuoRoundUp(kaijuPrice).RoundInt()
 	}
 
 	poolBacking.Backing = poolBacking.Backing.Add(backingIn)
@@ -81,11 +81,11 @@ func (k Keeper) calculateMintBySwapIn(
 func (k Keeper) calculateMintBySwapOut(
 	ctx sdk.Context,
 	backingInMax sdk.Coin,
-	furyInMax sdk.Coin,
+	kaijuInMax sdk.Coin,
 	fullBacking bool,
 ) (
 	backingIn sdk.Coin,
-	furyIn sdk.Coin,
+	kaijuIn sdk.Coin,
 	mintOut sdk.Coin,
 	mintFee sdk.Coin,
 	err error,
@@ -107,7 +107,7 @@ func (k Keeper) calculateMintBySwapOut(
 	if err != nil {
 		return
 	}
-	furyPrice, err := k.oracleKeeper.GetExchangeRate(ctx, blackfury.AttoFuryDenom)
+	kaijuPrice, err := k.oracleKeeper.GetExchangeRate(ctx, kaiju.AttoKaijuDenom)
 	if err != nil {
 		return
 	}
@@ -115,11 +115,11 @@ func (k Keeper) calculateMintBySwapOut(
 	backingRatio := k.GetBackingRatio(ctx)
 
 	backingInMaxInUSD := backingPrice.MulInt(backingInMax.Amount)
-	furyInMaxInUSD := furyPrice.MulInt(furyInMax.Amount)
+	kaijuInMaxInUSD := kaijuPrice.MulInt(kaijuInMax.Amount)
 
 	mintTotalInUSD := sdk.ZeroDec()
 	backingIn = sdk.NewCoin(backingDenom, sdk.ZeroInt())
-	furyIn = sdk.NewCoin(blackfury.AttoFuryDenom, sdk.ZeroInt())
+	kaijuIn = sdk.NewCoin(kaiju.AttoKaijuDenom, sdk.ZeroInt())
 
 	if backingRatio.GTE(sdk.OneDec()) || fullBacking {
 		// full/over backing, or user selects full backing
@@ -127,22 +127,22 @@ func (k Keeper) calculateMintBySwapOut(
 		backingIn.Amount = backingInMax.Amount
 	} else if backingRatio.IsZero() {
 		// full algorithmic
-		mintTotalInUSD = furyInMaxInUSD
-		furyIn.Amount = furyInMax.Amount
+		mintTotalInUSD = kaijuInMaxInUSD
+		kaijuIn.Amount = kaijuInMax.Amount
 	} else {
 		// fractional
 		max1 := backingInMaxInUSD.Quo(backingRatio)
-		max2 := furyInMaxInUSD.Quo(sdk.OneDec().Sub(backingRatio))
-		if backingInMax.IsPositive() && (furyInMax.IsZero() || max1.LTE(max2)) {
+		max2 := kaijuInMaxInUSD.Quo(sdk.OneDec().Sub(backingRatio))
+		if backingInMax.IsPositive() && (kaijuInMax.IsZero() || max1.LTE(max2)) {
 			mintTotalInUSD = max1
 			backingIn.Amount = backingInMax.Amount
-			furyIn.Amount = mintTotalInUSD.Mul(sdk.OneDec().Sub(backingRatio)).QuoRoundUp(furyPrice).RoundInt()
-			if furyInMax.IsPositive() && furyInMax.IsLT(furyIn) {
-				furyIn.Amount = furyInMax.Amount
+			kaijuIn.Amount = mintTotalInUSD.Mul(sdk.OneDec().Sub(backingRatio)).QuoRoundUp(kaijuPrice).RoundInt()
+			if kaijuInMax.IsPositive() && kaijuInMax.IsLT(kaijuIn) {
+				kaijuIn.Amount = kaijuInMax.Amount
 			}
 		} else {
 			mintTotalInUSD = max2
-			furyIn.Amount = furyInMax.Amount
+			kaijuIn.Amount = kaijuInMax.Amount
 			backingIn.Amount = mintTotalInUSD.Mul(backingRatio).QuoRoundUp(backingPrice).RoundInt()
 			if backingInMax.IsPositive() && backingInMax.IsLT(backingIn) {
 				backingIn.Amount = backingInMax.Amount
@@ -150,7 +150,7 @@ func (k Keeper) calculateMintBySwapOut(
 		}
 	}
 
-	mintTotal := sdk.NewCoin(blackfury.MicroFUSDDenom, mintTotalInUSD.Quo(blackfury.MicroFUSDTarget).TruncateInt())
+	mintTotal := sdk.NewCoin(kaiju.MicroFUSDDenom, mintTotalInUSD.Quo(kaiju.MicroFUSDTarget).TruncateInt())
 
 	_, poolBacking, err := k.getBacking(ctx, backingDenom)
 	if err != nil {
@@ -177,20 +177,20 @@ func (k Keeper) calculateMintBySwapOut(
 func (k Keeper) calculateBurnBySwapIn(
 	ctx sdk.Context,
 	backingOutMax sdk.Coin,
-	furyOutMax sdk.Coin,
+	kaijuOutMax sdk.Coin,
 ) (
 	burnIn sdk.Coin,
 	backingOut sdk.Coin,
-	furyOut sdk.Coin,
+	kaijuOut sdk.Coin,
 	burnFee sdk.Coin,
 	err error,
 ) {
 	backingDenom := backingOutMax.Denom
 
-	burnIn = sdk.NewCoin(blackfury.MicroFUSDDenom, sdk.ZeroInt())
+	burnIn = sdk.NewCoin(kaiju.MicroFUSDDenom, sdk.ZeroInt())
 	backingOut = sdk.NewCoin(backingOutMax.Denom, sdk.ZeroInt())
-	furyOut = sdk.NewCoin(blackfury.AttoFuryDenom, sdk.ZeroInt())
-	burnFee = sdk.NewCoin(blackfury.MicroFUSDDenom, sdk.ZeroInt())
+	kaijuOut = sdk.NewCoin(kaiju.AttoKaijuDenom, sdk.ZeroInt())
+	burnFee = sdk.NewCoin(kaiju.MicroFUSDDenom, sdk.ZeroInt())
 
 	err = k.checkBurnPriceUpperBound(ctx)
 	if err != nil {
@@ -207,13 +207,13 @@ func (k Keeper) calculateBurnBySwapIn(
 	if err != nil {
 		return
 	}
-	furyPrice, err := k.oracleKeeper.GetExchangeRate(ctx, blackfury.AttoFuryDenom)
+	kaijuPrice, err := k.oracleKeeper.GetExchangeRate(ctx, kaiju.AttoKaijuDenom)
 	if err != nil {
 		return
 	}
 
 	backingOutMaxInUSD := backingPrice.MulInt(backingOutMax.Amount)
-	furyOutMaxInUSD := furyPrice.MulInt(furyOutMax.Amount)
+	kaijuOutMaxInUSD := kaijuPrice.MulInt(kaijuOutMax.Amount)
 
 	burnActualInUSD := sdk.ZeroDec()
 	backingRatio := k.GetBackingRatio(ctx)
@@ -223,19 +223,19 @@ func (k Keeper) calculateBurnBySwapIn(
 		backingOut.Amount = backingOutMax.Amount
 	} else if backingRatio.IsZero() {
 		// full algorithmic
-		burnActualInUSD = furyOutMaxInUSD
-		furyOut.Amount = furyOutMax.Amount
+		burnActualInUSD = kaijuOutMaxInUSD
+		kaijuOut.Amount = kaijuOutMax.Amount
 	} else {
 		// fractional
 		burnActualWithBackingInUSD := backingOutMaxInUSD.Quo(backingRatio)
-		burnActualWithFuryInUSD := furyOutMaxInUSD.Quo(sdk.OneDec().Sub(backingRatio))
-		if furyOutMax.IsZero() || (backingOutMax.IsPositive() && burnActualWithBackingInUSD.LT(burnActualWithFuryInUSD)) {
+		burnActualWithKaijuInUSD := kaijuOutMaxInUSD.Quo(sdk.OneDec().Sub(backingRatio))
+		if kaijuOutMax.IsZero() || (backingOutMax.IsPositive() && burnActualWithBackingInUSD.LT(burnActualWithKaijuInUSD)) {
 			burnActualInUSD = burnActualWithBackingInUSD
 			backingOut.Amount = backingOutMax.Amount
-			furyOut.Amount = burnActualInUSD.Mul(sdk.OneDec().Sub(backingRatio)).QuoRoundUp(furyPrice).RoundInt()
+			kaijuOut.Amount = burnActualInUSD.Mul(sdk.OneDec().Sub(backingRatio)).QuoRoundUp(kaijuPrice).RoundInt()
 		} else {
-			burnActualInUSD = burnActualWithFuryInUSD
-			furyOut.Amount = furyOutMax.Amount
+			burnActualInUSD = burnActualWithKaijuInUSD
+			kaijuOut.Amount = kaijuOutMax.Amount
 			backingOut.Amount = burnActualInUSD.Mul(backingRatio).QuoRoundUp(backingPrice).RoundInt()
 		}
 	}
@@ -251,10 +251,10 @@ func (k Keeper) calculateBurnBySwapIn(
 		burnFeeRate = *backingParams.BurnFee
 	}
 
-	burnInValue := burnActualInUSD.Quo(blackfury.MicroFUSDTarget).Quo(sdk.OneDec().Sub(burnFeeRate))
+	burnInValue := burnActualInUSD.Quo(kaiju.MicroFUSDTarget).Quo(sdk.OneDec().Sub(burnFeeRate))
 	burnFeeValue := burnInValue.Mul(burnFeeRate)
-	burnIn = sdk.NewCoin(blackfury.MicroFUSDDenom, burnInValue.RoundInt())
-	burnFee = sdk.NewCoin(blackfury.MicroFUSDDenom, burnFeeValue.RoundInt())
+	burnIn = sdk.NewCoin(kaiju.MicroFUSDDenom, burnInValue.RoundInt())
+	burnFee = sdk.NewCoin(kaiju.MicroFUSDDenom, burnFeeValue.RoundInt())
 	return
 }
 
@@ -264,7 +264,7 @@ func (k Keeper) calculateBurnBySwapOut(
 	backingDenom string,
 ) (
 	backingOut sdk.Coin,
-	furyOut sdk.Coin,
+	kaijuOut sdk.Coin,
 	burnFee sdk.Coin,
 	err error,
 ) {
@@ -283,7 +283,7 @@ func (k Keeper) calculateBurnBySwapOut(
 	if err != nil {
 		return
 	}
-	furyPrice, err := k.oracleKeeper.GetExchangeRate(ctx, blackfury.AttoFuryDenom)
+	kaijuPrice, err := k.oracleKeeper.GetExchangeRate(ctx, kaiju.AttoKaijuDenom)
 	if err != nil {
 		return
 	}
@@ -292,21 +292,21 @@ func (k Keeper) calculateBurnBySwapOut(
 
 	burnFee = computeFee(burnIn, backingParams.BurnFee)
 	burnActual := burnIn.Sub(burnFee)
-	burnActualInUSD := burnActual.Amount.ToDec().Mul(blackfury.MicroFUSDTarget)
+	burnActualInUSD := burnActual.Amount.ToDec().Mul(kaiju.MicroFUSDTarget)
 
 	backingOut = sdk.NewCoin(backingDenom, sdk.ZeroInt())
-	furyOut = sdk.NewCoin(blackfury.AttoFuryDenom, sdk.ZeroInt())
+	kaijuOut = sdk.NewCoin(kaiju.AttoKaijuDenom, sdk.ZeroInt())
 
 	if backingRatio.GTE(sdk.OneDec()) {
 		// full/over backing
 		backingOut.Amount = burnActualInUSD.QuoTruncate(backingPrice).TruncateInt()
 	} else if backingRatio.IsZero() {
 		// full algorithmic
-		furyOut.Amount = burnActualInUSD.QuoTruncate(furyPrice).TruncateInt()
+		kaijuOut.Amount = burnActualInUSD.QuoTruncate(kaijuPrice).TruncateInt()
 	} else {
 		// fractional
 		backingOut.Amount = burnActualInUSD.Mul(backingRatio).QuoTruncate(backingPrice).TruncateInt()
-		furyOut.Amount = burnActualInUSD.Mul(sdk.OneDec().Sub(backingRatio)).QuoTruncate(furyPrice).TruncateInt()
+		kaijuOut.Amount = burnActualInUSD.Mul(sdk.OneDec().Sub(backingRatio)).QuoTruncate(kaijuPrice).TruncateInt()
 	}
 
 	_, poolBacking, err := k.getBacking(ctx, backingDenom)
@@ -328,7 +328,7 @@ func (k Keeper) calculateBuyBackingIn(
 	ctx sdk.Context,
 	backingOut sdk.Coin,
 ) (
-	furyIn sdk.Coin,
+	kaijuIn sdk.Coin,
 	buybackFee sdk.Coin,
 	err error,
 ) {
@@ -344,7 +344,7 @@ func (k Keeper) calculateBuyBackingIn(
 	if err != nil {
 		return
 	}
-	furyPrice, err := k.oracleKeeper.GetExchangeRate(ctx, blackfury.AttoFuryDenom)
+	kaijuPrice, err := k.oracleKeeper.GetExchangeRate(ctx, kaiju.AttoKaijuDenom)
 	if err != nil {
 		return
 	}
@@ -355,9 +355,9 @@ func (k Keeper) calculateBuyBackingIn(
 	}
 
 	backingOutTotal := sdk.NewCoin(backingDenom, backingOut.Amount.ToDec().Quo(sdk.OneDec().Sub(*backingParams.BuybackFee)).TruncateInt())
-	furyInValue := backingOutTotal.Amount.ToDec().Mul(backingPrice)
+	kaijuInValue := backingOutTotal.Amount.ToDec().Mul(backingPrice)
 
-	if furyInValue.GT(excessBackingValue.ToDec()) {
+	if kaijuInValue.GT(excessBackingValue.ToDec()) {
 		err = sdkerrors.Wrap(types.ErrBackingCoinInsufficient, "")
 		return
 	}
@@ -374,14 +374,14 @@ func (k Keeper) calculateBuyBackingIn(
 		return
 	}
 
-	furyIn = sdk.NewCoin(blackfury.AttoFuryDenom, furyInValue.Quo(furyPrice).RoundInt())
+	kaijuIn = sdk.NewCoin(kaiju.AttoKaijuDenom, kaijuInValue.Quo(kaijuPrice).RoundInt())
 	buybackFee = sdk.NewCoin(backingDenom, backingOutTotal.Amount.ToDec().Mul(*backingParams.BuybackFee).RoundInt())
 	return
 }
 
 func (k Keeper) calculateBuyBackingOut(
 	ctx sdk.Context,
-	furyIn sdk.Coin,
+	kaijuIn sdk.Coin,
 	backingDenom string,
 ) (
 	backingOut sdk.Coin,
@@ -398,7 +398,7 @@ func (k Keeper) calculateBuyBackingOut(
 	if err != nil {
 		return
 	}
-	furyPrice, err := k.oracleKeeper.GetExchangeRate(ctx, blackfury.AttoFuryDenom)
+	kaijuPrice, err := k.oracleKeeper.GetExchangeRate(ctx, kaiju.AttoKaijuDenom)
 	if err != nil {
 		return
 	}
@@ -408,13 +408,13 @@ func (k Keeper) calculateBuyBackingOut(
 		return
 	}
 
-	furyInValue := furyIn.Amount.ToDec().Mul(furyPrice)
-	if furyInValue.GT(excessBackingValue.ToDec()) {
+	kaijuInValue := kaijuIn.Amount.ToDec().Mul(kaijuPrice)
+	if kaijuInValue.GT(excessBackingValue.ToDec()) {
 		err = sdkerrors.Wrap(types.ErrBackingCoinInsufficient, "")
 		return
 	}
 
-	backingOutTotal := sdk.NewCoin(backingDenom, furyInValue.Quo(backingPrice).TruncateInt())
+	backingOutTotal := sdk.NewCoin(backingDenom, kaijuInValue.Quo(backingPrice).TruncateInt())
 
 	_, poolBacking, err := k.getBacking(ctx, backingDenom)
 	if err != nil {
@@ -435,7 +435,7 @@ func (k Keeper) calculateBuyBackingOut(
 
 func (k Keeper) calculateSellBackingIn(
 	ctx sdk.Context,
-	furyOut sdk.Coin,
+	kaijuOut sdk.Coin,
 	backingDenom string,
 ) (
 	backingIn sdk.Coin,
@@ -452,7 +452,7 @@ func (k Keeper) calculateSellBackingIn(
 	if err != nil {
 		return
 	}
-	furyPrice, err := k.oracleKeeper.GetExchangeRate(ctx, blackfury.AttoFuryDenom)
+	kaijuPrice, err := k.oracleKeeper.GetExchangeRate(ctx, kaiju.AttoKaijuDenom)
 	if err != nil {
 		return
 	}
@@ -467,22 +467,22 @@ func (k Keeper) calculateSellBackingIn(
 		return
 	}
 	missingBackingValue := excessBackingValue.Neg()
-	availableFuryMint := missingBackingValue.ToDec().Quo(furyPrice)
+	availableKaijuMint := missingBackingValue.ToDec().Quo(kaijuPrice)
 
 	bonusRatio := k.RebackBonus(ctx)
 
-	furyMint := furyOut.Amount.ToDec().Quo(sdk.OneDec().Add(bonusRatio).Sub(*backingParams.RebackFee))
+	kaijuMint := kaijuOut.Amount.ToDec().Quo(sdk.OneDec().Add(bonusRatio).Sub(*backingParams.RebackFee))
 
-	backingIn = sdk.NewCoin(backingDenom, furyMint.Mul(furyPrice).Quo(backingPrice).RoundInt())
-	rebackFee = sdk.NewCoin(blackfury.AttoFuryDenom, furyMint.Mul(*backingParams.RebackFee).RoundInt())
+	backingIn = sdk.NewCoin(backingDenom, kaijuMint.Mul(kaijuPrice).Quo(backingPrice).RoundInt())
+	rebackFee = sdk.NewCoin(kaiju.AttoKaijuDenom, kaijuMint.Mul(*backingParams.RebackFee).RoundInt())
 
 	poolBacking.Backing = poolBacking.Backing.Add(backingIn)
 	if backingParams.MaxBacking != nil && poolBacking.Backing.Amount.GT(*backingParams.MaxBacking) {
 		err = sdkerrors.Wrap(types.ErrBackingCeiling, "")
 		return
 	}
-	if furyMint.GT(availableFuryMint) {
-		err = sdkerrors.Wrap(types.ErrFuryCoinInsufficient, "")
+	if kaijuMint.GT(availableKaijuMint) {
+		err = sdkerrors.Wrap(types.ErrKaijuCoinInsufficient, "")
 		return
 	}
 
@@ -493,7 +493,7 @@ func (k Keeper) calculateSellBackingOut(
 	ctx sdk.Context,
 	backingIn sdk.Coin,
 ) (
-	furyOut sdk.Coin,
+	kaijuOut sdk.Coin,
 	rebackFee sdk.Coin,
 	err error,
 ) {
@@ -509,7 +509,7 @@ func (k Keeper) calculateSellBackingOut(
 	if err != nil {
 		return
 	}
-	furyPrice, err := k.oracleKeeper.GetExchangeRate(ctx, blackfury.AttoFuryDenom)
+	kaijuPrice, err := k.oracleKeeper.GetExchangeRate(ctx, kaiju.AttoKaijuDenom)
 	if err != nil {
 		return
 	}
@@ -530,19 +530,19 @@ func (k Keeper) calculateSellBackingOut(
 		return
 	}
 	missingBackingValue := excessBackingValue.Neg()
-	availableFuryMint := missingBackingValue.ToDec().Quo(furyPrice)
+	availableKaijuMint := missingBackingValue.ToDec().Quo(kaijuPrice)
 
 	bonusRatio := k.RebackBonus(ctx)
-	furyMint := sdk.NewCoin(blackfury.AttoFuryDenom, backingIn.Amount.ToDec().Mul(backingPrice).Quo(furyPrice).TruncateInt())
-	bonus := computeFee(furyMint, &bonusRatio)
-	rebackFee = computeFee(furyMint, backingParams.RebackFee)
+	kaijuMint := sdk.NewCoin(kaiju.AttoKaijuDenom, backingIn.Amount.ToDec().Mul(backingPrice).Quo(kaijuPrice).TruncateInt())
+	bonus := computeFee(kaijuMint, &bonusRatio)
+	rebackFee = computeFee(kaijuMint, backingParams.RebackFee)
 
-	if furyMint.Amount.ToDec().GT(availableFuryMint) {
-		err = sdkerrors.Wrap(types.ErrFuryCoinInsufficient, "")
+	if kaijuMint.Amount.ToDec().GT(availableKaijuMint) {
+		err = sdkerrors.Wrap(types.ErrKaijuCoinInsufficient, "")
 		return
 	}
 
-	furyOut = furyMint.Add(bonus).Sub(rebackFee)
+	kaijuOut = kaijuMint.Add(bonus).Sub(rebackFee)
 	return
 }
 
@@ -568,7 +568,7 @@ func (k Keeper) calculateMintByCollateral(
 	if err != nil {
 		return
 	}
-	furyPrice, err := k.oracleKeeper.GetExchangeRate(ctx, blackfury.AttoFuryDenom)
+	kaijuPrice, err := k.oracleKeeper.GetExchangeRate(ctx, kaiju.AttoKaijuDenom)
 	if err != nil {
 		return
 	}
@@ -596,20 +596,20 @@ func (k Keeper) calculateMintByCollateral(
 	}
 
 	collateralValue := accColl.Collateral.Amount.ToDec().Mul(collateralPrice)
-	furyCollateralizedValue := accColl.FuryCollateralized.Amount.ToDec().Mul(furyPrice)
+	kaijuCollateralizedValue := accColl.KaijuCollateralized.Amount.ToDec().Mul(kaijuPrice)
 	if !collateralValue.IsPositive() {
 		err = sdkerrors.Wrapf(types.ErrAccountInsufficientCollateral, "")
 		return
 	}
 
-	actualCatalyticRatio := sdk.MinDec(furyCollateralizedValue.Quo(collateralValue), *collateralParams.CatalyticFuryRatio)
+	actualCatalyticRatio := sdk.MinDec(kaijuCollateralizedValue.Quo(collateralValue), *collateralParams.CatalyticKaijuRatio)
 
 	// actualCatalyticRatio / catalyticRatio = (availableLTV - basicLTV) / (maxLTV - basicLTV)
 	availableLTV := *collateralParams.BasicLoanToValue
-	if collateralParams.CatalyticFuryRatio.IsPositive() {
-		availableLTV = availableLTV.Add(actualCatalyticRatio.Mul(collateralParams.LoanToValue.Sub(*collateralParams.BasicLoanToValue)).Quo(*collateralParams.CatalyticFuryRatio))
+	if collateralParams.CatalyticKaijuRatio.IsPositive() {
+		availableLTV = availableLTV.Add(actualCatalyticRatio.Mul(collateralParams.LoanToValue.Sub(*collateralParams.BasicLoanToValue)).Quo(*collateralParams.CatalyticKaijuRatio))
 	}
-	availableDebtMax := collateralValue.Mul(availableLTV).Quo(blackfury.MicroFUSDTarget).TruncateInt()
+	availableDebtMax := collateralValue.Mul(availableLTV).Quo(kaiju.MicroFUSDTarget).TruncateInt()
 
 	if availableDebtMax.LT(accColl.MerDebt.Amount) {
 		err = sdkerrors.Wrapf(types.ErrAccountInsufficientCollateral, "")
@@ -628,27 +628,27 @@ func computeFee(coin sdk.Coin, rate *sdk.Dec) sdk.Coin {
 }
 
 func (k Keeper) checkMintPriceLowerBound(ctx sdk.Context) error {
-	merPrice, err := k.oracleKeeper.GetExchangeRate(ctx, blackfury.MicroFUSDDenom)
+	merPrice, err := k.oracleKeeper.GetExchangeRate(ctx, kaiju.MicroFUSDDenom)
 	if err != nil {
 		return err
 	}
 	// market price must be >= target price + mint bias
-	mintPriceLowerBound := blackfury.MicroFUSDTarget.Mul(sdk.OneDec().Add(k.MintPriceBias(ctx)))
+	mintPriceLowerBound := kaiju.MicroFUSDTarget.Mul(sdk.OneDec().Add(k.MintPriceBias(ctx)))
 	if merPrice.LT(mintPriceLowerBound) {
-		return sdkerrors.Wrapf(types.ErrMerPriceTooLow, "%s price too low: %s", blackfury.MicroFUSDDenom, merPrice)
+		return sdkerrors.Wrapf(types.ErrMerPriceTooLow, "%s price too low: %s", kaiju.MicroFUSDDenom, merPrice)
 	}
 	return nil
 }
 
 func (k Keeper) checkBurnPriceUpperBound(ctx sdk.Context) error {
-	merPrice, err := k.oracleKeeper.GetExchangeRate(ctx, blackfury.MicroFUSDDenom)
+	merPrice, err := k.oracleKeeper.GetExchangeRate(ctx, kaiju.MicroFUSDDenom)
 	if err != nil {
 		return err
 	}
 	// market price must be <= target price - burn bias
-	burnPriceUpperBound := blackfury.MicroFUSDTarget.Mul(sdk.OneDec().Sub(k.BurnPriceBias(ctx)))
+	burnPriceUpperBound := kaiju.MicroFUSDTarget.Mul(sdk.OneDec().Sub(k.BurnPriceBias(ctx)))
 	if merPrice.GT(burnPriceUpperBound) {
-		return sdkerrors.Wrapf(types.ErrMerPriceTooHigh, "%s price too high: %s", blackfury.MicroFUSDDenom, merPrice)
+		return sdkerrors.Wrapf(types.ErrMerPriceTooHigh, "%s price too high: %s", kaiju.MicroFUSDDenom, merPrice)
 	}
 	return nil
 }

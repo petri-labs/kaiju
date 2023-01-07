@@ -13,7 +13,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/x/gov/client/cli"
 	govtypes "github.com/cosmos/cosmos-sdk/x/gov/types"
 	"github.com/gogo/protobuf/proto"
-	"github.com/furya-official/blackfury/x/maker/types"
+	"github.com/petri-labs/kaiju/x/maker/types"
 	"github.com/spf13/cobra"
 )
 
@@ -45,7 +45,7 @@ func GetTxCmd() *cobra.Command {
 func NewMintBySwapCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "mint-by-swap [mint_out] [receiver]",
-		Short: "Mint by swapping in backing asset and fury coin",
+		Short: "Mint by swapping in backing asset and kaiju coin",
 		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx, err := client.GetClientTxContext(cmd)
@@ -79,13 +79,13 @@ func NewMintBySwapCmd() *cobra.Command {
 				return fmt.Errorf("--%s: %w", FlagBackingInMax, err)
 			}
 
-			furyInMaxStr, err := cmd.Flags().GetString(FlagFuryInMax)
+			kaijuInMaxStr, err := cmd.Flags().GetString(FlagKaijuInMax)
 			if err != nil {
 				return err
 			}
-			furyInMax, err := sdk.ParseCoinNormalized(furyInMaxStr)
+			kaijuInMax, err := sdk.ParseCoinNormalized(kaijuInMaxStr)
 			if err != nil {
-				return fmt.Errorf("--%s: %w", FlagFuryInMax, err)
+				return fmt.Errorf("--%s: %w", FlagKaijuInMax, err)
 			}
 
 			msg := &types.MsgMintBySwap{
@@ -93,7 +93,7 @@ func NewMintBySwapCmd() *cobra.Command {
 				To:           receiver,
 				MintOutMin:   mintOut,
 				BackingInMax: backingInMax,
-				FuryInMax:    furyInMax,
+				KaijuInMax:    kaijuInMax,
 			}
 
 			if err := msg.ValidateBasic(); err != nil {
@@ -105,7 +105,7 @@ func NewMintBySwapCmd() *cobra.Command {
 	}
 
 	cmd.Flags().String(FlagBackingInMax, "", "Maximum backing-in coin")
-	cmd.Flags().String(FlagFuryInMax, "0ufury", "Maximum fury-in coin")
+	cmd.Flags().String(FlagKaijuInMax, "0ukaiju", "Maximum kaiju-in coin")
 
 	flags.AddTxFlagsToCmd(cmd)
 	return cmd
@@ -114,7 +114,7 @@ func NewMintBySwapCmd() *cobra.Command {
 func NewBurnBySwapCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "burn-by-swap [burn_in] [receiver]",
-		Short: "Burn by swapping out backing asset and fury coin",
+		Short: "Burn by swapping out backing asset and kaiju coin",
 		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx, err := client.GetClientTxContext(cmd)
@@ -148,13 +148,13 @@ func NewBurnBySwapCmd() *cobra.Command {
 				return fmt.Errorf("--%s: %w", FlagBackingOutMin, err)
 			}
 
-			furyOutMinStr, err := cmd.Flags().GetString(FlagFuryOutMin)
+			kaijuOutMinStr, err := cmd.Flags().GetString(FlagKaijuOutMin)
 			if err != nil {
 				return err
 			}
-			furyOutMin, err := sdk.ParseCoinNormalized(furyOutMinStr)
+			kaijuOutMin, err := sdk.ParseCoinNormalized(kaijuOutMinStr)
 			if err != nil {
-				return fmt.Errorf("--%s: %w", FlagFuryOutMin, err)
+				return fmt.Errorf("--%s: %w", FlagKaijuOutMin, err)
 			}
 
 			msg := &types.MsgBurnBySwap{
@@ -162,7 +162,7 @@ func NewBurnBySwapCmd() *cobra.Command {
 				To:            receiver,
 				BurnIn:        burnIn,
 				BackingOutMin: backingOutMin,
-				FuryOutMin:    furyOutMin,
+				KaijuOutMin:    kaijuOutMin,
 			}
 
 			if err := msg.ValidateBasic(); err != nil {
@@ -174,7 +174,7 @@ func NewBurnBySwapCmd() *cobra.Command {
 	}
 
 	cmd.Flags().String(FlagBackingOutMin, "", "Minimum backing-out coin")
-	cmd.Flags().String(FlagFuryOutMin, "", "Minimum fury-out coin")
+	cmd.Flags().String(FlagKaijuOutMin, "", "Minimum kaiju-out coin")
 
 	flags.AddTxFlagsToCmd(cmd)
 	return cmd
@@ -182,8 +182,8 @@ func NewBurnBySwapCmd() *cobra.Command {
 
 func NewBuyBackingCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "buy-backing [fury_in] [receiver]",
-		Short: "Buy backing asset by spending fury coin",
+		Use:   "buy-backing [kaiju_in] [receiver]",
+		Short: "Buy backing asset by spending kaiju coin",
 		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx, err := client.GetClientTxContext(cmd)
@@ -193,7 +193,7 @@ func NewBuyBackingCmd() *cobra.Command {
 
 			sender := cliCtx.GetFromAddress().String()
 
-			furyIn, err := sdk.ParseCoinNormalized(args[0])
+			kaijuIn, err := sdk.ParseCoinNormalized(args[0])
 			if err != nil {
 				return err
 			}
@@ -220,7 +220,7 @@ func NewBuyBackingCmd() *cobra.Command {
 			msg := &types.MsgBuyBacking{
 				Sender:        sender,
 				To:            receiver,
-				FuryIn:        furyIn,
+				KaijuIn:        kaijuIn,
 				BackingOutMin: backingOutMin,
 			}
 
@@ -241,7 +241,7 @@ func NewBuyBackingCmd() *cobra.Command {
 func NewSellBackingCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "sell-backing [backing_in] [receiver]",
-		Short: "Sell backing asset by earning fury coin",
+		Short: "Sell backing asset by earning kaiju coin",
 		Args:  cobra.RangeArgs(1, 2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx, err := client.GetClientTxContext(cmd)
@@ -266,20 +266,20 @@ func NewSellBackingCmd() *cobra.Command {
 				receiver = sender
 			}
 
-			furyOutMinStr, err := cmd.Flags().GetString(FlagFuryOutMin)
+			kaijuOutMinStr, err := cmd.Flags().GetString(FlagKaijuOutMin)
 			if err != nil {
 				return err
 			}
-			furyOutMin, err := sdk.ParseCoinNormalized(furyOutMinStr)
+			kaijuOutMin, err := sdk.ParseCoinNormalized(kaijuOutMinStr)
 			if err != nil {
-				return fmt.Errorf("--%s: %w", FlagFuryOutMin, err)
+				return fmt.Errorf("--%s: %w", FlagKaijuOutMin, err)
 			}
 
 			msg := &types.MsgSellBacking{
 				Sender:     sender,
 				To:         receiver,
 				BackingIn:  backingIn,
-				FuryOutMin: furyOutMin,
+				KaijuOutMin: kaijuOutMin,
 			}
 
 			if err := msg.ValidateBasic(); err != nil {
@@ -290,7 +290,7 @@ func NewSellBackingCmd() *cobra.Command {
 		},
 	}
 
-	cmd.Flags().String(FlagFuryOutMin, "", "Minimum fury-out coin")
+	cmd.Flags().String(FlagKaijuOutMin, "", "Minimum kaiju-out coin")
 
 	flags.AddTxFlagsToCmd(cmd)
 	return cmd
@@ -299,7 +299,7 @@ func NewSellBackingCmd() *cobra.Command {
 func NewMintByCollateralCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "mint-by-collateral [collateral_denom] [mint_out] [receiver]",
-		Short: "Mint by locking collateral asset and catalytic fury coin",
+		Short: "Mint by locking collateral asset and catalytic kaiju coin",
 		Args:  cobra.RangeArgs(2, 3),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx, err := client.GetClientTxContext(cmd)
@@ -431,7 +431,7 @@ func NewDepositCollateralCmd() *cobra.Command {
 
 func NewRedeemCollateralCmd() *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "redeem-collateral [collateral] [fury] [receiver]",
+		Use:   "redeem-collateral [collateral] [kaiju] [receiver]",
 		Short: "Redeem collateral asset",
 		Args:  cobra.RangeArgs(2, 3),
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -447,7 +447,7 @@ func NewRedeemCollateralCmd() *cobra.Command {
 				return err
 			}
 
-			fury, err := sdk.ParseCoinNormalized(args[1])
+			kaiju, err := sdk.ParseCoinNormalized(args[1])
 			if err != nil {
 				return err
 			}
@@ -466,7 +466,7 @@ func NewRedeemCollateralCmd() *cobra.Command {
 				Sender:        sender,
 				To:            receiver,
 				CollateralOut: collateral,
-				FuryOut:       fury,
+				KaijuOut:       kaiju,
 			}
 
 			if err := msg.ValidateBasic(); err != nil {
@@ -859,7 +859,7 @@ func getProposalArgs(cmd *cobra.Command) (title, description string, deposit sdk
 func addProposalTxFlagsToCmd(cmd *cobra.Command) {
 	cmd.Flags().String(cli.FlagTitle, "", "title of proposal")
 	cmd.Flags().String(cli.FlagDescription, "", "description of proposal")
-	cmd.Flags().String(cli.FlagDeposit, "1ufury", "deposit of proposal")
+	cmd.Flags().String(cli.FlagDeposit, "1ukaiju", "deposit of proposal")
 	if err := cmd.MarkFlagRequired(cli.FlagTitle); err != nil {
 		panic(err)
 	}
@@ -873,7 +873,7 @@ func addProposalTxFlagsToCmd(cmd *cobra.Command) {
 
 const (
 	FlagBackingInMax  = "backing-in-max"
-	FlagFuryInMax     = "fury-in-max"
+	FlagKaijuInMax     = "kaiju-in-max"
 	FlagBackingOutMin = "backing-out-min"
-	FlagFuryOutMin    = "fury-out-min"
+	FlagKaijuOutMin    = "kaiju-out-min"
 )

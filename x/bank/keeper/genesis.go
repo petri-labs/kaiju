@@ -6,7 +6,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	banktypes "github.com/cosmos/cosmos-sdk/x/bank/types"
-	blackfury "github.com/furya-official/blackfury/types"
+	kaiju "github.com/petri-labs/kaiju/types"
 )
 
 func (k Keeper) InitGenesis(ctx sdk.Context, genState *banktypes.GenesisState) {
@@ -14,7 +14,7 @@ func (k Keeper) InitGenesis(ctx sdk.Context, genState *banktypes.GenesisState) {
 	k.BaseKeeper.InitGenesis(ctx, genState)
 
 	// 2. Set denom metadata for predefined stable coins
-	blackfury.SetDenomMetaDataForStableCoins(ctx, k)
+	kaiju.SetDenomMetaDataForStableCoins(ctx, k)
 
 	// 3. Register erc20 for coins, and set erc20 balance
 	for _, balance := range genState.Balances {
@@ -24,7 +24,7 @@ func (k Keeper) InitGenesis(ctx sdk.Context, genState *banktypes.GenesisState) {
 		}
 
 		for _, coin := range balance.Coins {
-			if strings.Contains(coin.Denom, blackfury.DisplayDenom) {
+			if strings.Contains(coin.Denom, kaiju.DisplayDenom) {
 				// skip gas token
 				continue
 			}

@@ -1,6 +1,6 @@
 module.exports = {
   theme: 'cosmos',
-  title: 'Blackfury Documentation',
+  title: 'Kaiju Documentation',
   locales: {
     '/': {
       lang: 'en-US',
@@ -50,14 +50,14 @@ module.exports = {
     '!cosmos-sdk/**',
     '!ibc-go/**'],
   themeConfig: {
-    repo: 'furya-official/blackfury',
-    docsRepo: 'furya-official/blackfury',
+    repo: 'petri-labs/kaiju',
+    docsRepo: 'petri-labs/kaiju',
     docsBranch: 'main',
     docsDir: 'docs',
     editLinks: true,
     custom: true,
     logo: {
-      src: '/blackfury-black.svg',
+      src: '/kaiju-black.svg',
     },
     topbar: {
       banner: false,
@@ -110,14 +110,14 @@ module.exports = {
       title: 'Help & Support',
       chat: {
         title: 'Developer Chat',
-        text: 'Chat with Blackfury developers on Discord.',
-        url: 'https://discord.gg/blackfury',
+        text: 'Chat with Kaiju developers on Discord.',
+        url: 'https://discord.gg/kaiju',
         bg: 'linear-gradient(103.75deg, #1B1E36 0%, #22253F 100%)',
       },
       forum: {
-        title: 'Blackfury Developer Forum',
-        text: 'Join the Blackfury Developer Forum to learn more.',
-        url: 'https://forum.cosmos.network/c/blackfury', // TODO: replace with commonwealth link
+        title: 'Kaiju Developer Forum',
+        text: 'Join the Kaiju Developer Forum to learn more.',
+        url: 'https://forum.cosmos.network/c/kaiju', // TODO: replace with commonwealth link
         bg: 'linear-gradient(221.79deg, #3D6B99 -1.08%, #336699 95.88%)',
         logo: 'ethereum-white',
       },
@@ -128,34 +128,34 @@ module.exports = {
       },
     },
     footer: {
-      logo: '/blackfury-black.svg',
+      logo: '/kaiju-black.svg',
       textLink: {
-        text: 'blackfury.zone',
-        url: 'https://blackfury.zone',
+        text: 'kaiju.zone',
+        url: 'https://kaiju.zone',
       },
       services: [
         {
           service: 'github',
-          url: 'https://github.com/furya-official/blackfury',
+          url: 'https://github.com/petri-labs/kaiju',
         },
         {
           service: 'medium',
-          url: 'https://blog.blackfury.zone',
+          url: 'https://blog.kaiju.zone',
         },
         {
           service: 'twitter',
-          url: 'https://twitter.com/BlackfuryZone',
+          url: 'https://twitter.com/KaijuZone',
         },
         {
           service: 'telegram',
-          url: 'https://t.me/BlackfuryZone',
+          url: 'https://t.me/KaijuZone',
         },
         {
           service: 'discord',
-          url: 'https://discord.gg/blackfury',
+          url: 'https://discord.gg/kaiju',
         },
       ],
-      smallprint: 'This website is maintained by Blackfury Dev Team',
+      smallprint: 'This website is maintained by Kaiju Dev Team',
     },
   },
 }

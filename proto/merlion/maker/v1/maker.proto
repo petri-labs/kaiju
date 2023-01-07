@@ -1,10 +1,10 @@
 syntax = "proto3";
-package blackfury.maker.v1;
+package kaiju.maker.v1;
 
 import "gogoproto/gogo.proto";
 import "cosmos/base/v1beta1/coin.proto";
 
-option go_package = "github.com/furya-official/blackfury/x/maker/types";
+option go_package = "github.com/petri-labs/kaiju/x/maker/types";
 
 // BackingRiskParams represents an object of backing coin risk parameters.
 message BackingRiskParams {
@@ -59,9 +59,9 @@ message CollateralRiskParams {
   // specific collateral
   string basic_loan_to_value = 7
       [ (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec" ];
-  // catalytic ratio of collateralized Fury to asset, to maximize the LTV
+  // catalytic ratio of collateralized Kaiju to asset, to maximize the LTV
   // in [basic-LTV, LTV]
-  string catalytic_fury_ratio = 8
+  string catalytic_kaiju_ratio = 8
       [ (gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec" ];
   // liquidation fee rate, i.e., the discount a liquidator gets when buying
   // collateral flagged for a liquidation
@@ -179,8 +179,8 @@ message TotalBacking {
   ];
   // total minted black; negative value means burned black
   cosmos.base.v1beta1.Coin mer_minted = 2 [ (gogoproto.nullable) = false ];
-  // total burned fury; negative value means minted fury
-  cosmos.base.v1beta1.Coin fury_burned = 3 [ (gogoproto.nullable) = false ];
+  // total burned kaiju; negative value means minted kaiju
+  cosmos.base.v1beta1.Coin kaiju_burned = 3 [ (gogoproto.nullable) = false ];
 }
 
 message PoolBacking {
@@ -190,8 +190,8 @@ message PoolBacking {
   cosmos.base.v1beta1.Coin mer_minted = 1 [ (gogoproto.nullable) = false ];
   // total backing
   cosmos.base.v1beta1.Coin backing = 2 [ (gogoproto.nullable) = false ];
-  // total burned fury; negative value means minted fury
-  cosmos.base.v1beta1.Coin fury_burned = 3 [ (gogoproto.nullable) = false ];
+  // total burned kaiju; negative value means minted kaiju
+  cosmos.base.v1beta1.Coin kaiju_burned = 3 [ (gogoproto.nullable) = false ];
 }
 
 message AccountBacking { option (gogoproto.equal) = false; }
@@ -202,8 +202,8 @@ message TotalCollateral {
   // total existing black debt, including minted by collateral, mint fee, last
   // interest
   cosmos.base.v1beta1.Coin mer_debt = 1 [ (gogoproto.nullable) = false ];
-  // total collateralized fury
-  cosmos.base.v1beta1.Coin fury_collateralized = 2
+  // total collateralized kaiju
+  cosmos.base.v1beta1.Coin kaiju_collateralized = 2
       [ (gogoproto.nullable) = false ];
 }
 
@@ -215,8 +215,8 @@ message PoolCollateral {
   // total existing black debt, including minted by collateral, mint fee, last
   // interest
   cosmos.base.v1beta1.Coin mer_debt = 2 [ (gogoproto.nullable) = false ];
-  // total collateralized fury
-  cosmos.base.v1beta1.Coin fury_collateralized = 3
+  // total collateralized kaiju
+  cosmos.base.v1beta1.Coin kaiju_collateralized = 3
       [ (gogoproto.nullable) = false ];
 }
 
@@ -229,8 +229,8 @@ message AccountCollateral {
   cosmos.base.v1beta1.Coin collateral = 2 [ (gogoproto.nullable) = false ];
   // remaining black debt, including minted by collateral, mint fee, last interest
   cosmos.base.v1beta1.Coin mer_debt = 3 [ (gogoproto.nullable) = false ];
-  // total collateralized fury
-  cosmos.base.v1beta1.Coin fury_collateralized = 4
+  // total collateralized kaiju
+  cosmos.base.v1beta1.Coin kaiju_collateralized = 4
       [ (gogoproto.nullable) = false ];
   // remaining interest debt at last settlement
   cosmos.base.v1beta1.Coin last_interest = 5 [ (gogoproto.nullable) = false ];

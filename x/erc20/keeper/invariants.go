@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	blackfury "github.com/furya-official/blackfury/types"
-	"github.com/furya-official/blackfury/x/erc20/types"
+	kaiju "github.com/petri-labs/kaiju/types"
+	"github.com/petri-labs/kaiju/x/erc20/types"
 )
 
 // RegisterInvariants registers the erc20 module invariants
@@ -24,7 +24,7 @@ func ConsistentBalanceInvariant(k Keeper) sdk.Invariant {
 
 		// Only iterate on native coins
 		k.bankKeeper.IterateAllBalances(ctx, func(addr sdk.AccAddress, balance sdk.Coin) bool {
-			if strings.Contains(balance.Denom, blackfury.DisplayDenom) {
+			if strings.Contains(balance.Denom, kaiju.DisplayDenom) {
 				// skip gas token
 				return false
 			}

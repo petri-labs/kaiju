@@ -1,6 +1,6 @@
 package types
 
-import blackfury "github.com/furya-official/blackfury/types"
+import kaiju "github.com/petri-labs/kaiju/types"
 
 const (
 	StakingRewardVestingName = "staking_reward_vesting"
@@ -11,9 +11,9 @@ const (
 	// Not used now, maybe future.
 	StrategicReservePoolName = "strategic_reserve_pool"
 
-	StakingRewardVestingTime = blackfury.SecondsPer4Years
-	CommunityPoolVestingTime = blackfury.SecondsPer4Years
-	TeamVestingTime          = blackfury.SecondsPer4Years
+	StakingRewardVestingTime = kaiju.SecondsPer4Years
+	CommunityPoolVestingTime = kaiju.SecondsPer4Years
+	TeamVestingTime          = kaiju.SecondsPer4Years
 
 	ClaimVestedPeriod = 10
 )

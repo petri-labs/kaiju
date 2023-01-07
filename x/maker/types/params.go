@@ -5,7 +5,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
-	blackfury "github.com/furya-official/blackfury/types"
+	kaiju "github.com/petri-labs/kaiju/types"
 	"gopkg.in/yaml.v2"
 )
 
@@ -24,7 +24,7 @@ var (
 var (
 	DefaultBackingRatioStep           = sdk.NewDecWithPrec(25, 4)    // 0.25%
 	DefaultBackingRatioPriceBand      = sdk.NewDecWithPrec(5, 3)     // 0.5%
-	DefaultBackingRatioCooldownPeriod = int64(blackfury.BlocksPerHour) // 600
+	DefaultBackingRatioCooldownPeriod = int64(kaiju.BlocksPerHour) // 600
 	DefaultMintPriceBias              = sdk.NewDecWithPrec(1, 2)     // 1%
 	DefaultBurnPriceBias              = sdk.NewDecWithPrec(1, 2)     // 1%
 	DefaultRebackBonus                = sdk.NewDecWithPrec(75, 4)    // 0.75%

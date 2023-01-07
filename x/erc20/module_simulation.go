@@ -9,8 +9,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 	"github.com/cosmos/cosmos-sdk/x/simulation"
-	"github.com/furya-official/blackfury/testutil/sample"
-	"github.com/furya-official/blackfury/x/erc20/types"
+	"github.com/petri-labs/kaiju/testutil/sample"
+	"github.com/petri-labs/kaiju/x/erc20/types"
 )
 
 // avoid unused import issue
