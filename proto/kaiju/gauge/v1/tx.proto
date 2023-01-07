@@ -1,7 +1,0 @@
-syntax = "proto3";
-package kaiju.gauge.v1;
-
-option go_package = "github.com/petri-labs/kaiju/x/gauge/types";
-
-// Msg defines the Msg service.
-service Msg {}

@@ -1,7 +1,0 @@
-syntax = "proto3";
-package kaiju.voter.v1;
-
-option go_package = "github.com/petri-labs/kaiju/x/voter/types";
-
-// Msg defines the Msg service.
-service Msg {}
